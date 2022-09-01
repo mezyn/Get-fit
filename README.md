@@ -59,14 +59,16 @@ Open the `server` and `client` in separate VSCode workspaces or open the combine
 
 ## System Definition (MS0)
 
-### Purpose
+### Purpose: What is GET FIT?
+Fitness can seem like an unattainable goal, that's why we created GET FIT.
+Get fit is a website designed for those who want to learn the basics of training in an interactive and visual manner.
 
-2-5 sentences describing what the system does
+### Pages:  How does it work
 
-### Pages
-
-* Home: 1-3 sentences describing what the page displays and what a user can do
-* Shopping cart: ...
+####   "GET FIT" is made up of 3 functionalities:
+-  ***THE REGISTER PAGE***  allows users to **create a profile** and introduce personal data to help the service understand the people's needs and goals.
+- ***THE INTRODUCTION PAGE*** offers a **generalised introduction to fitness**, mainly focused on strength training and anaerobic exercise (also known as cardio).
+- ***THE MUSCLE DIAGRAM PAGE*** **offers a diagram of the human body** that showcases muscle groups and allows users to click on them to learn how to train the selected muscle group in its totality with the option to choose between: **Weight machine excercises**(commonly found in gyms), **Body weight exercises**(for those who don't have access to a gym) and **mobility exercises** (to reinforce the area and help with recovery and flexibility).
 
 ### Entity-Relationship (ER) Diagram
 
