@@ -12,8 +12,12 @@ var UserSchema = new Schema({
         Height: { type: Number, min: 30, max: 240},
         Goal: { type: String}
      },
-    SavedExercises:[Number],
-    AuthoredReviews: [Number]
+    SavedExercises:[{
+        type: Schema.Types.ObjectId, ref: "exercises"
+    }],
+    AuthoredReviews: [{
+        type: Schema.Types.ObjectId, ref: "reviews"
+    }]
 });
 
 module.exports = mongoose.model('users', UserSchema);

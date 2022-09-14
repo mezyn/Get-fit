@@ -5,7 +5,9 @@ var MuscleSchema = new Schema ({
     Name: {type: String},
     LatinName: {type: String},
     Description: {type: String},
-    Exercises: [Number]
+    Exercises: [{
+        type: Schema.Types.ObjectId, ref: "exercises"
+    }],
 });
 
 module.exports = mongoose.model('muscles', MuscleSchema);

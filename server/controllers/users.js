@@ -13,10 +13,10 @@ router.post('/api/users', function(req, res, next){
 
 //maybe we should implement a get for all users
 /*
-router.get('/api/camels', function(req, res, next) {
-    Camel.find(function(err, camels) {
+router.get('/api/users', function(req, res, next) {
+    Users.find(function(err, users) {
         if (err) { return next(err); }
-        res.json({'camels': camels });
+        res.json({'users': users });
     });
 });
 */
@@ -33,7 +33,7 @@ router.get('/api/users/:id', function(req, res, next) {
     });
 });
 
-app.patch('/api/users/:id', function(req, res, next) {
+router.patch('/api/users/:id', function(req, res, next) {
     var id = req.params.id;
     User.findById(id, function(err, user) {
         if (err) { return next(err); }
@@ -66,5 +66,23 @@ router.delete('/api/users/:id', function(req, res, next) {
         res.json(user);
     });
 });
+
+
+// not very sure
+// Add an exercise to the saved exercise list
+router.post('/api/uers/:user_id/exercises/', function(req, res, next){
+    var exercise = new Exercise(req.body);
+    User.findById(id, function(err, user) {
+        if (err) { return next(err); }
+        if (user == null) {
+            return res.status(404).json(
+                {"message": "User not found"});
+        } else {
+        user.SavedExercises.save(function(err, user) {
+            if (err) { return next(err); }
+            res.status(201).json(user.SavedExercises);
+        })
+}
+};
 
 module.exports = router;
