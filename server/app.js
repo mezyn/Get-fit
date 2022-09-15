@@ -5,6 +5,12 @@ var path = require('path');
 var cors = require('cors');
 var history = require('connect-history-api-fallback');
 
+var usersController = require('./controllers/users');
+var reviewsController = require('./controllers/reviews');
+var musclesController = require('./controllers/muscles');
+var exercisesController = require('./controllers/exercises');
+
+
 // Variables 
 var mongoURI = process.env.MONGODB_URI || 'mongodb+srv://admin:kwWQFSwNBrhkVy0h@get-fit-cluster.u0wdgbr.mongodb.net/?retryWrites=true&w=majority';
 var port = process.env.PORT || 3000;
@@ -34,6 +40,13 @@ app.use(cors());
 app.get('/api', function(req, res) {
     res.json({'message': 'Welcome to your DIT342 backend ExpressJS project!'});
 });
+
+// Use controllers
+app.use(usersController);
+app.use(reviewsController);
+app.use(musclesController);
+app.use(exercisesController);
+
 
 // Catch all non-error handler for api (i.e., 404 Not Found)
 app.use('/api/*', function (req, res) {
