@@ -5,7 +5,7 @@ var ReviewSchema = new Schema ({
     Title: {type: String},
     Rating: {type: Number, min: 0, max: 5},
     MainText : {type: String}
-    /*,
+    /* //we may need them?
     Author : {
         type: Schema.Types.ObjectId, ref: "users"
     },
