@@ -1,9 +1,14 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var morgan = require('morgan');
+var bodyParser = require('body-parser');
 var path = require('path');
 var cors = require('cors');
 var history = require('connect-history-api-fallback');
+var usersController = require('./controllers/users');
+var musclesController = require('./controllers/muscles');
+var reviewsController = require('./controllers/reviews');
+var exercisesController = require('./controllers/exercises');
 
 // Variables 
 var mongoURI = process.env.MONGODB_URI || 'mongodb+srv://admin:kwWQFSwNBrhkVy0h@get-fit-cluster.u0wdgbr.mongodb.net/?retryWrites=true&w=majority';
@@ -21,6 +26,8 @@ mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true }, 
 
 // Create Express app
 var app = express();
+// JSON parser
+app.use(bodyParser.json());
 // Parse requests of content-type 'application/json'
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -35,10 +42,13 @@ app.get('/api', function(req, res) {
     res.json({'message': 'Welcome to your DIT342 backend ExpressJS project!'});
 });
 
+app.use(usersController);
+/*
 // Catch all non-error handler for api (i.e., 404 Not Found)
 app.use('/api/*', function (req, res) {
     res.status(404).json({ 'message': 'Not Found' });
 });
+*/
 
 // Configuration for serving frontend in production mode
 // Support Vuejs HTML 5 history mode

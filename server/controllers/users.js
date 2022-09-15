@@ -5,6 +5,7 @@ var User = require('../models/user');
 // Create a user
 router.post('/api/users', function(req, res, next){
     var user = new User(req.body);
+    console.log(req.body)
     user.save(function(err, user) {
         if (err) { return next(err); }
         res.status(201).json(user);

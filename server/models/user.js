@@ -1,4 +1,4 @@
-var mongoose = Require('mongoose');
+var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
@@ -6,7 +6,7 @@ var UserSchema = new Schema({
         type: String,
         required: true },
     Password: { 
-        type: Number,
+        type: String,
         required: true },
     BodyInfo: { 
         Gender: { type: String },
