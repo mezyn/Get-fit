@@ -3,7 +3,10 @@ var Schema = mongoose.Schema;
 
 
 var ExerciseSchema = new Schema ({
-    Name: {type: String},
+    Name: {
+        type: String,
+        required: true
+    },
     AverageRating: {type: Number, min: 0, max: 5},
     DifficultyScore:{type: Number, min: 0, max: 5},
     Reviews:[{

@@ -2,7 +2,10 @@ var mongoose = Require('mongoose');
 var Schema = mongoose.Schema;
 
 var MuscleSchema = new Schema ({
-    Name: {type: String},
+    Name: {
+        type: String,
+        required: true}
+        ,
     LatinName: {type: String},
     Description: {type: String},
     Exercises: [{

@@ -2,8 +2,12 @@ var mongoose = Require('mongoose');
 var Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
-    Email: { type: String },
-    Password: { type: Number },
+    Email: { 
+        type: String,
+        required: true },
+    Password: { 
+        type: Number,
+        required: true },
     BodyInfo: { 
         Gender: { type: String },
         BodyWeight: { type: Number },

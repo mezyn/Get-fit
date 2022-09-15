@@ -14,7 +14,7 @@ router.post('/api/reviews', function(req, res, next){
 router.get('/api/reviews', function(req, res, next) {
     Review.find(function(err, review) {
         if (err) { return next(err); }
-        res.json({'camels': review });
+        res.json({'reviews': review });
     });
 });
 
@@ -29,15 +29,6 @@ router.get('/api/reviews/:id', function(req, res, next) {
     });
 });
 
-router.delete('/api/reviews/:id', function(req, res, next) {
-    var id = req.params.id;
-    Review.findOneAndDelete({_id: id}, function(err, review) {
-        if (err) { return next(err); }
-        if (review === null) {
-            return res.status(404).json({'message': 'Review not found'});
-        }
-        res.json(review);
-    });
-});
+ 
 
 module.exports = router;

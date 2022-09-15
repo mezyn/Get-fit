@@ -28,8 +28,9 @@ router.get('/api/users/:id', function(req, res, next) {
         if (err) { return next(err); }
         if (user === null) {
             return res.status(404).json({'message': 'User not found!'});
+        } else {
+            res.json(user);
         }
-        res.json(user);
     });
 });
 
@@ -40,18 +41,19 @@ router.patch('/api/users/:id', function(req, res, next) {
         if (user == null) {
             return res.status(404).json(
                 {"message": "User not found"});
-            }
-        user.Email = (user.Email);
-        user.Password = (user.Password);
-        user.BodyInfo.Gender = (req.body.BodyInfo.Gender|| user.BodyInfo.Gender);
-        user.BodyInfo.BodyWeight = (req.body.BodyInfo.BodyWeight|| user.BodyInfo.BodyWeight);
-        user.BodyInfo.BodyFat= (req.body.BodyInfo.BodyFat|| user.BodyInfo.BodyFat);
-        user.BodyInfo.Age = (req.body.BodyInfo.Age|| user.BodyInfo.Age);
-        user.BodyInfo.Height = (req.body.BodyInfo.Height|| user.BodyInfo.Height);
-        user.BodyInfo.Goal = (req.body.BodyInfo.Goal|| user.BodyInfo.Goal);
+        } else {
+            user.Email = (user.Email);
+            user.Password = (user.Password);
+            user.BodyInfo.Gender = (req.body.BodyInfo.Gender|| user.BodyInfo.Gender);
+            user.BodyInfo.BodyWeight = (req.body.BodyInfo.BodyWeight|| user.BodyInfo.BodyWeight);
+            user.BodyInfo.BodyFat= (req.body.BodyInfo.BodyFat|| user.BodyInfo.BodyFat);
+            user.BodyInfo.Age = (req.body.BodyInfo.Age|| user.BodyInfo.Age);
+            user.BodyInfo.Height = (req.body.BodyInfo.Height|| user.BodyInfo.Height);
+            user.BodyInfo.Goal = (req.body.BodyInfo.Goal|| user.BodyInfo.Goal);
 
-        user.save();
-        res.json(user);
+            user.save();
+            res.json(user);
+        }
     });
 });
 
@@ -62,15 +64,16 @@ router.delete('/api/users/:id', function(req, res, next) {
         if (err) { return next(err); }
         if (user === null) {
             return res.status(404).json({'message': 'User not found'});
+        } else {
+            res.json(user);
         }
-        res.json(user);
     });
 });
 
-
-// not very sure
+/*// I don't think we post any exercise information inside user object. Maybe we don't need this at all.
+// 
 // Add an exercise to the saved exercise list
-router.post('/api/uers/:user_id/exercises/', function(req, res, next){
+router.post('/api/users/:user_id/exercises', function(req, res, next){
     var exercise = new Exercise(req.body);
     User.findById(id, function(err, user) {
         if (err) { return next(err); }
@@ -84,5 +87,6 @@ router.post('/api/uers/:user_id/exercises/', function(req, res, next){
         })
 }
 };
+*/
 
 module.exports = router;
