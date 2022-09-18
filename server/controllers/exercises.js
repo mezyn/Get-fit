@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var Exercise = require('../models/exercise');
 var Review = require('../models/review');
+var Muscle = require('../models/muscle');
 
 //For Collection
 //Create Exercise
@@ -126,6 +127,20 @@ router.delete('/api/exercises/:exercise_id/reviews/:review_id', function(req, re
             }
             res.json(review);
         });
+    });
+});
+
+router.get('/api/exercises/:id/muscles', function(req, res, next) {
+    var id = req.params.id;
+    Exercise.findById(id, function(err, exercise) {
+        if (err) { return next(err); }
+        if (exercise === null) {
+            return res.status(404).json({'message': 'Exercise not found!'});
+        }
+        if (exercise.Muscles === null) {
+            return res.status(404).json({'message': 'No muscles for this exercise found!'});
+        }
+        res.json(exercise.Muscles);
     });
 });
     

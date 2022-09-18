@@ -29,6 +29,4 @@ router.get('/api/reviews/:id', function(req, res, next) {
     });
 });
 
- 
-
 module.exports = router;

@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Muscle = require('../models/muscle');
+var Exercise = require('../models/exercise');
 
 //Create muscle
 router.post('/api/muscles', function(req, res, next){
@@ -45,8 +46,7 @@ router.delete('/api/muscles/:id', function(req, res, next) {
 
 
 //Update muscle info
-
-router.patch('/muscles/:id', function(req, res, next) {
+router.patch('/api/muscles/:id', function(req, res, next) {
     var id = req.params.id;
     Muscle.findById(id, function(err, muscle) {
         if (err) { return next(err); }
@@ -61,6 +61,21 @@ router.patch('/muscles/:id', function(req, res, next) {
 
         muscle.save();
         res.json(muscle);
+    });
+});
+
+router.get('/api/muscles/:id/exercises', function(req, res, next) {
+    var id = req.params.id;
+    Muscle.findById(id, function(err, muscle) {
+        if (err) { return next(err); }
+        if (muscle === null) {
+            return res.status(404).json({'message': 'Muscle not found!'});
+        }
+        if (muscle.Exercises === null) {
+            return res.status(404).json({'message': 'No exercises for this muscle found!'});
+        }
+        // maybe we need to do .populate here
+        res.json(muscle.Exercises);
     });
 });
 
