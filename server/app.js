@@ -10,12 +10,6 @@ var musclesController = require('./controllers/muscles');
 var reviewsController = require('./controllers/reviews');
 var exercisesController = require('./controllers/exercises');
 
-var usersController = require('./controllers/users');
-var reviewsController = require('./controllers/reviews');
-var musclesController = require('./controllers/muscles');
-var exercisesController = require('./controllers/exercises');
-
-
 // Variables 
 var mongoURI = process.env.MONGODB_URI || 'mongodb+srv://admin:kwWQFSwNBrhkVy0h@get-fit-cluster.u0wdgbr.mongodb.net/?retryWrites=true&w=majority';
 var port = process.env.PORT || 3000;
@@ -47,8 +41,6 @@ app.use(cors());
 app.get('/api', function(req, res) {
     res.json({'message': 'Welcome to your DIT342 backend ExpressJS project!'});
 });
-
-app.use(usersController);
 
 // Use controllers
 app.use(usersController);

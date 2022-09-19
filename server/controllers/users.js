@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+// do we need two dots instead of one? (same for other controllers) /Mijin
 var User = require('../models/user');
 var Exercise = require('../models/exercise');
 var Review = require('../models/review');
@@ -71,20 +72,23 @@ router.delete('/api/users/:id', function(req, res, next) {
         if (user === null) {
             return res.status(404).json({'message': 'User not found'});
         }
-            res.json(user);
+            res.json(`User ID ${id} is now deleted.`);
         }
     );
 });
 
-// EXERCISES
+// In Relationship to EXERCISES
 
 // Add an exercise to the saved exercise list
 router.post('/api/users/:user_id/saved_exercises', function(req, res){
-    var id = req.params.user_id;
+    var user_id = req.params.user_id;
     var exercise_id = req.body.exercise;
 
-    User.findById(id, function(err, user) {
-        if (err) { return res.status(404).json({'message': 'User not found!', 'error': err}); }
+    User.findById(user_id, function(err, user) {
+        if (err) { 
+            return res.status(404).json(
+                {'message': 'User not found!', 'error': err}); 
+        }
         if (user === null) {
             return res.status(404).json(
                 {"message": "User not found"});
@@ -97,11 +101,13 @@ router.post('/api/users/:user_id/saved_exercises', function(req, res){
             return res.status(409).json({'message': 'Exercise already saved in the list'});
         } 
         user.SavedExercises.push(exercise_id);
+        // Maybe we need to use 'populate' somewhere here?
         user.save();
         return res.status(201).json(user);
     });
 });
 
+// Retreive all exercises that a specific user saved.
 router.get('/api/users/:user_id/exercises', function(req, res, next) {
     var id = req.params.user_id;
     User.findById(id, function(err, user) {
@@ -118,6 +124,7 @@ router.get('/api/users/:user_id/exercises', function(req, res, next) {
 });
 
 // maybe we need this as well? /Mijin
+// Delete an exercise from a specific user's saved list
 router.delete('/api/users/:user_id/saved_exercises/:exercise_id', function(req, res){
     var user_id = req.params.user_id;
     var exercise_id = req.params.exercise_id;
@@ -129,7 +136,7 @@ router.delete('/api/users/:user_id/saved_exercises/:exercise_id', function(req, 
                 {"message": "User not found"});
         } try {
             let index = user.SavedExercises.indexOf(exercise_id);
-            user.SavedExercises.splice(index, 1);
+            user.SavedExercises.splice(index, 1); //remove (one) element in the index position
             user.save();
             res.json(user);
         }
@@ -139,7 +146,7 @@ router.delete('/api/users/:user_id/saved_exercises/:exercise_id', function(req, 
     });
 });
 
-// REVIEWS
+// In relation to REVIEWS
 
 // Add a review to the list of authored reviews and to the review collection
 router.post('/api/users/:user_id/authored_reviews', function(req, res, next){
@@ -150,10 +157,12 @@ router.post('/api/users/:user_id/authored_reviews', function(req, res, next){
         if (user == null) {
             return res.status(404).json(
                 {"message": "User not found"});
-        } else if (exercise_id == null) {
+            } 
+            //I think this should be deleted /Mijin
+            /*else if (exercise_id == null) {
             return res.status(404).json(
                 {"message": "Exercise not found"});
-        } else {
+        } */else {
             review.save(function (err) {
                 if (err) {
                   console.log(err);
@@ -168,6 +177,7 @@ router.post('/api/users/:user_id/authored_reviews', function(req, res, next){
     })
 });
 
+//Retrieve all exercise that a specific user saved.
 router.get('/api/users/:user_id/exercises', function(req, res, next) {
     var id = req.params.user_id;
     User.findById(id, function(err, user) {
@@ -178,7 +188,6 @@ router.get('/api/users/:user_id/exercises', function(req, res, next) {
         if (user.AuthoredReviews === null) {
             return res.status(404).json({'message': 'No authored reviews from this user found!'});
         }
-        // maybe we need to do .populate here
         res.json(user.AuthoredReviews);
     });
 });
@@ -204,13 +213,14 @@ router.delete('/api/users/:user_id/authored_reviews/:review_id', function(req, r
             return res.status(404).json({'message': 'Not valid review ID', 'error': error});
         }
     });
-    // I am not sure whether we can split it up like that, but I needed to delete it from both right?
+    // I am not sure whether we can split it up like that, but I needed to delete it from both right? 
+    // I think so /Mijin
     Review.findOneAndDelete(review_id, function(err, review) {
         if (err) { return next(err); }
         if (review === null) {
             return res.status(404).json({'message': 'Review not found'});
         }
-            res.json(review);
+            res.json(`The review ${review} has been deleted.`);
         }
     );
 });

@@ -4,7 +4,8 @@ var Schema = mongoose.Schema;
 var MuscleSchema = new Schema ({
     Name: {
         type: String,
-        required: true}
+        required: true,
+        unique: true }
         ,
     LatinName: {type: String},
     Description: {type: String},

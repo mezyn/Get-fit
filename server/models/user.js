@@ -5,7 +5,9 @@ var UserSchema = new Schema({
     Email: { 
         type: String,
         required: true,
-        unique: true },
+        unique: true,
+        lowercase: true,
+        immutable: true },
     Password: { 
         type: String,
         required: true },
@@ -15,7 +17,7 @@ var UserSchema = new Schema({
         BodyFat: { type: Number, min:3, max:40},
         Age: { type: Number, min:0, max: 140},
         Height: { type: Number, min: 30, max: 240},
-        Goal: { type: String}
+        Goal: { type: String }
      },
     SavedExercises:[{
         type: Schema.Types.ObjectId, ref: "exercises"
