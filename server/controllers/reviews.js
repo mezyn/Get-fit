@@ -19,30 +19,29 @@ router.post('/api/reviews', function(req, res, next){
 
 router.post('/api/users/:user_id/exercises/:exercise_id/reviews', function(req, res, next){
     var exercise_id = req.params.exercise_id;
-    var user_id = req.body.user_id; //Let's assume that we take user id with request
+    var user_id = req.params.user_id;
     var review = new Review(req.body);
     User.findById(user_id, function(err, user) {
         if (err) { return next(err); }
         if (user === null) {
             return res.status(404).json({'message': 'User not found!'});
+        } else {
+            Exercise.findById(exercise_id, function(err, exercise) {
+                if (err) { return next(err); }
+                if (exercise === null) {
+                    return res.status(404).json({'message': 'Exercise not found!'});
+                }
+                review.save(function(err, review) {
+                    if (err) { return next(err); }
+                    res.status(201).json(review);
+                })
+                exercise.Reviews.push(review);
+                exercise.save();
+            });
+            user.AuthoredReviews.push(review);
+            user.save();
         }
-        user.AuthoredReviews.push(review);
-        user.save();
     });
-    Exercise.findById(exercise_id, function(err, exercise) {
-        if (err) { return next(err); }
-        if (exercise === null) {
-            return res.status(404).json({'message': 'Exercise not found!'});
-        }
-        exercise.Reviews.push(review);
-        exercise.save();
-    });
-    review.save(function(err, review) {
-        if (err) { return next(err); }
-        res.status(201).json(review);
-    })
-    // maybe we need to do .populate here
-    res.json(review);
 
 });
 

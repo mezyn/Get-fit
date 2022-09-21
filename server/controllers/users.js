@@ -82,9 +82,9 @@ router.delete('/api/users/:id', function(req, res, next) {
 // In Relationship to EXERCISES
 
 // Add an exercise to the saved exercise list
-router.post('/api/users/:user_id/saved_exercises', function(req, res){
+router.post('/api/users/:user_id/exercises/:exercise_id', function(req, res){
     var user_id = req.params.user_id;
-    var exercise_id = req.body.exercise;
+    var exercise_id = req.params.exercise_id;
 
     User.findById(user_id, function(err, user) {
         if (err) { 
