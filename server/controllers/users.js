@@ -3,6 +3,8 @@ var router = express.Router();
 var User = require('../models/user');
 var Exercise = require('../models/exercise');
 var Review = require('../models/review');
+const user = require('../models/user');
+const exercise = require('../models/exercise');
 
 // Create a user
 router.post('/api/users', function(req, res, next){
@@ -17,7 +19,7 @@ router.post('/api/users', function(req, res, next){
 //GET all users
 router.get('/api/users', function(req, res, next) {
 
-    Users.find(function(err, users) {
+    User.find(function(err, users) {
         if (err) { 
             return next(err); 
         }
@@ -139,34 +141,7 @@ router.delete('/api/users/:user_id/saved_exercises/:exercise_id', function(req, 
     });
 });
 
-// REVIEWS
-
-// Add a review to the list of authored reviews and to the review collection
-router.post('/api/users/:user_id/authored_reviews', function(req, res, next){
-    var user_id = req.params.user_id;
-    var review = new Review(req.body);
-    User.findById(user_id, function(err, user) {
-        if (err) { return next(err); }
-        if (user == null) {
-            return res.status(404).json(
-                {"message": "User not found"});
-        } else if (exercise_id == null) {
-            return res.status(404).json(
-                {"message": "Exercise not found"});
-        } else {
-            review.save(function (err) {
-                if (err) {
-                  console.log(err);
-                  return res.status(500);
-                }
-                res.status(201).json(review);
-              });
-            user.AuthoredReviews.push(review);
-            user.save();
-            return res.status(201).json(user);
-        }
-    })
-});
+// REVIEWS   
 
 router.get('/api/users/:user_id/exercises', function(req, res, next) {
     var id = req.params.user_id;
