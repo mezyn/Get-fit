@@ -12,7 +12,7 @@ router.post('/api/muscles', function(req, res, next){
     })
 });
 
-//Get all muscle
+//Get all muscles
 router.get('/api/muscles', function(req, res, next) {
     Muscle.find(function(err, muscles) {
         if (err) { return next(err); }
@@ -40,7 +40,7 @@ router.delete('/api/muscles/:id', function(req, res, next) {
         if (muscle === null) {
             return res.status(404).json({'message': 'Muscle not found'});
         }
-        res.json(muscle);
+        res.json(`Muscle with ID ${id} has been successfully deleted.`);
     });
 });
 
@@ -64,6 +64,7 @@ router.patch('/api/muscles/:id', function(req, res, next) {
     });
 });
 
+//Get all exercises related to a specific muscle
 router.get('/api/muscles/:id/exercises', function(req, res, next) {
     var id = req.params.id;
     Muscle.findById(id, function(err, muscle) {

@@ -21,8 +21,10 @@ router.get('/api/exercises', function(req, res, next) {
         res.json({'exercises': exercises });
     });
 });
+
 // For Individual Items
-// Get specific exercise
+
+// Get a specific exercise
 router.get('/api/exercises/:id', function(req, res, next) {
     var id = req.params.id;
     Exercise.findById(id, function(err, exercise) {
@@ -54,7 +56,7 @@ router.patch('/api/exercises/:id', function(req, res, next) {
     });
 });
 
-// delete exercise
+// Delete exercise
 router.delete('/api/exercises/:id', function(req, res, next) {
     var id = req.params.id;
     Exercise.findOneAndDelete({_id: id}, function(err, exercise) {
@@ -62,12 +64,15 @@ router.delete('/api/exercises/:id', function(req, res, next) {
         if (exercise === null) {
             return res.status(404).json({'message': 'Exercise not found'});
         }
-        res.json(exercise);
+        res.json(`Exercise with ID ${id} has been successfully deleted.`);
     });
 });
 
 // For Relationships
-// Post individual review inside relevant exercise
+
+// Post a review for a relevant exercise
+//This is same as what we have in reviews.js; so having two is redundant. However, I'm not sure if this should be inside exercises.js
+//or reviews.js. We can discuss about this to find an optimal solution /Mijin
 router.post('/api/exercises/:id/reviews', function(req, res, next){
     var review = new Review(req.body);
     review.save(function(err, review) {
@@ -76,7 +81,7 @@ router.post('/api/exercises/:id/reviews', function(req, res, next){
     })
 });
 
-// 4.3.b. Get individual review inside relevant exercise
+// 4.3.b. Get individual review inside a relevant exercise
 router.get('/api/exercises/:id/reviews', function(req, res, next) {
     var id = req.params.id;
     Exercise.findById(id, function(err, exercise) {
@@ -125,11 +130,12 @@ router.delete('/api/exercises/:exercise_id/reviews/:review_id', function(req, re
             if (review === null) {
                 return res.status(404).json({'message': 'Review not found'});
             }
-            res.json(review);
+            res.json(`Review with detail ${review} has been successfully deleted.`);
         });
     });
 });
 
+//Get list of muscles that are related to this specific exercise
 router.get('/api/exercises/:id/muscles', function(req, res, next) {
     var id = req.params.id;
     Exercise.findById(id, function(err, exercise) {

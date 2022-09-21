@@ -4,7 +4,8 @@ var Schema = mongoose.Schema;
 var ExerciseSchema = new Schema ({
     Name: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     AverageRating: {
         type: Number, 
