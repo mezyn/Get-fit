@@ -11,6 +11,8 @@ var UserSchema = new Schema({
     Password: { 
         type: String,
         required: true },
+    Name: {type: String,
+        required: true},
     BodyInfo: { 
         Gender: { type: String },
         BodyWeight: { type: Number },

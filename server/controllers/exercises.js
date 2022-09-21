@@ -49,7 +49,7 @@ router.patch('/api/exercises/:id', function(req, res, next) {
         exercise.AverageRating = (req.body.AverageRating || exercise.AverageRating);
         exercise.DifficultyScore = (req.body.DifficultyScore|| exercise.DifficultyScore);
         exercise.Reviews = (req.body.Reviews|| exercise.Reviews);
-        exercise.TipsAndTricks= (req.body.TipsAndTricks|| user.TipsAndTricks);
+        exercise.TipsAndTricks= (req.body.TipsAndTricks|| exercise.TipsAndTricks);
 
         exercise.save();
         res.json(exercise);
@@ -70,18 +70,8 @@ router.delete('/api/exercises/:id', function(req, res, next) {
 
 // For Relationships
 
-// Post a review for a relevant exercise
-//This is same as what we have in reviews.js; so having two is redundant. However, I'm not sure if this should be inside exercises.js
-//or reviews.js. We can discuss about this to find an optimal solution /Mijin
-router.post('/api/exercises/:id/reviews', function(req, res, next){
-    var review = new Review(req.body);
-    review.save(function(err, review) {
-        if (err) { return next(err); }
-        res.status(201).json(review);
-    })
-});
 
-// 4.3.b. Get individual review inside a relevant exercise
+// 4.3.b. Get reviews inside a relevant exercise
 router.get('/api/exercises/:id/reviews', function(req, res, next) {
     var id = req.params.id;
     Exercise.findById(id, function(err, exercise) {
@@ -92,6 +82,7 @@ router.get('/api/exercises/:id/reviews', function(req, res, next) {
         if (exercise.Reviews === null) {
             return res.status(404).json({'message': 'No review found!'});
         }
+        // use .populate
         res.json(exercise.Reviews);
     });
 });
@@ -111,6 +102,7 @@ router.get('/api/exercises/:exercise_id/reviews/:review_id', function(req, res, 
                 return res.status(404).json({'message': 'No review found!'});
             }
         });
+        // user .populate
         res.json(review);
     });
 });
