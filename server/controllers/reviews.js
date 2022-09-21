@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var Review = require('../models/review');
+var User = require('../models/user');
+var Exercise = require('../models/exercise');
 
 // create review
 /* This doesn't feel correct. When a user want to delete a review, (s)he will first go to the relevant exercise,
@@ -19,19 +21,21 @@ router.post('/api/users/:user_id/exercises/:exercise_id/reviews', function(req, 
     var exercise_id = req.params.exercise_id;
     var user_id = req.body.user_id; //Let's assume that we take user id with request
     var review = new Review(req.body);
-    User.findById(id, function(err, user) {
+    User.findById(user_id, function(err, user) {
         if (err) { return next(err); }
         if (user === null) {
             return res.status(404).json({'message': 'User not found!'});
         }
         user.AuthoredReviews.push(review);
+        user.save();
     });
-    Exercise.findById(id, function(err, exercise) {
+    Exercise.findById(exercise_id, function(err, exercise) {
         if (err) { return next(err); }
         if (exercise === null) {
             return res.status(404).json({'message': 'Exercise not found!'});
         }
-        Exercise.Reviews.push(review);
+        exercise.Reviews.push(review);
+        exercise.save();
     });
     review.save(function(err, review) {
         if (err) { return next(err); }
