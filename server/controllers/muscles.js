@@ -76,8 +76,9 @@ router.get('/api/muscles/:id/exercises', function(req, res, next) {
             return res.status(404).json({'message': 'No exercises for this muscle found!'});
         }
         // maybe we need to do .populate here
-        res.json(muscle.Exercises);
+        res.json(`Related exercises to this muscle: ${muscle.Exercises}`);
     });
 });
+
 
 module.exports = router;

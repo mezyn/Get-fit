@@ -1,8 +1,8 @@
-var express = require('express');
-var router = express.Router();
-var Exercise = require('../models/exercise');
-var Review = require('../models/review');
-var Muscle = require('../models/muscle');
+const express = require('express');
+const router = express.Router();
+const Exercise = require('../models/exercise');
+const Review = require('../models/review');
+const Muscle = require('../models/muscle');
 
 //For Collection
 //Create Exercise
@@ -15,6 +15,7 @@ router.post('/api/exercises', function(req, res, next){
 });
 
 // Get all exercises
+// Should we calculate the average rating here?
 router.get('/api/exercises', function(req, res, next) {
     Exercise.find(function(err, exercises) {
         if (err) { return next(err); }
@@ -32,7 +33,7 @@ router.get('/api/exercises/:id', function(req, res, next) {
         if (exercise === null) {
             return res.status(404).json({'message': 'Exercise not found!'});
         }
-        res.json(exercise);
+        res.json({'Exercise' : exercise});
     });
 });
 
@@ -83,31 +84,11 @@ router.get('/api/exercises/:id/reviews', function(req, res, next) {
             return res.status(404).json({'message': 'No review found!'});
         }
         // use .populate
-        res.json(exercise.Reviews);
+        res.json(`Reviews for this exercise: ${exercise.Reviews}`);
     });
 });
 
-// 4.3.c. Get individual review from relevant exercise
-router.get('/api/exercises/:exercise_id/reviews/:review_id', function(req, res, next) {
-    var exercise_id = req.params.exercise_id;
-    var review_id = req.params.review_id;
-    Exercise.findById(exercise_id, function(err, exercise) {
-        if (err) { return next(err); }
-        if (exercise === null) {
-            return res.status(404).json({'message': 'Exercise not found!'});
-        }
-        exercise.Reviews.findById(review_id, function(err, review) {
-            if (err) { return next(err); }
-            if (review === null) {
-                return res.status(404).json({'message': 'No review found!'});
-            }
-        });
-        // user .populate
-        res.json(review);
-    });
-});
-
-// 4.3.d. Delete a specific review from relevant exercise
+// 4.3.d. Delete a specific review from relevant exercise // Do we need this? We have other delete review functions
 router.delete('/api/exercises/:exercise_id/reviews/:review_id', function(req, res, next) {
     var exercise_id = req.params.exercise_id;
     var review_id = req.params.review_id;
@@ -133,12 +114,12 @@ router.get('/api/exercises/:id/muscles', function(req, res, next) {
     Exercise.findById(id, function(err, exercise) {
         if (err) { return next(err); }
         if (exercise === null) {
-            return res.status(404).json({'message': 'Exercise not found!'});
+            return res.status(404)('Exercise not found!');
         }
         if (exercise.Muscles === null) {
-            return res.status(404).json({'message': 'No muscles for this exercise found!'});
+            return res.status(404)('No muscles for this exercise found!');
         }
-        res.json(exercise.Muscles);
+        res.json(`This exercise can help you with growing the following muscles: ${exercise.Muscles}`);
     });
 });
     

@@ -4,19 +4,8 @@ var Review = require('../models/review');
 var User = require('../models/user');
 var Exercise = require('../models/exercise');
 
-// create review
-/* This doesn't feel correct. When a user want to delete a review, (s)he will first go to the relevant exercise,
-and then select a 'create review', instead of directly going to the review page. I'd suggest to change the path as below: 
-*/
-router.post('/api/reviews', function(req, res, next){
-    var review = new Review(req.body);
-    review.save(function(err, review) {
-        if (err) { return next(err); }
-        res.status(201).json(review);
-    })
-});
-//I believe it should be something like this //Mijin 
 
+// create review
 router.post('/api/users/:user_id/exercises/:exercise_id/reviews', function(req, res, next){
     var exercise_id = req.params.exercise_id;
     var user_id = req.params.user_id;
@@ -65,5 +54,27 @@ router.get('/api/reviews/:id', function(req, res, next) {
         res.json(review);
     });
 });
+
+//Delete a review (from admin's side)
+router.delete('/api/reviews/:id', function(req, res, next) {
+    var id = req.params.id;
+    Review.findOneAndDelete({_id: id}, function(err, review) {
+        if (err) { return next(err); }
+        if (review === null) {
+            return res.status(404).json({'message': 'Review not found'});
+        }
+        res.json(`Review ${review} has been successfully deleted.`);/*
+        if (err) {       
+            return res.status(409).json({
+            message: 'Review not deleted!', 'error': err
+        }); }
+        if (review === null) {
+            return res.status(404).json(
+                {'message': 'Post not found'}
+                )}
+        //res.json(review);*/
+    });
+});
+
 
 module.exports = router;

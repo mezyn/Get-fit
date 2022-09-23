@@ -157,12 +157,28 @@ router.get('/api/users/:user_id/exercises', function(req, res, next) {
         if (user === null) {
             return res.status(404).json({'message': 'User not found!'});
         }
+        if (user.SavedExercises === null) {
+            return res.status(404).json({'message': 'No authored reviews from this user found!'});
+        }
+        res.json(`List of saved exercises: ${user.SavedExercises}`);
+    });
+});
+
+//Get reviews from a user
+router.get('/api/users/:id/reviews', function(req, res, next) {
+    var id = req.params.id;
+    User.findById(id, function(err, user) {
+        if (err) { return next(err); }
+        if (user === null) {
+            return res.status(404).json({'message': 'User not found!'});
+        }
         if (user.AuthoredReviews === null) {
             return res.status(404).json({'message': 'No authored reviews from this user found!'});
         }
-        res.json(user.AuthoredReviews);
+        res.json(`List of authored reviews: ${user.AuthoredReviews}`);
     });
 });
+
 
 // Delete review (both from users and from reviews)
 router.delete('/api/users/:user_id/authored_reviews/:review_id', function(req, res){
