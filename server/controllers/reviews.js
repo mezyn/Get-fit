@@ -22,8 +22,11 @@ router.post('/api/users/:user_id/exercises/:exercise_id/reviews', function(req, 
                 }
                 review.save(function(err, review) {
                     if (err) { return next(err); }
+                    if (review === null) {return res.status(404).json({'message': 'No review to save!'});}
                     res.status(201).json(review);
                 })
+                review.Author = user_id
+                review.Exercise = exercise_id
                 exercise.Reviews.push(review);
                 exercise.save();
             });
@@ -55,15 +58,42 @@ router.get('/api/reviews/:id', function(req, res, next) {
     });
 });
 
-//Delete a review (from admin's side)
+//Delete a review (from reviews, user and exercise)
 router.delete('/api/reviews/:id', function(req, res, next) {
     var id = req.params.id;
-    Review.findOneAndDelete({_id: id}, function(err, review) {
+    Review.findById(id, function(err, review, next) {
         if (err) { return next(err); }
         if (review === null) {
             return res.status(404).json({'message': 'Review not found'});
+        } else {
+            var user_id = review.Author;
+            var exercise_id = review.Exercise;
+
+            User.findById(user_id, function(err, user, next) {
+                if (err) { return next(err); }
+                if (user === null) {
+                    res.status(404).json({'message': 'User not found'})
+                } else {
+                    let index = user.AuthoredReviews.indexOf(id);
+                    user.AuthoredReviews.splice(index, 1);
+                    Exercise.findById(exercise_id, function(err, exercise, next) {
+                        if (err) { return next(err); }
+                        if (exercise === null) {
+                            res.status(404).json({'message': 'Exercise not found'})
+                        } else {
+                            let index = exercise.Reviews.indexOf(id);
+                            exercise.Reviews.splice(index, 1);
+                            exercise.save();
+                        }
+                    });
+                    user.save();
+                }
+            });
+            review.delete();
+            res.json(`Review with ID ${id} has been successfully deleted.`);
         }
-        res.json(`Review ${review} has been successfully deleted.`);/*
+        /*
+        //We definetly need to do some error handling because it crashes when you put in a wrong id
         if (err) {       
             return res.status(409).json({
             message: 'Review not deleted!', 'error': err
