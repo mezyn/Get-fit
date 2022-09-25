@@ -15,12 +15,21 @@ router.post('/api/exercises', function(req, res, next){
 });
 
 // Get all exercises
-// Should we calculate the average rating here?
+// Also, filter exercises by their DifficultyScore (filtering)
+
 router.get('/api/exercises', function(req, res, next) {
-    Exercise.find(function(err, exercises) {
+    var queryInput = req.query.difficultyscore;
+    if (!queryInput){
+        Exercise.find(function(err, exercises) {
         if (err) { return next(err); }
         res.json({'exercises': exercises });
-    });
+        }
+    )} else {
+        Exercise.find({"DifficultyScore" : queryInput}, function(err, exercises) {
+            if (err) {return next(err);}
+         res.json({'Exercises' : exercises})
+        })
+    }
 });
 
 // For Individual Items
@@ -122,5 +131,5 @@ router.get('/api/exercises/:id/muscles', function(req, res, next) {
         res.json(`This exercise can help you with growing the following muscles: ${exercise.Muscles}`);
     });
 });
-    
+
 module.exports = router;
