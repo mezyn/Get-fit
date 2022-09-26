@@ -1,12 +1,17 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var morgan = require('morgan');
+var bodyParser = require('body-parser');
 var path = require('path');
 var cors = require('cors');
 var history = require('connect-history-api-fallback');
+var usersController = require('./controllers/users');
+var musclesController = require('./controllers/muscles');
+var reviewsController = require('./controllers/reviews');
+var exercisesController = require('./controllers/exercises');
 
-// Variables
-var mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/animalDevelopmentDB';
+// Variables 
+var mongoURI = process.env.MONGODB_URI || 'mongodb+srv://admin:kwWQFSwNBrhkVy0h@get-fit-cluster.u0wdgbr.mongodb.net/?retryWrites=true&w=majority';
 var port = process.env.PORT || 3000;
 
 // Connect to MongoDB
@@ -21,6 +26,8 @@ mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true }, 
 
 // Create Express app
 var app = express();
+// JSON parser
+app.use(bodyParser.json());
 // Parse requests of content-type 'application/json'
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -34,6 +41,13 @@ app.use(cors());
 app.get('/api', function(req, res) {
     res.json({'message': 'Welcome to your DIT342 backend ExpressJS project!'});
 });
+
+// Use controllers
+app.use(usersController);
+app.use(reviewsController);
+app.use(musclesController);
+app.use(exercisesController);
+
 
 // Catch all non-error handler for api (i.e., 404 Not Found)
 app.use('/api/*', function (req, res) {
