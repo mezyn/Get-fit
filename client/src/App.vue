@@ -17,6 +17,9 @@
             <li>
               <router-link to="/exercises" >Exercises</router-link>
             </li>
+            <li>
+              <router-link to="/saved-exercises" >Saved Exercises</router-link>
+            </li>
           </ul>
         </div>
       </div>
