@@ -1,8 +1,9 @@
-<!--For exercose thumbnails-->
+<!--For exercise thumbnails with save buttons-->
 <template>
     <div>
-        <p>The {{exercise.Name}} exercise with a difficulty score {{exercise.DifficultyScore}}.</p>
-        <b-button variant="danger" v-on:click="deleteExercise()">X</b-button>
+        <p>Exercise Name: {{exercise.Name}}</p>
+        <p>Difficulty score {{exercise.DifficultyScore}}.</p>
+        <b-button variant="success" v-on:click="saveExercise()">Add exercise</b-button>
     </div>
 </template>
 
@@ -11,9 +12,9 @@ export default {
   name: 'exercise-block',
   props: ['exercise'],
   methods: {
-    deleteExercise() {
-      this.$emit('del-exercise', this.exercise._id)
-      console.log('del-exercise with id:' + this.exercise._id)
+    saveExercise() {
+      this.$emit('save-exercise', this.exercise._id)
+      console.log('save-exercise with id:' + this.exercise._id)
     }
   }
 }

@@ -28,7 +28,7 @@ export default new Router({
     },
     {
       path: '/saved-exercises',
-      name: 'user',
+      name: 'saved-exercises',
       component: SavedExercises
     }
   ]

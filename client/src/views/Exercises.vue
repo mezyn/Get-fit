@@ -1,28 +1,59 @@
+<!--For now, it's showing all exercise info.
+We need to implement how to specify user and update the details in the code, but they'll look something like this.-->
 <template>
     <div class="container">
         <!-- Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop -->
-        <b-jumbotron header="Exercises" lead="Here you can see all exercises"></b-jumbotron>
-        <div class="row">
-            <div class="col-6 col-md-4">
-                <h5>Exercise 1</h5>
-                <p>Here we can haeve a picture of the exercise</p>
-            </div>
-            <div class="col-6 col-md-4">
-                <h5>Exercise 2</h5>
-                <p>Or a short description</p>
-            </div>
-            <div class="col-6 col-md-4">
-                <h5>Exercise 3</h5>
-                <p>We could also have a button to save the exercise</p>
-            </div>
-            <div class="col-6 col-md-4">
-                <h5>Exercise 4</h5>
-                <p>You should be able to click on each exercise</p>
-            </div>
-            <div class="col-6 col-md-4">
-                <h5>Exercise 5</h5>
-                <p>And it should take you to the exercise page</p>
+        <b-jumbotron header="Exercises" lead="You're seeing all exerciese"></b-jumbotron>
+        <div>
+                <div v-for="exercise in Exercises" v-bind:key="exercise._id">
+                    <exercise-block v-bind:exercise="exercise" v-on:save-exercise="saveExercise"/>
             </div>
         </div>
     </div>
 </template>
+
+<script>
+import { Api } from '@/Api'
+import ExerciseBlock from '@/components/ExerciseBlock.vue'
+
+export default {
+  name: 'exercises',
+  components: {
+    ExerciseBlock
+  },
+  mounted() {
+    console.log('PAGE is loaded')
+    // Load the real exercises from the server
+    Api.get('/exercises')
+      .then(response => {
+        this.Exercises = response.data.exercises
+      })
+      .catch(error => {
+        console.errer(error)
+        this.Exercises = []
+        // TO DO: send a error message
+      })
+      .then(() => {
+        // This code is always executed at the end. After success or failure. (optional)
+      })
+  },
+  data() {
+    return {
+      Exercises: [
+      ]
+    }
+  },
+  methods: {
+    saveExercise(id) {
+      Api.post(`/users/${user_id}/exercises/${exercise_id}`)
+        .then(response => {
+          const index = this.exercises.findIndex(exercise => exercise._id === id)
+          this.exercises.splice(index, 1)
+        })
+        .catch(error => {
+          console.error(error)
+        })
+    }
+  }
+}
+</script>
