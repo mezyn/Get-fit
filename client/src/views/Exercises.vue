@@ -5,11 +5,12 @@ We need to implement how to specify user and update the details in the code, but
         <!-- Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop -->
         <b-jumbotron header="Exercises" lead="You're seeing all exerciese"></b-jumbotron>
         <div>
-                <div v-for="exercise in Exercises" v-bind:key="exercise._id">
-                    <exercise-block v-bind:exercise="exercise" v-on:save-exercise="saveExercise"/>
-            </div>
+          <div v-for="exercise in Exercises" v-bind:key="exercise._id">
+          <exercise-block v-bind:exercise="exercise"/>
+          </div>
+
         </div>
-    </div>
+  </div>
 </template>
 
 <script>
@@ -29,7 +30,7 @@ export default {
         this.Exercises = response.data.exercises
       })
       .catch(error => {
-        console.errer(error)
+        console.error(error)
         this.Exercises = []
         // TO DO: send a error message
       })
@@ -41,18 +42,6 @@ export default {
     return {
       Exercises: [
       ]
-    }
-  },
-  methods: {
-    saveExercise(id) {
-      Api.post(`/users/${user_id}/exercises/${exercise_id}`)
-        .then(response => {
-          const index = this.exercises.findIndex(exercise => exercise._id === id)
-          this.exercises.splice(index, 1)
-        })
-        .catch(error => {
-          console.error(error)
-        })
     }
   }
 }

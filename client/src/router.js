@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Exercises from './views/Exercises.vue'
+import Exercise from './views/Exercise.vue'
 import User from './views/User.vue'
 import SavedExercises from './views/SavedExercises.vue'
 
@@ -20,6 +21,11 @@ export default new Router({
       path: '/exercises',
       name: 'exercises',
       component: Exercises
+    },
+    {
+      path: '/exercises/:id',
+      name: 'exercise',
+      component: Exercise
     },
     {
       path: '/user',

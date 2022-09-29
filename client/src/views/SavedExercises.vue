@@ -3,10 +3,10 @@ We need to implement how to specify user and update the details in the code, but
 <template>
     <div class="container">
         <!-- Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop -->
-        <b-jumbotron header="Saved Exercises" lead="Here you can see all saved exercises"></b-jumbotron>
+        <b-jumbotron header="Saved Exercises" lead="For now, they're all exercises in the database. So if you delete them they'll be totally gone from the DB"></b-jumbotron>
         <div>
                 <div v-for="exercise in savedExercises" v-bind:key="exercise._id">
-                    <exercise-block v-bind:exercise="exercise" v-on:del-exercise="deleteExercise"/>
+                    <saved-exercise-block v-bind:exercise="exercise" v-on:del-exercise="deleteExercise"/>
             </div>
         </div>
     </div>
@@ -14,12 +14,12 @@ We need to implement how to specify user and update the details in the code, but
 
 <script>
 import { Api } from '@/Api'
-import ExerciseBlock from '@/components/ExerciseBlock.vue'
+import SavedExerciseBlock from '@/components/SavedExerciseBlock.vue'
 
 export default {
   name: 'savedExercises',
   components: {
-    ExerciseBlock
+    SavedExerciseBlock
   },
   mounted() {
     console.log('PAGE is loaded')
@@ -29,7 +29,7 @@ export default {
         this.savedExercises = response.data.exercises
       })
       .catch(error => {
-        console.errer(error)
+        console.error(error)
         this.savedExercises = []
         // TO DO: send a error message
       })
