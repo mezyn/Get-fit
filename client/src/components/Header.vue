@@ -4,7 +4,7 @@
       <div class="col-6 col-md-4"> </div>
       <div class="col-6 col-md-4"> </div>
       <div class="col-6 col-md-4">
-        <img src="@/assets/Logo.png" alt="logo">
+        <router-link to="/"><img src="@/assets/Logo.png" alt="logo"/></router-link>
       </div>
     </div>
   </div>
