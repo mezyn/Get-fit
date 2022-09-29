@@ -18,7 +18,7 @@ export default {
   methods: {
     readExercise() {
       const exerciseId = this.exercise._id
-      this.$router.push({ path: `/user/${exerciseId}` })
+      this.$router.push({ path: `/exercises/${exerciseId}` })
     }
   }
 }
