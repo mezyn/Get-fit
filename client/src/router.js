@@ -5,6 +5,7 @@ import Exercises from './views/Exercises.vue'
 import Exercise from './views/Exercise.vue'
 import User from './views/User.vue'
 import SavedExercises from './views/SavedExercises.vue'
+import BodyMap from './views/BodyMap.vue'
 
 Vue.use(Router)
 
@@ -36,6 +37,10 @@ export default new Router({
       path: '/saved-exercises',
       name: 'saved-exercises',
       component: SavedExercises
-    }
-  ]
+    },
+    {
+      path: '/body-map',
+      name: 'body-map',
+      component: BodyMap
+    }]
 })
