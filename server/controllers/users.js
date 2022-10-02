@@ -1,5 +1,8 @@
 var express = require('express');
+var mongoose = require('mongoose');
 var router = express.Router();
+var bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 // do we need two dots instead of one? (same for other controllers) /Mijin
 var User = require('../models/user');
 var Exercise = require('../models/exercise');
@@ -7,9 +10,49 @@ var Review = require('../models/review');
 const user = require('../models/user');
 const exercise = require('../models/exercise');
 
+router.post('/api/login', function(req, res ) {
+    if(req.body.Email && req.body.Password){
+        User.findOne({Email: req.body.Email}, function(err, user){
+            if(err){
+                return res.status(404).json({'message': 'User not found!', 'error': err});
+            }
+            if(user.length < 1){
+                return res.status(401).json({
+                    message: 'Please provide valid email and/or password'
+                });
+            }
+            // check whether the password is correct
+            bcrypt.compare(req.body.Password, user.Password, function(err, result){
+                if(err){
+                    return res.status(401).json({
+                        message: 'Please provide valid email and/or password'
+                    });
+                }
+                if(result){
+                    try {
+                        let token = jwt.sign({userId: user._id}, 'secretkey');
+                        return res.status(200).json({token: token})
+                    } 
+                    catch (err) {
+                        return res.status(400).json({'message': 'Unable to log in'})
+                    }
+                }
+                return res.status(401).json({
+                    message: 'Please provide valid email and/or password'
+                });
+            });
+        });} else{
+        return res.status(401).json({
+            message: 'Please provide valid email and/or password'
+        });
+    }
+});
+
 // Create a user
 router.post('/api/users', function(req, res, next){
     var user = new User(req.body);
+    // encrypt the password
+    user.Password = bcrypt.hashSync(req.body.Password, 10)
     console.log(req.body)
     user.save(function(err, user) {
         if (err) { return next(err); }
@@ -29,6 +72,26 @@ router.get('/api/users', function(req, res, next) {
 
 });
 
+
+// Retrieve information from a user with token
+router.get('/api/user', function(req, res, next) {
+    let token = req.headers.token;
+    console.log(token);
+    jwt.verify(token, 'secretkey', function(err, decoded) {
+        if (err) return res.status(401).json({
+            //returns this
+            title: 'unauthorized'
+        })
+        //token is valid
+        User.findOne({ _id: decoded.userId }, (err, user) => {
+          if (err) return console.log(err)
+          return res.status(200).json({
+            title: 'user grabbed',
+            user: user})
+        })
+    })
+    
+});
 
 // Retrieve information from a user
 router.get('/api/users/:id', function(req, res, next) {

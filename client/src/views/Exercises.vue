@@ -3,7 +3,7 @@ We need to implement how to specify user and update the details in the code, but
 <template>
     <div class="container">
         <!-- Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop -->
-        <b-jumbotron header="Exercises" lead="You're seeing all exerciese"></b-jumbotron>
+        <b-jumbotron header="Exercises" lead="You're seeing all exercises"></b-jumbotron>
         <div>
           <div v-for="exercise in Exercises" v-bind:key="exercise._id">
           <exercise-block v-bind:exercise="exercise"/>
