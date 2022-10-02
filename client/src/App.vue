@@ -9,10 +9,10 @@
         <div class="d-flex flex-sm-column flex-row flex-nowrap bg-light align-items-center sticky-top">
           <ul class="nav nav-pills nav-flush flex-sm-column flex-row flex-nowrap mb-auto mx-auto text-center align-items-center">
             <li>
-              <router-link to="/" class="link">Home</router-link>
+              <router-link to="/">Home</router-link>
             </li>
             <li>
-              <router-link to="/user" class="nav-link py-3 px-2">Profile</router-link>
+              <router-link to="/user">Profile</router-link>
             </li>
             <li>
               <router-link to="/exercises" >Exercises</router-link>
