@@ -1,11 +1,11 @@
 <template>
-  <div class="container">
-    <div class="row">
-      <div class="col-6 col-md-4"> </div>
-      <div class="col-6 col-md-4"> </div>
-      <div class="col-6 col-md-4">
-        <router-link to="/"><img src="@/assets/Logo.png" alt="logo"/></router-link>
-      </div>
+  <div class="row">
+    <div class="col-6 col-md-4">
+      <router-link to="/user"><img src="@/assets/profile.png"  alt="profile" width="15%" /></router-link>
+    </div>
+    <div class="col-6 col-md-4"> </div>
+    <div class="col-6 col-md-4">
+      <router-link to="/"><img src="@/assets/Logo.png" alt="logo" width="60%" /></router-link>
     </div>
   </div>
 </template>
@@ -13,7 +13,6 @@
 <style scoped>
   img {
     float: left;
-    width: 100%;
-    padding: 10px 0;
+    padding: 10px;
   }
 </style>
