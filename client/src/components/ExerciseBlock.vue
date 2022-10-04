@@ -5,7 +5,6 @@
         <h4 class="card-title">{{this.exercise.Name}}</h4>
         <p>Difficulty: {{exercise.DifficultyScore}}</p>
         <b-button href="#" variant="info" v-on:click="readExercise()">Read more</b-button>
-
       </div>
     </div>
 </template>

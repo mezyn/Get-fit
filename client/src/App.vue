@@ -18,7 +18,7 @@
               <router-link to="/exercises" >Exercises</router-link>
             </li>
             <li>
-              <router-link to="/saved-exercises" >Saved Exercises</router-link>
+              <router-link to="/manage-exercises" >Manage Exercises</router-link>
             </li>
             <li>
               <router-link to="/body-map" >Body Map</router-link>
