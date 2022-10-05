@@ -54,5 +54,10 @@ export default new Router({
       path: '/sign-up',
       name: 'sign-up',
       component: SignUp
+    },
+    {
+      path: '/manage-exercises',
+      name: 'manage-exercises',
+      component: ManageExercises
     }]
 })
