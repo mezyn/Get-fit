@@ -7,11 +7,6 @@ var ExerciseSchema = new Schema ({
         required: true,
         unique: true
     },
-    AverageRating: {
-        type: Number, 
-        min: 0, 
-        max: 5
-    },
     DifficultyScore:{
         type: Number, 
         min: 0, 

@@ -1,8 +1,14 @@
 <template>
     <div>
-        <h1>this is a page for exercise {{this.$route.params.id}}</h1>
-        <h5>exercise description</h5>
-        {{data}}
+        <h4>Description for Exercise ID: </h4>
+        <h5>{{this.$route.params.id}}</h5>
+        <div id='exercise'>
+            Exercise Name: {{exerciseInfo.Name}}<br/>
+            Difficulty Score: {{exerciseInfo.DifficultyScore}}<br/>
+            Tips and Tricks: {{exerciseInfo.TipsAndTricks}}<br/>
+            Connected muscles: {{exerciseInfo.Muscles}}<br/>
+            Reviews: {{exerciseInfo.Reviews}}<br/>
+            </div>
     </div>
 </template>
 
@@ -11,27 +17,34 @@ import { Api } from '@/Api'
 
 export default {
   name: 'exercise',
+  data() {
+    return {
+      exerciseInfo: {
+        Name: '',
+        _id: '',
+        DifficultyScore: 0,
+        Reviews: [],
+        Muscles: [],
+        TipsAndTricks: ''
+      }
+    }
+  },
   mounted() {
     const exerciseId = this.$route.params.id
-    console.log('ExerciseID: ' + exerciseId)
-    // Load the real exercises from the server
-    Api.get(`/exercise/${exerciseId}`) // not sure
+    // console.log('ExerciseID: ' + exerciseId)
+    Api.get(`/exercises/${exerciseId}`)
       .then(response => {
-        this.exercise = response.data.exercise
+        this.exerciseInfo = response.data.Exercise
+        console.log(this.exerciseInfo)
       })
       .catch(error => {
         console.error(error)
-        this.exercise = []
+        this.exerciseInfo = null
         // TO DO: send a error message
       })
       .then(() => {
         // This code is always executed at the end. After success or failure. (optional)
       })
-  },
-  data() {
-    return {
-      exercise: []
-    }
   }
 }
 </script>
