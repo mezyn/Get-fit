@@ -6,9 +6,11 @@ We need to implement how to specify user and update the details in the code, but
         <b-jumbotron header="Manage Exercises" lead="For now, they're all exercises in the database. So if you delete them they'll be totally gone from the DB"></b-jumbotron>
         <div>
             <new-exercise/>
-                <div v-for="exercise in savedExercises" v-bind:key="exercise._id">
-                    <saved-exercise-block v-bind:exercise="exercise" v-on:del-exercise="deleteExercise" v-on:patch-exercise="patchExercise"/>
-            </div>
+              <b-card-group deck id="deck-cards">
+                  <div v-for="exercise in savedExercises" v-bind:key="exercise._id">
+                      <saved-exercise-block v-bind:exercise="exercise" v-on:del-exercise="deleteExercise" v-on:update-exercise="updateExercise"/>
+                  </div>
+              </b-card-group>
         </div>
     </div>
 </template>
@@ -49,16 +51,6 @@ export default {
   methods: {
     deleteExercise(id) {
       Api.delete(`/exercises/${id}`)
-        .then(response => {
-          const index = this.savedExercises.findIndex(exercise => exercise._id === id)
-          this.savedExercises.splice(index, 1)
-        })
-        .catch(error => {
-          console.error(error)
-        })
-    },
-    patchExercise(id) { // need to fix
-      Api.patch(`/exercises/${id}`)
         .then(response => {
           const index = this.savedExercises.findIndex(exercise => exercise._id === id)
           this.savedExercises.splice(index, 1)
