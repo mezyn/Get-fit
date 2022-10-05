@@ -1,31 +1,35 @@
 <template>
-          <div class="container" id="createBox">
-
+  <div class="container" id="createBox">
     <div>
-      <h1>Post New Exercise</h1>
-        <form @submit.prevent="postExercise" method="POST">
-          <div>
-            Name (obligatory):
-            <input type="text" id="Name" v-model="exercise.Name"> <br/>
-          </div>
-          <div>
-            Difficulty Score (optional) :
-            <select id="DifficultyScore" placeholder="Difficulty Score (1-5) (optional)" v-model="exercise.DifficultyScore">
-              <option value="1">1 (Very easy)</option>
-              <option value="2">2 (Easy)</option>
-              <option value="3">3 (Moderate)</option>
-              <option value="4">4 (Difficult)</option>
-              <option value="5">5 (Very difficult)</option>
-            </select>
-          </div>
-          <div>
-            Tips and tricks (optional):
-            <input type="text" id="TipsAndTricks" v-model="exercise.TipsAndTricks"> <br/>
-          </div>
-          <button type="submit">Post new Exercise</button>
-        </form>
+      <b-button v-b-modal.create variant="success">+ Create new exercise</b-button>
+      <b-modal id="create" title="Create new exercise" hide-footer>
+        <div>
+          <form @submit.prevent="postExercise" method="POST">
+            <div>
+              Name (obligatory):
+              <input type="text" id="Name" v-model="exercise.Name"> <br/>
+            </div>
+            <div>
+              Difficulty Score (optional) :
+              <select id="DifficultyScore" placeholder="Difficulty Score (1-5) (optional)" v-model="exercise.DifficultyScore">
+                <option value="1">1 (Very easy)</option>
+                <option value="2">2 (Easy)</option>
+                <option value="3">3 (Moderate)</option>
+                <option value="4">4 (Difficult)</option>
+                <option value="5">5 (Very difficult)</option>
+              </select>
+            </div>
+            <div>
+              Tips and tricks (optional):
+              <input type="text" id="TipsAndTricks" v-model="exercise.TipsAndTricks"> <br/>
+            </div>
+          </form>
+          <b-button variant="success" v-on:click="createExercise()">Create exercise</b-button>
+          <b-button @click="$bvModal.hide('create')">Cancel</b-button>
+        </div>
+      </b-modal>
     </div>
-    </div>
+  </div>
 </template>
 
 <script>
@@ -46,7 +50,7 @@ export default {
     }
   },
   methods: {
-    postExercise() {
+    createExercise() {
       Api.post('/exercises', this.exercise)
         .then(response => {
           console.log(response)
@@ -67,7 +71,6 @@ export default {
 #createBox{
   border-color: black;
   border-width: thin;
-  background-color: rgba(224, 222, 222, 0.973);
 }
 
 </style>
