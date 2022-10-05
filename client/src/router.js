@@ -8,6 +8,7 @@ import SavedExercises from './views/SavedExercises.vue'
 import BodyMap from './views/BodyMap.vue'
 import SignIn from './views/SignIn.vue'
 import SignUp from './views/SignUp.vue'
+import ManageExercises from './views/ManageExercises.vue'
 
 Vue.use(Router)
 
