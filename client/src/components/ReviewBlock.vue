@@ -13,7 +13,13 @@
 
 export default {
   name: 'review-block',
-  props: ['review']
+  data() {
+    return {
+      exerciseInfo: {
+        Reviews: []
+      }
+    }
+  }
 }
 </script>
 
