@@ -16,6 +16,11 @@
 <script>
 export default {
   name: 'filter-block',
+  data() {
+    return {
+      selected: 0
+    }
+  },
   methods: {
     onSelectedDifficultyScore(selected) {
       this.$emit('filter-exercise', selected)

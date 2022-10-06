@@ -8,7 +8,7 @@ We need to implement how to specify user and update the details in the code, but
             <new-exercise/>
               <b-card-group deck id="deck-cards">
                   <div v-for="exercise in savedExercises" v-bind:key="exercise._id">
-                      <saved-exercise-block v-bind:exercise="exercise" v-on:del-exercise="deleteExercise" v-on:update-exercise="updateExercise"/>
+                      <saved-exercise-block v-bind:exercise="exercise" v-on:del-exercise="deleteExercise"/>
                   </div>
               </b-card-group>
         </div>
@@ -58,6 +58,7 @@ export default {
         .catch(error => {
           console.error(error)
         })
+      window.location.reload()
     }
   }
 }

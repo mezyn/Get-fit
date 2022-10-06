@@ -9,19 +9,10 @@
           <p>Connected Muscles: {{exercise.Muscles}}</p>
           <p>Tips and Tricks: {{exercise.TipsAndTricks}}</p>
           <p>Reviews: {{exercise.Reviews}}.</p>
-          <b-button v-b-modal.delete variant="danger" >Delete exercise</b-button>
-          <b-modal id="delete" title="Confirm deletion" hide-footer>
-            <div>
-              <p>Are you sure you want to delete <B>{{exercise.Name}}</B>?</p>
-              <b-button variant="danger" v-on:click="deleteExercise()">Confirm deletion</b-button>
-              <b-button @click="$bvModal.hide('delete')">Cancel</b-button>
-            </div>
-          </b-modal>
           <b-button v-b-modal.update variant="warning">Update exercise</b-button>
           <b-modal id="update" title="Update exercise" hide-footer>
             <div>
               <p>Update <B>{{exercise.Name}}</B></p>
-
                <form @submit.prevent="updateExercise" method="PATCH">
                   <div>
                     Name:
@@ -46,6 +37,15 @@
               <b-button @click="$bvModal.hide('update')">Cancel</b-button>
             </div>
           </b-modal>
+          <b-button v-b-modal.delete variant="danger" >Delete exercise</b-button>
+          <b-modal id="delete" title="Confirm deletion" hide-footer>
+            <div>
+              <p>Are you sure you want to delete <B>{{exercise.Name}}</B>?</p>
+              <b-button variant="danger" v-on:click="deleteExercise()">Confirm deletion</b-button>
+              <b-button @click="$bvModal.hide('delete')">Cancel</b-button>
+            </div>
+          </b-modal>
+
         </div>
       </div>
     </div>
@@ -57,6 +57,13 @@ import { Api } from '@/Api'
 export default {
   name: 'savedExercise-block',
   props: ['exercise'],
+  data() {
+    return {
+      newName: '',
+      newDifficultyScore: 0,
+      newTipsAndTricks: ''
+    }
+  },
   methods: {
     deleteExercise() {
       this.$emit('del-exercise', this.exercise._id)
