@@ -7,6 +7,8 @@ import User from './views/User.vue'
 import SavedExercises from './views/SavedExercises.vue'
 import BodyMap from './views/BodyMap.vue'
 import ManageExercises from './views/ManageExercises.vue'
+import SignIn from './views/SignIn.vue'
+import SignUp from './views/SignUp.vue'
 
 Vue.use(Router)
 
@@ -48,6 +50,15 @@ export default new Router({
       path: '/manage-exercises',
       name: 'manage-exercises',
       component: ManageExercises
-    }
-  ]
+    },
+    {
+      path: '/sign-in',
+      name: 'sign-in',
+      component: SignIn
+    },
+    {
+      path: '/sign-up',
+      name: 'sign-up',
+      component: SignUp
+    }]
 })
