@@ -5,8 +5,8 @@ We need to implement how to specify user and update the details in the code, but
         <!-- Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop -->
         <b-jumbotron header="Saved Exercises" lead="For now, they're all exercises in the database. So if you delete them they'll be totally gone from the DB"></b-jumbotron>
         <div>
-                <div v-for="exercise in savedExercises" v-bind:key="exercise._id">
-                    <saved-exercise-block v-bind:exercise="exercise" v-on:del-exercise="deleteExercise"/>
+            <div v-for="exercise in savedExercises" v-bind:key="exercise._id">
+                <saved-exercise-block v-bind:exercise="exercise" v-on:del-exercise="deleteExercise"/>
             </div>
         </div>
     </div>

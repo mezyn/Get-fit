@@ -6,7 +6,6 @@ We need to implement how to specify user and update the details in the code, but
         <b-jumbotron header="Exercises" lead="You're seeing all exerciese"></b-jumbotron>
           <div>
             <filter-block v-on:filter-exercise="filterExercise"/><br/>
-            <div>{{message}}</div>
             <div class="row">
               <div id="exercises" v-for="exercise in Exercises" v-bind:key="exercise._id">
               <exercise-block v-bind:exercise="exercise"/>
@@ -47,9 +46,7 @@ export default {
     return {
       Exercises: [
       ],
-      selected: 0,
-      message: 'message'
-
+      selected: 0
     }
   },
   methods: {
