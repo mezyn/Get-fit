@@ -10,8 +10,8 @@
             Connected muscles: {{exerciseInfo.Muscles}}<br/>
         </div>
         <div>
-            Reviews: {{exerciseInfo.Reviews}}
-            <b-button v-on:click="showReview()">Show review</b-button>
+            <review-block v-bind:exercise="exerciseInfo"/>
+        </div>
             <div v-for="review in exerciseInfo.Reviews" v-bind:key="review._id">
             </div>
             <br/>
@@ -19,7 +19,7 @@
         <form @submit.prevent="createReview" method="POST">
             <div>
               Title (obligatory):
-              <input type="text" id="title" v-model="review.title"> <br/>
+              <input type="text" id="title" v-model="review.Title"> <br/>
             </div>
             <div>
               Rating (optional) :
@@ -38,14 +38,17 @@
           </form>
           <b-button v-on:click="createReview()">Submit review</b-button>
         </div>
-    </div>
 </template>
 
 <script>
 import { Api } from '@/Api'
+import ReviewBlock from '@/components/ReviewBlock.vue'
 
 export default {
   name: 'exercise',
+  components: {
+    ReviewBlock
+  },
   data() {
     return {
       exerciseInfo: {
@@ -57,11 +60,10 @@ export default {
         TipsAndTricks: ''
       },
       review: {
-        _id: '',
         Title: '',
         Rating: null,
         MainText: '',
-        Author: 'We need to fix this',
+        // Author: 'We need to fix this',
         Exercise: ''
       }
     }
