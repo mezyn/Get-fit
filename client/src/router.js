@@ -62,13 +62,13 @@ export default new Router({
       component: ManageExercises
     },
     {
-      path: '/sign-in',
-      name: 'sign-in',
+      path: '/signin',
+      name: 'signin',
       component: SignIn
     },
     {
-      path: '/sign-up',
-      name: 'sign-up',
+      path: '/signup',
+      name: 'signup',
       component: SignUp
     }]
 })

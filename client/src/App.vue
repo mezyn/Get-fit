@@ -34,24 +34,57 @@
       </div>
     </div>
     <div v-else>
-      <nav><router-link to="/sign-in">Sign In</router-link> | <router-link to="/sign-up">Sign Up</router-link></nav>
-      <router-view/>
+      <div v-if="signIn">
+        <sign-in @login="login()" />
+        <button @click="switchToSignUp()">Sign up instead</button>
+      </div>
+      <div v-else>
+        <sign-up @login="login()" />
+        <button @click="switchToSignIn()">Sign in instead</button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import { Api } from '@/Api'
+import signIn from './views/SignIn.vue'
+import signUp from './views/SignUp.vue'
 import Header from '@/components/Header.vue'
 
 export default {
   components: {
     // Define the name of the component here
-    'menu-header': Header
+    'menu-header': Header,
+    'sign-in': signIn,
+    'sign-up': signUp
   },
   data() {
     return {
       isLoggedIn: false,
-      user: {}
+      user: {},
+      signIn: true
+    }
+  },
+  methods: {
+    login() {
+      this.isLoggedIn = true
+      this.getUser()
+      console.log(this.user)
+    },
+    getUser() {
+      Api.get('/user', {
+        headers: { token: localStorage.getItem('token') }
+      }).then((res) => {
+        console.log(res.data.user._id)
+        this.user = res.data.user._id
+      })
+    },
+    switchToSignUp() {
+      this.signIn = false
+    },
+    switchToSignIn() {
+      this.signIn = true
     }
   }
 }
