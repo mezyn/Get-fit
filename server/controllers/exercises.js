@@ -93,7 +93,7 @@ router.get('/api/exercises/:id/reviews', function(req, res, next) {
             return res.status(404).json({'message': 'No review found!'});
         }
         // use .populate
-        res.json(`Reviews for this exercise: ${exercise.Reviews}`);
+        res.json(exercise.Reviews);
     });
 });
 

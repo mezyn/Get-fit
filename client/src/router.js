@@ -60,15 +60,7 @@ export default new Router({
       path: '/manage-exercises',
       name: 'manage-exercises',
       component: ManageExercises
-    },
-    {
-      path: '/sign-in',
-      name: 'sign-in',
-      component: SignIn
-    },
-    {
-      path: '/sign-up',
-      name: 'sign-up',
-      component: SignUp
-    }]
-})
+    }
+  ]
+}
+)
