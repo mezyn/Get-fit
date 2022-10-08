@@ -66,11 +66,15 @@ export default {
       signIn: true
     }
   },
+  mounted() {
+    this.$router.push('/login')
+  },
   methods: {
     login() {
       this.isLoggedIn = true
       this.getUser()
       console.log(this.user)
+      this.$router.push('/')
     },
     getUser() {
       Api.get('/user', {
