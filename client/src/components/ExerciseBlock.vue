@@ -1,12 +1,13 @@
 <!--For exercise thumbnails with save buttons-->
 <template>
-    <div class="card" style="width: 18rem;">
+  <b-container>
+    <div class="card">
       <div class="card-body">
-        <h4 class="card-title">{{this.exercise.Name}}</h4>
-        <p>Difficulty: {{exercise.DifficultyScore}}</p>
-        <b-button href="#" variant="info" v-on:click="readExercise()">Read more</b-button>
+          <h4 class="card-title">{{this.exercise.Name}}</h4>
+            <b-button href="#" variant="info" v-on:click="readExercise()">Read more</b-button>
       </div>
     </div>
+  </b-container>
 </template>
 
 <script>
@@ -26,5 +27,11 @@ export default {
 <style scoped>
 p {
     color: gray;
+}
+
+@media only screen and (min-width: 541px)  {
+  .card {
+    width: 25rem;
+}
 }
 </style>

@@ -1,18 +1,28 @@
 <!--For now, it's showing all exercise info.
 We need to implement how to specify user and update the details in the code, but they'll look something like this.-->
 <template>
-    <div class="container">
+    <b-container>
         <!-- Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop -->
-        <b-jumbotron header="Exercises" lead="You're seeing all exerciese"></b-jumbotron>
-          <div>
-            <filter-block v-on:filter-exercise="filterExercise"/><br/>
-            <div class="row">
-              <div id="exercises" v-for="exercise in Exercises" v-bind:key="exercise._id">
-              <exercise-block v-bind:exercise="exercise"/>
+        <b-jumbotron header="Exercises" lead="Explore our numerous exercises made for you"></b-jumbotron>
+        <b-row id="filter-row">
+            <b-col id="filter-col">
+              <div id="filter-div">
+                  <p>Filter by Difficulty Score:</p>
+                <filter-block v-on:filter-exercise="filterExercise"/>
+              </div>
+            </b-col>
+        </b-row>
+        <br/>
+        <b-row>
+          <b-col>
+            <div class="card-deck">
+                    <div id="exercises" v-for="exercise in Exercises" v-bind:key="exercise._id">
+                    <exercise-block v-bind:exercise="exercise"/>
               </div>
             </div>
-        </div>
-  </div>
+          </b-col>
+        </b-row>
+    </b-container>
 </template>
 
 <script>
@@ -51,7 +61,6 @@ export default {
   },
   methods: {
     filterExercise(selected) {
-      console.log('arrived here in filter exercise')
       Api.get(`/exercises/?difficultyscore=${selected}`)
         .then(response => {
           this.Exercises = response.data.Exercises
@@ -74,9 +83,12 @@ export default {
 </script>
 
 <style scoped>
+
+.filter-div {
+  align-self: flex-end;
+}
 #exercises {
-  padding-right: 10px;
-  padding-bottom: 10px;
+  padding-bottom: 20px;
 }
 
 </style>
