@@ -53,6 +53,10 @@ export default {
         .catch(error => {
           console.error(error)
         })
+        .then(() => {
+          window.location.reload()
+        }
+        )
     }
   }
 }

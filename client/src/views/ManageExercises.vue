@@ -3,11 +3,11 @@ We need to implement how to specify user and update the details in the code, but
 <template>
     <div class="container">
         <!-- Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop -->
-        <b-jumbotron header="Manage Exercises" lead="For now, they're all exercises in the database. So if you delete them they'll be totally gone from the DB"></b-jumbotron>
+        <b-jumbotron header="Manage Exercises" lead="Here you can see all details about exercises as well as create, update and delete them"></b-jumbotron>
         <div>
-            <new-exercise/>
+            <new-exercise id="new-exercise"/>
               <b-card-group deck id="deck-cards">
-                  <div v-for="exercise in savedExercises" v-bind:key="exercise._id">
+                  <div id="saved-exercises" v-for="exercise in savedExercises" v-bind:key="exercise._id">
                       <saved-exercise-block v-bind:exercise="exercise" v-on:del-exercise="deleteExercise"/>
                   </div>
               </b-card-group>
@@ -63,3 +63,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+
+#saved-exercises {
+  padding-bottom: 20px;
+}
+</style>

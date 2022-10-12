@@ -61,7 +61,7 @@ export default {
   },
   data() {
     return {
-      isLoggedIn: false,
+      isLoggedIn: true,
       user: {},
       signIn: true
     }

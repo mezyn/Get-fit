@@ -3,12 +3,34 @@
     <div>
       <div class='card' style="width: 35 rem">
         <div class="card-body">
-          <p>Exercise ID: {{exercise._id}}</p>
-          <p>Exercise Name: {{exercise.Name}}</p>
-          <p>Difficulty score: {{exercise.DifficultyScore}}</p>
-          <p>Connected Muscles: {{exercise.Muscles}}</p>
-          <p>Tips and Tricks: {{exercise.TipsAndTricks}}</p>
-          <p>Reviews: {{exercise.Reviews}}.</p>
+          <table class="table table-hover">
+            <tbody>
+              <tr>
+                <td><strong>Exercise ID</strong></td>
+                <td>{{exercise._id}}</td>
+              </tr>
+              <tr>
+                <td><strong>Name</strong></td>
+                <td>{{exercise.Name}}</td>
+              </tr>
+              <tr>
+                <td><strong>Difficulty Score</strong></td>
+                <td>{{exercise.DifficultyScore}}</td>
+              </tr>
+              <tr>
+                <td><strong>Tips and Tricks</strong></td>
+                <td>{{exercise.TipsAndTricks}}</td>
+              </tr>
+              <tr>
+                <td><strong>Connected Muscle IDs</strong></td>
+                <td>{{exercise.Muscles}}</td>
+              </tr>
+              <tr>
+                <td><strong>Review IDs</strong></td>
+                <td>{{exercise.Reviews}}</td>
+              </tr>
+            </tbody>
+          </table>
           <b-button v-b-modal.update variant="warning">Update exercise</b-button>
           <b-modal id="update" title="Update exercise" hide-footer>
             <div>
@@ -67,7 +89,6 @@ export default {
   methods: {
     deleteExercise() {
       this.$emit('del-exercise', this.exercise._id)
-      console.log('del-exercise with id:' + this.exercise._id)
     },
     updateExercise() { // need to fix
       const id = this.exercise._id

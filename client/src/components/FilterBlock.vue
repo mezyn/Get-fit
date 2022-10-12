@@ -1,7 +1,6 @@
 <template>
     <div>
         <div>
-            Filter by Difficulty Score:
             <select v-model="selected" id="filterBlock" placeholder="Select 1-5" :value="selected" @change="onSelectedDifficultyScore(selected)">
               <option :value="1">1 (Very easy)</option>
               <option :value="2">2 (Easy)</option>
