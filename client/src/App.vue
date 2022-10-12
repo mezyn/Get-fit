@@ -3,36 +3,40 @@
     <div v-if="isLoggedIn">
       <menu-header/>
       <div id="nav">.</div>
-      <div class="row">
-        <div class="col-sm-auto bg-light sticky-top" id="menu">
-          <h5>Menu</h5>
-          <p>Here we can have a picture of the exercise</p>
-          <div class="d-flex flex-sm-column flex-row flex-nowrap bg-light align-items-center sticky-top">
-            <ul class="nav nav-pills nav-flush flex-sm-column flex-row flex-nowrap mb-auto mx-auto text-center align-items-center">
-              <li>
-                <router-link to="/">Home</router-link>
-              </li>
-              <li>
-                <router-link to="/user">Profile</router-link>
-              </li>
-              <li>
-                <router-link to="/exercises" >Exercises</router-link>
-              </li>
-              <li>
-              <router-link to="/manage-exercises" >Manage Exercises</router-link>
-              </li>
-              <li>
-                <router-link to="/body-map" >Body Map</router-link>
-              </li>
-            </ul>
+        <div class="row">
+          <div class="col-3">
+            <nav class="navbar">
+                <div class="col-sm bg-light sticky-top" id="menu">
+                  <!-- Collapse button -->
+                  <b-navbar toggleable type="light" variant="light">
+                    <b-navbar-brand href="#">NavBar</b-navbar-brand>
+                    <b-navbar-toggle target="navbar-toggle-collapse">
+                      <template #default="{ expanded }">
+                        <b-icon v-if="expanded" icon="chevron-double-up"></b-icon>
+                        <b-icon v-else icon="chevron-double-down"></b-icon>
+                      </template>
+                    </b-navbar-toggle>
+                    <b-collapse id="navbar-toggle-collapse" is-nav>
+                      <b-navbar-nav class="ml">
+                        <router-link class="nav-link" to="/">Home</router-link>
+                        <router-link class="nav-link" to="/user">Profile</router-link>
+                        <router-link class="nav-link" to="/body-map" >Body Map</router-link>
+                        <router-link class="nav-link" to="/exercises" >Exercises</router-link>
+                        <router-link class="nav-link" to="/manage-exercises" >Manage Exercises</router-link>
+                        <router-link class="nav-link" to="/" >Placeholder for logout</router-link>
+                      </b-navbar-nav>
+                    </b-collapse>
+                  </b-navbar>
+              </div>
+            </nav>
           </div>
-        </div>
-        <div class="col-sm">
+        <div class="col-9">
           <!-- Render the content of the current page view -->
           <router-view/>
         </div>
+        </div>
       </div>
-    </div>
+
     <div v-else>
       <div v-if="signIn">
         <sign-in @login="login()" />
@@ -103,15 +107,37 @@ export default {
   color: #2c3e50;
 }
 #nav {
+  padding: 1rem 1.5rem;
   background-color: #F5793B;
 }
 #menu {
   padding: 5%;
   background-color: #feeee7;
 }
-.link {
-  background-color: white;
-  stroke: #F5793B;
-  padding: 5%;
+.nav-link{
+    font-size: 1rem;
+    font-weight: 400;
+    color: #475569;
 }
+
+@media only screen and (max-width: 540px) {
+    .navbar {
+        position: fixed;
+        float: left;
+        left: -100%;
+        top:0%;
+        flex-direction: column;
+        background-color: thistle;
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+        text-align: center;
+        transition: 0.3s;
+        box-shadow:
+            0 10px 27px rgba(0, 0, 0, 0.05);
+        display:;
+    }
+
+}
+
 </style>
