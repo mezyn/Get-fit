@@ -3,11 +3,10 @@ We need to implement how to specify user and update the details in the code, but
 <template>
     <b-container>
         <!-- Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop -->
-        <b-jumbotron header="Exercises" lead="Explore our numerous exercises made for you"></b-jumbotron>
+        <b-jumbotron header="Exercises" lead="Explore numerous exercises ready for you"></b-jumbotron>
         <b-row id="filter-row">
             <b-col id="filter-col">
               <div id="filter-div">
-                  <p>Filter by Difficulty Score:</p>
                 <filter-block v-on:filter-exercise="filterExercise"/>
               </div>
             </b-col>
@@ -85,7 +84,7 @@ export default {
 <style scoped>
 
 .filter-div {
-  align-self: flex-end;
+  align-items: baseline;
 }
 #exercises {
   padding-bottom: 20px;
