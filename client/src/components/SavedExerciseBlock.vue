@@ -1,74 +1,58 @@
 <!--For saved exercises with delete buttons-->
 <template>
     <div>
-      <div class='card' style="width: 35 rem">
-        <div class="card-body">
-          <table class="table table-hover">
-            <tbody>
-              <tr>
-                <td><strong>Exercise ID</strong></td>
-                <td>{{exercise._id}}</td>
-              </tr>
-              <tr>
-                <td><strong>Name</strong></td>
-                <td>{{exercise.Name}}</td>
-              </tr>
-              <tr>
-                <td><strong>Difficulty Score</strong></td>
-                <td>{{exercise.DifficultyScore}}</td>
-              </tr>
-              <tr>
-                <td><strong>Tips and Tricks</strong></td>
-                <td>{{exercise.TipsAndTricks}}</td>
-              </tr>
-              <tr>
-                <td><strong>Connected Muscle IDs</strong></td>
-                <td>{{exercise.Muscles}}</td>
-              </tr>
-              <tr>
-                <td><strong>Review IDs</strong></td>
-                <td>{{exercise.Reviews}}</td>
-              </tr>
-            </tbody>
-          </table>
-          <b-button v-b-modal.update variant="warning">Update exercise</b-button>
-          <b-modal id="update" title="Update exercise" hide-footer>
-            <div>
-              <p>Update <B>{{exercise.Name}}</B></p>
-               <form @submit.prevent="updateExercise" method="PATCH">
+      <div id="details">
+        <b-card no-body class="full-width">
+          <b-tabs pills card vertical>
+            <b-tab title="Exercise Details" active>
+              <b-card-text>
+                <ul>
+                  <li><strong>ID:<b-icon icon="blank" aria-hidden="true"></b-icon> </strong>{{exercise._id}}</li>
+                  <li><strong>Name:<b-icon icon="blank" aria-hidden="true"></b-icon> </strong>{{exercise.Name}}</li>
+                  <li><strong>Difficulty Score:<b-icon icon="blank" aria-hidden="true"></b-icon> </strong>{{exercise.DifficultyScore}}</li>
+                  <li><strong>Tips and Tricks:</strong></li>
+                  <li>{{exercise.TipsAndTricks}}</li>
+                  <li><strong>Connected Muscle IDs: </strong></li>
+                  <li>{{exercise.Muscles}}</li>
+                  <li><strong>Review IDs:</strong></li>
+                  <li>{{exercise.Reviews}}</li>
+                </ul>
+              </b-card-text>
+            </b-tab>
+            <b-tab title="Update Exercise">
+              <b-card-text>
+                <form @submit.prevent="updateExercise" method="PATCH">
+                  <ui>
+                    <li><strong>New name:</strong></li>
+                    <li><input type="text" id="Name" v-model="newName"/></li>
                   <div>
-                    Name:
-                    <input type="text" id="Name" v-model="newName"> <br/>
-                  </div>
-                  <div>
-                    Difficulty Score:
-                    <select id="DifficultyScore" placeholder="Difficulty Score (1-5)" v-model="newDifficultyScore">
+                    <li><strong>Difficulty Score:</strong></li>
+                    <li><select id="DifficultyScore" placeholder="Difficulty Score (1-5)" v-model="newDifficultyScore">
                       <option value="1">1 (Very easy)</option>
                       <option value="2">2 (Easy)</option>
                       <option value="3">3 (Moderate)</option>
                       <option value="4">4 (Difficult)</option>
                       <option value="5">5 (Very difficult)</option>
-                    </select>
+                    </select></li>
                   </div>
                   <div>
-                    Tips and tricks:
-                    <input type="text" id="TipsAndTricks" v-model="newTipsAndTricks"> <br/>
+                    <li><strong>Tips and tricks:</strong></li>
+                    <li><input type="text" id="TipsAndTricks" v-model="newTipsAndTricks"/></li>
                   </div>
+                   </ui>
                 </form>
-              <b-button variant="success" v-on:click="updateExercise()">Update exercise</b-button>
-              <b-button @click="$bvModal.hide('update')">Cancel</b-button>
-            </div>
-          </b-modal>
-          <b-button v-b-modal.delete variant="danger" >Delete exercise</b-button>
-          <b-modal id="delete" title="Confirm deletion" hide-footer>
-            <div>
-              <p>Are you sure you want to delete <B>{{exercise.Name}}</B>?</p>
-              <b-button variant="danger" v-on:click="deleteExercise()">Confirm deletion</b-button>
-              <b-button @click="$bvModal.hide('delete')">Cancel</b-button>
-            </div>
-          </b-modal>
-
-        </div>
+                <b-button v-on:click="updateExercise()" variant="warning">Update this exercise</b-button>
+              </b-card-text>
+            </b-tab>
+            <b-tab title="Delete Exercise">
+              <b-card-text>
+                <p>Deleted exrcises cannot be restored.</p>
+                <p>Are you sure you want to delete this exercise?</p>
+                <b-button variant="danger" v-on:click="deleteExercise()">Confirm deletion</b-button>
+              </b-card-text>
+              </b-tab>
+          </b-tabs>
+        </b-card>
       </div>
     </div>
 </template>
@@ -110,5 +94,19 @@ export default {
 <style scoped>
 p {
     color: black;
+    margin-bottom: 10px;
+    margin-top: 10px;
 }
+li {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+button {
+  margin-top: 20px;
+  margin-bottom: 0px;
+}
+
 </style>

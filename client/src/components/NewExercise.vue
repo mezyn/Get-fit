@@ -1,8 +1,8 @@
 <template>
   <div class="container" id="createBox">
     <div>
-      <b-button v-b-modal.create variant="success">+ Create new exercise</b-button>
-      <b-modal id="create" title="Create new exercise" hide-footer>
+      <b-button v-b-modal.create variant="success" class="float-right">+ Create new exercise</b-button>
+      <b-modal id="create" centered title="Create new exercise" hide-footer no-close-on-esc no-close-on-backdrop hide-header-close>
         <div>
           <form @submit.prevent="postExercise" method="POST">
             <div>
@@ -57,10 +57,10 @@ export default {
         })
         .catch(error => {
           console.log(error.response)
-        }
-        // TO DO: send a error message
-        )
-      window.location.reload()
+        })
+        .then(() => {
+          window.location.reload()
+        })
     }
   }
 
