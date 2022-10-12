@@ -28,7 +28,7 @@ router.get('/api/muscles/:id', function(req, res, next) {
         if (muscle === null) {
             return res.status(404).json({'message': 'Muscle not found!'});
         }
-        res.json(muscle);
+        res.json({'Muscle' : muscle});
     });
 });
 

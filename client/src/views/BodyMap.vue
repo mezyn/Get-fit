@@ -2756,13 +2756,15 @@ RU5ErkJggg==
        id="path847"
        onmouseover="this.style.opacity=1"
        sodipodi:nodetypes="cccccccccccccccccccc"
-       onmouseout="this.style.opacity=0" />
+       onmouseout="this.style.opacity=0"
+       v-on:click="showMuscle('634699b6e0a6200d1f1e9013')" />
     <path
        style="opacity:0;fill:#F5793B;stroke-width:5.5"
        d="m 70.172043,338.26523 26.089606,-67.47312 16.193551,-16.19354 5.39785,22.49104 23.39068,-12.59499 -8.09678,33.28674 -30.58781,26.08961 -17.09319,27.88889 z"
        id="path3861"
        onmouseover="this.style.opacity=1"
-       onmouseout="this.style.opacity=0" />
+       onmouseout="this.style.opacity=0"
+       onmousedown="showMuscle(6335a62e09ce07b2b1364f99)" />
     <path
        style="opacity:0;fill:#F5793B;stroke-width:5.5"
        d="m 116.05376,276.18996 24.29033,-10.79569 9.89605,-11.69535 5.39785,-19.79211 1.79929,-23.39068 -13.49463,-8.99642 -18.89247,13.49463 -10.7957,20.69175 z"
@@ -2984,3 +2986,19 @@ RU5ErkJggg==
         </b-jumbotron>
     </div>
 </template>
+
+<script>
+export default {
+  name: 'body-map',
+  data() {
+    return {
+      objectId: '6335a62e09ce07b2b1364f99'
+    }
+  },
+  methods: {
+    showMuscle(muscleId) {
+      this.$router.push({ path: `/muscles/${muscleId}` })
+    }
+  }
+}
+</script>

@@ -9,6 +9,7 @@ import BodyMap from './views/BodyMap.vue'
 import SignIn from './views/SignIn.vue'
 import SignUp from './views/SignUp.vue'
 import ManageExercises from './views/ManageExercises.vue'
+import Muscle from './views/Muscle.vue'
 
 Vue.use(Router)
 
@@ -70,5 +71,11 @@ export default new Router({
       path: '/signup',
       name: 'signup',
       component: SignUp
-    }]
+    },
+    {
+      path: '/muscles/:id',
+      name: 'muscle',
+      component: Muscle
+    }
+  ]
 })
