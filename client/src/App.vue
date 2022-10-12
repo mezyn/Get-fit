@@ -2,40 +2,33 @@
   <div id="app">
     <div v-if="isLoggedIn">
       <menu-header/>
-      <div id="nav">.</div>
-        <div class="row">
-          <div class="col-3">
-            <nav class="navbar">
-                <div class="col-sm bg-light sticky-top" id="menu">
-                  <!-- Collapse button -->
-                  <b-navbar toggleable type="light" variant="light">
-                    <b-navbar-brand href="#">NavBar</b-navbar-brand>
-                    <b-navbar-toggle target="navbar-toggle-collapse">
-                      <template #default="{ expanded }">
-                        <b-icon v-if="expanded" icon="chevron-double-up"></b-icon>
-                        <b-icon v-else icon="chevron-double-down"></b-icon>
-                      </template>
-                    </b-navbar-toggle>
-                    <b-collapse id="navbar-toggle-collapse" is-nav>
-                      <b-navbar-nav class="ml">
-                        <router-link class="nav-link" to="/">Home</router-link>
-                        <router-link class="nav-link" to="/user">Profile</router-link>
-                        <router-link class="nav-link" to="/body-map" >Body Map</router-link>
-                        <router-link class="nav-link" to="/exercises" >Exercises</router-link>
-                        <router-link class="nav-link" to="/manage-exercises" >Manage Exercises</router-link>
-                        <router-link class="nav-link" to="/" >Placeholder for logout</router-link>
-                      </b-navbar-nav>
-                    </b-collapse>
-                  </b-navbar>
-              </div>
-            </nav>
-          </div>
-        <div class="col-9">
+      <div>
+        <b-navbar toggleable="lg" type="dark">
+          <b-navbar-brand router-link class="nav-link" to="/">
+              <b-icon icon="house-door-fill" aria-hidden="true"></b-icon>
+            </b-navbar-brand>
+          <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+          <b-collapse id="nav-collapse" is-nav>
+            <!-- Right aligned nav items -->
+            <b-navbar-nav class="ml-auto">
+              <router-link class="nav-link" to="/body-map" >Body Map</router-link>
+                <router-link class="nav-link" to="/exercises" >Exercises</router-link>
+                <router-link class="nav-link" to="/manage-exercises" >Manage Exercises</router-link>
+              <b-nav-item-dropdown right>
+                <!-- Using 'button-content' slot -->
+                <template #button-content>
+                  <b-icon icon="person-circle" aria-hidden="true"></b-icon>
+                </template>
+                <b-dropdown-item router-link class="nav-link" to="/user">Profile</b-dropdown-item>
+                <b-dropdown-item router-link class="nav-link" to="/" >Sign Out</b-dropdown-item>
+              </b-nav-item-dropdown>
+            </b-navbar-nav>
+          </b-collapse>
+        </b-navbar>
+      </div>
           <!-- Render the content of the current page view -->
           <router-view/>
         </div>
-        </div>
-      </div>
 
     <div v-else>
       <div v-if="signIn">
@@ -110,24 +103,29 @@ export default {
   padding: 1rem 1.5rem;
   background-color: #F5793B;
 }
-#menu {
-  padding: 5%;
-  background-color: #feeee7;
-}
 .nav-link{
     font-size: 1rem;
-    font-weight: 400;
+    font-weight: 500;
     color: #475569;
 }
+.navbar {
+  font-style: bold;
+  background-color: #F5793B;
+  font-family: Arial, sans-serif;
+  font-weight: 400;
+}
 
-@media only screen and (max-width: 540px) {
+.navbar-nav {
+  margin-left: 30px;
+  margin-right: 30px;
+}
+@media only screen and (max-width: 340px) {
     .navbar {
         position: fixed;
         float: left;
         left: -100%;
         top:0%;
         flex-direction: column;
-        background-color: thistle;
         width: 100%;
         height: 100%;
         border-radius: 10px;
@@ -135,9 +133,7 @@ export default {
         transition: 0.3s;
         box-shadow:
             0 10px 27px rgba(0, 0, 0, 0.05);
-        display:;
     }
-
 }
 
 </style>
