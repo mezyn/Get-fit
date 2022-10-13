@@ -23,8 +23,11 @@ router.get('/api/muscles', function(req, res, next) {
 //Get a specific muscle
 router.get('/api/muscles/:id', function(req, res, next) {
     var id = req.params.id;
-    Muscle.findById(id, function(err, muscle) {
+    Muscle.findById(id, function(err) {
         if (err) { return next(err); }
+    })
+    .populate('Exercises')
+    .then(muscle => {
         if (muscle === null) {
             return res.status(404).json({'message': 'Muscle not found!'});
         }
@@ -67,8 +70,11 @@ router.patch('/api/muscles/:id', function(req, res, next) {
 //Get all exercises related to a specific muscle
 router.get('/api/muscles/:id/exercises', function(req, res, next) {
     var id = req.params.id;
-    Muscle.findById(id, function(err, muscle) {
+    Muscle.findById(id, function(err) {
         if (err) { return next(err); }
+    })
+    .populate('Exercises')
+    .then(muscle => {
         if (muscle === null) {
             return res.status(404).json({'message': 'Muscle not found!'});
         }

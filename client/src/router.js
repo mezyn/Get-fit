@@ -9,7 +9,7 @@ import BodyMap from './views/BodyMap.vue'
 import SignIn from './views/SignIn.vue'
 import SignUp from './views/SignUp.vue'
 import ManageExercises from './views/ManageExercises.vue'
-import Muscle from './views/Muscle.vue'
+import Muscle from './views/muscle.vue'
 
 Vue.use(Router)
 
