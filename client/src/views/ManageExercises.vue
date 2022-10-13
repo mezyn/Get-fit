@@ -78,5 +78,6 @@ export default {
 
 #saved-exercises {
   padding-bottom: 20px;
+  width: 100%
 }
 </style>

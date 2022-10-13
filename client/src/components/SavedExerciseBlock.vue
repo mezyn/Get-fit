@@ -21,7 +21,7 @@
             </b-tab>
             <b-tab title="Update Exercise">
               <b-card-text>
-                <form @submit.prevent="updateExercise" method="PATCH">
+                <form id="update-form" align-center @submit.prevent="updateExercise" method="PATCH">
                   <ui>
                     <li><strong>New name:</strong></li>
                     <li><input type="text" id="Name" v-model="newName"/></li>
@@ -109,4 +109,7 @@ button {
   margin-bottom: 0px;
 }
 
+#update-form {
+  align-items: center;
+}
 </style>
