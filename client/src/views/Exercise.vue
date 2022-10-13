@@ -25,11 +25,20 @@
 
           <b-card no-body class="mb-1">
             <b-card-header header-tag="header" class="p-1" role="tab">
-              <b-button block v-b-toggle.accordion-3 variant="light">See Connected Muscles <b-icon icon="caret-down-fill" aria-hidden="true"></b-icon></b-button>
+              <b-button block v-b-toggle.accordion-3 variant="light" v-on:click="showMuscle()">See Connected Muscles <b-icon icon="caret-down-fill" aria-hidden="true"></b-icon></b-button>
             </b-card-header>
             <b-collapse id="accordion-3" accordion="my-accordion" role="tabpanel">
               <b-card-body>
-                <b-card-text>text</b-card-text>
+                <b-card-text>
+                  <div>
+                    <div v-for="muscle in completeMuscles" v-bind:key="muscle._id">
+                      <h4><strong>{{muscle.Name}} </strong></h4>
+                      <em>({{muscle.LatinName}})</em>
+                      <p>{{muscle.Description}}</p>
+                      <hr>
+                    </div>
+                  </div>
+                </b-card-text>
               </b-card-body>
             </b-collapse>
           </b-card>
@@ -53,31 +62,44 @@
               </b-card-body>
             </b-collapse>
           </b-card>
+
+          <b-card no-body class="mb-1">
+            <b-card-header header-tag="header" class="p-1" role="tab">
+              <b-button block v-b-toggle.accordion-5 variant="light" >Leave a Review<b-icon icon="caret-down-fill" aria-hidden="true"></b-icon></b-button>
+            </b-card-header>
+            <b-collapse id="accordion-5" accordion="my-accordion" role="tabpanel">
+              <b-card-body>
+                <b-card-text>
+                  <div>
+                    <form @submit.prevent="createReview" method="POST">
+                        <div>
+                          <p><strong>Title *</strong></p>
+                          <input type="text" id="title" v-model="review.Title"> <br/>
+                        </div>
+                        <div>
+                          <p><strong>Description *</strong></p>
+                          <input type="text" id="description" v-model="review.MainText"> <br/>
+                        </div>
+                        <div>
+                          <p><strong>Rating</strong></p>
+                          <select id="rating" placeholder="Select rating (1-5) (optional)" v-model="review.Rating">
+                            <option value="1">1 (Very bad)</option>
+                            <option value="2">2 (Bad)</option>
+                            <option value="3">3 (Moderate)</option>
+                            <option value="4">4 (Good)</option>
+                            <option value="5">5 (Very Good)</option>
+                          </select>
+                        </div>
+                        <em>* Necessary fields</em>
+                      </form>
+                      <b-button variant="primary" v-on:click="createReview()">Send</b-button>
+                  </div>
+                </b-card-text>
+              </b-card-body>
+            </b-collapse>
+          </b-card>
         </div>
-              <br/>
-            <h2>Create new review?</h2>
-        <form @submit.prevent="createReview" method="POST">
-            <div>
-              Title (obligatory):
-              <input type="text" id="title" v-model="review.Title"> <br/>
-            </div>
-            <div>
-              Rating (optional) :
-              <select id="rating" placeholder="Select rating (1-5) (optional)" v-model="review.Rating">
-                <option value="1">1 (Very bad)</option>
-                <option value="2">2 (Bad)</option>
-                <option value="3">3 (Moderate)</option>
-                <option value="4">4 (Good)</option>
-                <option value="5">5 (Very Good)</option>
-              </select>
-            </div>
-            <div>
-              Description (obligatory):
-              <input type="text" id="description" v-model="review.MainText"> <br/>
-            </div>
-          </form>
-          <b-button v-on:click="createReview()">Submit review</b-button>
-        </div>
+      </div>
 </template>
 
 <script>
@@ -104,16 +126,18 @@ export default {
       },
       reviewIds: [],
       completeReviews: [],
-      count: 0
+      reviewCount: 0,
+
+      muscleIds: [],
+      completeMuscles: [],
+      muscleCount: 0
     }
   },
   mounted() {
     const exerciseId = this.$route.params.id
-    // console.log('ExerciseID: ' + exerciseId)
     Api.get(`/exercises/${exerciseId}`)
       .then(response => {
         this.exerciseInfo = response.data.Exercise
-        // console.log('this.exerciseInfo' + this.exerciseInfo)
       })
       .catch(error => {
         console.error(error)
@@ -139,23 +163,32 @@ export default {
       window.location.reload()
     },
     showReview() {
-      this.count += 1
-      if (this.count < 2) {
+      this.reviewCount += 1
+      if (this.reviewCount < 2) {
         this.reviewIds = this.exerciseInfo.Reviews
-        console.log('this.reviewIds: ' + this.reviewIds)
-        console.log(this.reviewIds[0])
-        console.log('count: ' + this.count)
         this.reviewIds.forEach(this.fetchReviewData)
       }
     },
     fetchReviewData(index) {
-      console.log('we are here with index: ' + index)
       Api.get('/reviews/' + index)
         .then(response => {
           this.completeReviews.push(response.data)
-          console.log('response data: ' + response.data)
-          console.log('complete reviews:' + this.completeReviews)
-          console.log('complete reviews:' + this.completeReviews[0])
+        })
+        .catch(error => {
+          console.log(error.response.data)
+        })
+    },
+    showMuscle() {
+      this.muscleCount += 1
+      if (this.muscleCount < 2) {
+        this.muscleIds = this.exerciseInfo.Muscles
+        this.muscleIds.forEach(this.fetchMuscleData)
+      }
+    },
+    fetchMuscleData(index) {
+      Api.get('/muscles/' + index)
+        .then(response => {
+          this.completeMuscles.push(response.data)
         })
         .catch(error => {
           console.log(error.response.data)
@@ -166,5 +199,13 @@ export default {
 </script>
 
 <style scoped>
-
+input {
+  margin-bottom: 20px;
+}
+select {
+  margin-bottom: 20px;
+}
+button {
+  margin-top: 15px;
+}
 </style>
