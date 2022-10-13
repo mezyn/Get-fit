@@ -19,15 +19,15 @@
                 <template #button-content>
                   <b-icon icon="person-circle" aria-hidden="true"></b-icon>
                 </template>
-                <b-dropdown-item router-link class="nav-link" to="/user">Profile</b-dropdown-item>
-                <b-dropdown-item router-link class="nav-link" to="/" >Sign Out</b-dropdown-item>
+                <b-dropdown-item router-link class="nav-link" to="/user" v-bind:userId="this.user">Profile</b-dropdown-item>
+                <b-dropdown-item router-link class="nav-link" to="/login" v-on:click="logOut()">Sign Out</b-dropdown-item>
               </b-nav-item-dropdown>
             </b-navbar-nav>
           </b-collapse>
         </b-navbar>
       </div>
           <!-- Render the content of the current page view -->
-          <router-view/>
+          <router-view v-bind:user="user" />
         </div>
 
     <div v-else>
@@ -86,6 +86,11 @@ export default {
     },
     switchToSignIn() {
       this.signIn = true
+    },
+    logOut() {
+      this.isLoggedIn = false
+      this.user = {}
+      localStorage.setItem('token', null)
     }
   }
 }
