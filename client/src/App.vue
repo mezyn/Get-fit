@@ -1,12 +1,100 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link>
+    <div v-if="isLoggedIn">
+      <menu-header/>
+      <div>
+        <b-navbar toggleable="lg" type="dark">
+          <b-navbar-brand router-link class="nav-link" to="/">
+              <b-icon icon="house-door-fill" aria-hidden="true"></b-icon>
+            </b-navbar-brand>
+          <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+          <b-collapse id="nav-collapse" is-nav>
+            <!-- Right aligned nav items -->
+            <b-navbar-nav class="ml-auto">
+              <router-link class="nav-link" to="/body-map" >Body Map</router-link>
+                <router-link class="nav-link" to="/exercises" >Exercises</router-link>
+                <router-link class="nav-link" to="/manage-exercises" >Manage Exercises</router-link>
+              <b-nav-item-dropdown right>
+                <!-- Using 'button-content' slot -->
+                <template #button-content>
+                  <b-icon icon="person-circle" aria-hidden="true"></b-icon>
+                </template>
+                <b-dropdown-item router-link class="nav-link" to="/user" v-bind:userId="this.user">Profile</b-dropdown-item>
+                <b-dropdown-item router-link class="nav-link" to="/login" v-on:click="logOut()">Sign Out</b-dropdown-item>
+              </b-nav-item-dropdown>
+            </b-navbar-nav>
+          </b-collapse>
+        </b-navbar>
+      </div>
+          <!-- Render the content of the current page view -->
+          <router-view v-bind:user="user" />
+        </div>
+
+    <div v-else>
+      <div v-if="signIn">
+        <sign-in @login="login()" />
+        <button @click="switchToSignUp()">Sign up instead</button>
+      </div>
+      <div v-else>
+        <sign-up @login="login()" />
+        <button @click="switchToSignIn()">Sign in instead</button>
+      </div>
     </div>
-    <!-- Render the content of the current page view -->
-    <router-view/>
   </div>
 </template>
+
+<script>
+import { Api } from '@/Api'
+import signIn from './views/SignIn.vue'
+import signUp from './views/SignUp.vue'
+import Header from '@/components/Header.vue'
+
+export default {
+  components: {
+    // Define the name of the component here
+    'menu-header': Header,
+    'sign-in': signIn,
+    'sign-up': signUp
+  },
+  data() {
+    return {
+      isLoggedIn: true,
+      user: {},
+      signIn: true
+    }
+  },
+  mounted() {
+    this.$router.push('/login')
+  },
+  methods: {
+    login() {
+      this.isLoggedIn = true
+      this.getUser()
+      console.log(this.user)
+      this.$router.push('/')
+    },
+    getUser() {
+      Api.get('/user', {
+        headers: { token: localStorage.getItem('token') }
+      }).then((res) => {
+        console.log(res.data.user._id)
+        this.user = res.data.user._id
+      })
+    },
+    switchToSignUp() {
+      this.signIn = false
+    },
+    switchToSignIn() {
+      this.signIn = true
+    },
+    logOut() {
+      this.isLoggedIn = false
+      this.user = {}
+      localStorage.setItem('token', null)
+    }
+  }
+}
+</script>
 
 <style>
 #app {
@@ -16,4 +104,41 @@
   text-align: center;
   color: #2c3e50;
 }
+#nav {
+  padding: 1rem 1.5rem;
+  background-color: #F5793B;
+}
+.nav-link{
+    font-size: 1rem;
+    font-weight: 500;
+    color: #475569;
+}
+.navbar {
+  font-style: bold;
+  background-color: #F5793B;
+  font-family: Arial, sans-serif;
+  font-weight: 400;
+}
+
+.navbar-nav {
+  margin-left: 30px;
+  margin-right: 30px;
+}
+@media only screen and (max-width: 340px) {
+    .navbar {
+        position: fixed;
+        float: left;
+        left: -100%;
+        top:0%;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+        text-align: center;
+        transition: 0.3s;
+        box-shadow:
+            0 10px 27px rgba(0, 0, 0, 0.05);
+    }
+}
+
 </style>
