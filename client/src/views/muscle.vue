@@ -37,7 +37,7 @@ export default {
     Api.get(`/muscles/${muscleId}`)
       .then(res => {
         console.log(res.data)
-        this.muscleInfo = res.data.Muscle
+        this.muscleInfo = res.data
         console.log(this.muscleInfo)
       })
       .catch(err => {

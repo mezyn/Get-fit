@@ -2750,10 +2750,10 @@ AIDgAgAAAAAAAAAILgAAAAAAAACA4AIAAAAAAAAAAMEFAAAAAAAAAPrE/wf8p3ulxmenwAAAAABJ
 RU5ErkJggg==
 "
        id="image10" />
-    <path
+       <path
        style="fill:#F5793B;stroke-width:5.5;opacity:0"
        d="m 32.387097,375.15054 22.491039,-16.19355 15.293907,-20.69176 16.193548,13.49463 -5.397849,11.69534 -8.096774,29.68817 -9.896058,11.69534 0.899642,-14.39427 -11.695341,19.79212 -2.698924,-2.69893 5.397849,-17.99283 -9.896057,20.69176 -5.39785,-1.79928 9.896058,-21.5914 -10.795699,17.99283 -3.598566,-3.59857 13.494623,-23.39068 -2.698925,-7.19713 -7.197132,7.19713 z"
-       id="path847"
+       id="rightHand"
        onmouseover="this.style.opacity=1"
        sodipodi:nodetypes="cccccccccccccccccccc"
        onmouseout="this.style.opacity=0"
@@ -2761,226 +2761,254 @@ RU5ErkJggg==
     <path
        style="opacity:0;fill:#F5793B;stroke-width:5.5"
        d="m 70.172043,338.26523 26.089606,-67.47312 16.193551,-16.19354 5.39785,22.49104 23.39068,-12.59499 -8.09678,33.28674 -30.58781,26.08961 -17.09319,27.88889 z"
-       id="path3861"
+       id="rightForearm"
        onmouseover="this.style.opacity=1"
        onmouseout="this.style.opacity=0"
-       onmousedown="showMuscle(6335a62e09ce07b2b1364f99)" />
+       v-on:click="showMuscle('6347e74a9df9200f15a99d4a')" />
     <path
        style="opacity:0;fill:#F5793B;stroke-width:5.5"
        d="m 116.05376,276.18996 24.29033,-10.79569 9.89605,-11.69535 5.39785,-19.79211 1.79929,-23.39068 -13.49463,-8.99642 -18.89247,13.49463 -10.7957,20.69175 z"
-       id="path3870"
+       id="rightbicep"
        onmouseover="this.style.opacity=1"
-       onmouseout="this.style.opacity=0" />
+       onmouseout="this.style.opacity=0"
+       v-on:click="showMuscle('6347ea7b9df9200f15a99d4c')"/>
     <path
        style="opacity:0;fill:#F5793B;stroke-width:5.5"
        d="m 126.84946,214.1147 18.89248,-10.7957 4.4982,-0.89965 24.29033,-35.98566 9.89605,-3.59856 -7.19713,-7.19714 -30.58781,2.69893 -17.09319,12.59498 -4.49821,19.79211 z"
-       id="path3934"
+       id="rightshoulder"
        onmouseover="this.style.opacity=1"
-       onmouseout="this.style.opacity=0" />
+       onmouseout="this.style.opacity=0"
+       v-on:click="showMuscle('6347ecf19df9200f15a99d52')"/>
     <path
        style="opacity:0;fill:#F5793B;stroke-width:5.5"
        d="m 213.21505,164.63441 -16.19354,-37.78495 -5.39785,18.89248 -19.79212,10.79569 25.18997,1.79929 z"
-       id="path3945"
+       id="rightNeck"
        onmouseover="this.style.opacity=1"
        onmouseout="this.style.opacity=0" />
     <path
        style="opacity:0;fill:#F5793B;stroke-width:5.5"
        d="m 225.81004,162.83513 13.49462,-35.08603 6.29749,18.89248 21.5914,10.7957 -26.98925,0.89964 z"
-       id="path3957"
+       id="leftNeck"
        onmouseover="this.style.opacity=1"
        onmouseout="this.style.opacity=0" />
     <path
        style="opacity:0;fill:#F5793B;stroke-width:5.5"
        d="m 310.37634,213.21505 2.69893,-17.09319 -6.29749,-26.0896 -19.79212,-13.49463 h -26.0896 l -9.89606,6.2975 17.09319,8.09677 19.79211,33.28674 4.49821,-3.59857 z"
-       id="path3970"
+       id="leftShoulder"
        onmouseover="this.style.opacity=1"
-       onmouseout="this.style.opacity=0" />
+       onmouseout="this.style.opacity=0"
+       v-on:click="showMuscle('6347ecf19df9200f15a99d52')"/>
     <path
        style="opacity:0;fill:#F5793B;stroke-width:5.5"
        d="m 321.17204,275.29032 2.69893,-21.5914 -0.89964,-20.69175 -12.59499,-20.69176 -2.69892,1.79929 -16.19355,-12.59499 -12.59498,9.89606 3.59857,25.18996 10.79569,26.98925 z"
-       id="path3984"
+       id="leftBicep"
        onmouseover="this.style.opacity=1"
-       onmouseout="this.style.opacity=0" />
+       onmouseout="this.style.opacity=0"
+       v-on:click="showMuscle('6347ea7b9df9200f15a99d4c')"/>
     <path
        style="opacity:0;fill:#F5793B;stroke-width:5.5"
        d="m 350.86022,350.86022 16.19354,-13.49463 -19.79211,-53.97849 -21.5914,-27.88889 -5.39785,21.5914 -23.39068,-11.69534 7.19713,29.68817 22.49104,19.79211 15.29391,17.99283 z"
-       id="path3999"
+       id="leftForearm"
        onmouseover="this.style.opacity=1"
-       onmouseout="this.style.opacity=0" />
+       onmouseout="this.style.opacity=0"
+       v-on:click="showMuscle('6347e74a9df9200f15a99d4a')"/>
     <path
        style="opacity:0;fill:#F5793B;stroke-width:5.5"
        d="m 404.83871,376.05018 -17.09319,-1.79928 6.29749,10.79569 6.29749,17.99284 -1.79928,1.79928 -13.49463,-19.79212 10.7957,22.49104 -2.69892,4.49821 -3.59857,-4.49821 -9.89605,-18.89247 6.29749,19.79212 -1.79929,1.79928 -11.69534,-20.69176 0.89964,14.39427 -2.69892,1.79928 -9.89606,-27.88889 -7.19713,-27.88889 11.69534,-10.7957 11.69534,18.89248 z"
-       id="path4001"
+       id="leftHand"
        onmouseover="this.style.opacity=1"
        onmouseout="this.style.opacity=0" />
     <path
        style="opacity:0;fill:#F5793B;stroke-width:5.5"
        d="m 157.43728,212.31541 -0.89965,26.08961 10.7957,18.89247 -5.39785,35.98566 v 30.58782 l 26.08961,21.5914 20.69176,28.78853 17.99283,0.89964 38.68459,-43.1828 9.89605,-8.09677 -1.79928,-51.27957 v -25.18997 l 8.99642,-13.49462 -2.69893,-24.29032 -30.58781,13.49462 3.59856,22.49104 -2.69892,48.58065 -7.19713,35.98566 -14.39427,41.38351 -3.59857,4.49821 -11.69534,-0.89964 -8.99641,-6.29749 -13.49463,-32.3871 -4.4982,-37.78495 -2.69893,-17.99283 v -34.18638 l 1.79928,-23.39068 z"
-       id="path4018"
+       id="obliques"
        onmouseover="this.style.opacity=1"
-       onmouseout="this.style.opacity=0" />
+       onmouseout="this.style.opacity=0"
+       v-on:click="showMuscle('6347f06e9df9200f15a99d56')"/>
     <path
        style="opacity:0;fill:#F5793B;stroke-width:5.5"
        d="m 185.32616,162.83513 17.09319,6.29749 12.59499,14.39426 v 30.58782 l -2.69893,4.4982 9.89606,-2.69892 1.79928,-38.68459 28.78853,-16.19355 15.29391,14.39427 20.69176,29.68817 -18.89248,10.7957 -20.69175,7.19713 -26.08961,-7.19713 -40.48387,7.19713 -22.49104,-10.7957 -11.69534,-8.99641 20.69176,-28.78853 8.99641,-9.89606 z"
-       id="path4036"
+       id="chest"
        onmouseover="this.style.opacity=1"
-       onmouseout="this.style.opacity=0" />
+       onmouseout="this.style.opacity=0"
+       v-on:click="showMuscle('6347ee7a9df9200f15a99d54')" />
     <path
        style="opacity:0;fill:#F5793B;stroke-width:5.5"
        d="m 184.42652,250.10036 14.39427,4.49821 19.79211,-5.39785 22.49104,6.29749 10.7957,-5.39785 -2.69892,-28.78853 -23.39068,-4.49821 -7.19714,1.79928 -5.39785,-2.69892 -28.78853,8.09677 z"
-       id="path4055"
+       id="upperAbs"
        onmouseover="this.style.opacity=1"
-       onmouseout="this.style.opacity=0" />
+       onmouseout="this.style.opacity=0"
+       v-on:click="showMuscle('6347f0e59df9200f15a99d58')" />
     <path
        style="opacity:0;fill:#F5793B;stroke-width:5.5"
        d="m 186.22581,300.48029 26.0896,6.29749 h 5.39785 L 249.20072,301.37993 251,277.98925 v -29.68817 l -9.89606,7.19713 -19.79211,-5.39785 -26.98925,3.59856 L 182.62724,251 v 27.88889 z"
-       id="path4075"
+       id="middleAbs"
        onmouseover="this.style.opacity=1"
-       onmouseout="this.style.opacity=0" />
+       onmouseout="this.style.opacity=0"
+       v-on:click="showMuscle('6347f0e59df9200f15a99d58')"/>
     <path
        style="opacity:0;fill:#F5793B;stroke-width:5.5"
        d="m 207.8172,375.15054 19.79212,-0.89964 14.39426,-36.88531 6.2975,-37.78494 -28.78854,8.09677 -35.08602,-6.29749 14.39427,57.57706 z"
-       id="path4096"
+       id="lowerAbs"
        onmouseover="this.style.opacity=1"
-       onmouseout="this.style.opacity=0" />
+       onmouseout="this.style.opacity=0"
+       v-on:click="showMuscle('6347f0e59df9200f15a99d58')"/>
     <path
        style="opacity:0;fill:#F5793B;stroke-width:5.5"
        d="m 484.00717,355.35842 -32.3871,33.28674 4.49821,1.79928 17.09319,-13.49462 -7.19713,14.39427 -8.09678,11.69534 2.69893,3.59856 17.09319,-21.5914 -9.89606,26.98925 2.69892,2.69893 14.39427,-24.29033 -4.49821,24.29033 3.59857,2.69892 9.89606,-27.88889 4.4982,-8.09677 8.99642,17.99283 4.49821,2.69892 3.59856,-3.59856 -9.89605,-38.68459 z"
-       id="path4118"
+       id="leftHandBackside"
        onmouseover="this.style.opacity=1"
        onmouseout="this.style.opacity=0" />
     <path
        style="opacity:0;fill:#F5793B;stroke-width:5.5"
        d="m 526.29032,256.39785 -27.88889,56.67742 -10.7957,35.08602 -4.4982,8.09677 21.59139,5.39785 18.89248,-35.08602 22.49104,-31.48745 6.29749,-19.79212 v -8.99641 h -8.99642 l 3.59857,-21.5914 1.79928,-7.19713 -5.39785,-3.59857 -6.29749,13.49462 -3.59856,21.5914 z"
-       id="path4120"
+       id="leftForearmBackside"
        onmouseover="this.style.opacity=1"
-       onmouseout="this.style.opacity=0" />
+       onmouseout="this.style.opacity=0"
+       v-on:click="showMuscle('6347e74a9df9200f15a99d4a')"/>
     <path
        style="opacity:0;fill:#F5793B;stroke-width:5.5"
        d="m 544.28315,202.41935 11.69534,-11.69534 15.29391,-4.4982 2.69893,18.89247 1.79928,19.79211 -13.49462,30.58782 -10.7957,13.49462 -7.19714,-3.59856 0.89965,-19.79212 3.59856,-8.99642 -7.19713,-4.4982 -4.49821,16.19355 -4.49821,19.79211 -8.09677,-13.49462 9.89606,-31.48746 z"
-       id="path4144"
+       id="leftTricep"
        onmouseover="this.style.opacity=1"
-       onmouseout="this.style.opacity=0" />
+       onmouseout="this.style.opacity=0"
+       v-on:click="showMuscle('6347ead79df9200f15a99d4e')"/>
     <path
        style="opacity:0;fill:#F5793B;stroke-width:5.5"
        d="m 597.36201,143.94265 4.49821,9.89606 -16.19355,12.59498 -12.59499,7.19713 -3.59856,13.49463 -17.99283,7.19713 -8.99642,9.89606 0.89964,-34.18638 13.49463,-17.09319 24.29032,-7.19713 z"
-       id="path4146"
+       id="leftShoulderBackside"
        onmouseover="this.style.opacity=1"
-       onmouseout="this.style.opacity=0" />
+       onmouseout="this.style.opacity=0"
+       v-on:click="showMuscle('6347ecf19df9200f15a99d52')"/>
     <path
        style="opacity:0;fill:#F5793B;stroke-width:5.5"
        d="m 682.82796,143.04301 -42.28316,-9.89606 -42.28315,10.7957 30.58781,-30.58781 11.69534,2.69892 12.59498,-3.59856 z"
-       id="path4148"
+       id="neckBackside"
        onmouseover="this.style.opacity=1"
-       onmouseout="this.style.opacity=0" />
+       onmouseout="this.style.opacity=0"
+       v-on:click="showMuscle('6347ec6c9df9200f15a99d50')"/>
     <path
        style="opacity:0;fill:#F5793B;stroke-width:5.5"
        d="m 711.61649,187.12545 -2.69893,-14.39427 -28.78853,-20.69175 4.49821,-7.19714 28.78853,1.79929 19.79212,17.09319 6.29749,21.59139 -1.79929,17.99284 -12.59498,-14.39427 z"
-       id="path4150"
+       id="rightShoulderBackside"
        onmouseover="this.style.opacity=1"
-       onmouseout="this.style.opacity=0" />
+       onmouseout="this.style.opacity=0"
+       v-on:click="showMuscle('6347ecf19df9200f15a99d52')"/>
     <path
        style="opacity:0;fill:#F5793B;stroke-width:5.5"
        d="m 728.70968,268.09319 11.69534,-2.69892 -4.49821,-19.79212 -1.79928,-9.89606 5.39785,-3.59856 4.4982,8.99641 v 16.19355 l 4.49821,10.7957 7.19713,-13.49462 -8.99641,-34.18638 -9.89606,-22.49104 -9.89606,-6.29749 -15.2939,-5.39785 -3.59857,21.59139 -1.79928,14.39427 7.19713,21.5914 z"
-       id="path4152"
+       id="rightTricep"
        onmouseover="this.style.opacity=1"
-       onmouseout="this.style.opacity=0" />
+       onmouseout="this.style.opacity=0"
+       v-on:click="showMuscle('6347ead79df9200f15a99d4e')"/>
     <path
        style="opacity:0;fill:#F5793B;stroke-width:5.5"
        d="m 775.49104,359.85663 21.5914,-5.39785 -23.39068,-69.2724 -17.09319,-29.68817 -7.19714,13.49462 -6.29749,-15.29391 v -12.59498 l -2.69892,-8.09677 -6.29749,2.69892 1.79928,16.19355 4.49821,15.29391 -9.89606,1.79928 3.59857,22.49104 20.69175,27.88889 z"
-       id="path4154"
+       id="rightForearmBackside"
        onmouseover="this.style.opacity=1"
-       onmouseout="this.style.opacity=0" />
+       onmouseout="this.style.opacity=0"
+       v-on:click="showMuscle('6347e74a9df9200f15a99d4a')"/>
     <path
        style="opacity:0;fill:#F5793B;stroke-width:5.5"
        d="m 767.39427,401.24014 14.39426,-20.69175 7.19713,7.19713 8.09678,27.88889 4.49821,-3.59857 -4.49821,-24.29032 15.2939,25.18996 3.59857,-6.29749 -12.59498,-22.49104 17.09319,17.99283 2.69892,-2.69892 -12.59498,-22.49104 14.39427,12.59498 5.39785,-2.69892 -19.79212,-18.89247 -13.49462,-14.39427 -22.49104,8.09677 z"
-       id="path4156"
+       id="rightHandBackside"
        onmouseover="this.style.opacity=1"
        onmouseout="this.style.opacity=0" />
     <path
        style="opacity:0;fill:#F5793B;stroke-width:5.5"
        d="m 574.87097,172.73118 -5.39785,14.39427 5.39785,18.89247 11.69534,5.39785 27.88889,-10.7957 -2.69893,-32.3871 -9.89605,-17.09319 -13.49463,15.29391 z"
-       id="path4187"
+       id="leftTeres"
        onmouseover="this.style.opacity=1"
-       onmouseout="this.style.opacity=0" />
+       onmouseout="this.style.opacity=0"
+       v-on:click="showMuscle('6347f1de9df9200f15a99d5a')"/>
     <path
        style="opacity:0;fill:#F5793B;stroke-width:5.5"
        d="m 668.43369,201.51971 0.89964,-30.58781 10.7957,-20.69176 15.29391,17.09319 14.39426,8.09678 v 21.5914 l -4.4982,9.89605 -13.49463,3.59857 z"
-       id="path4219"
+       id="rightTeres"
        onmouseover="this.style.opacity=1"
-       onmouseout="this.style.opacity=0" />
+       onmouseout="this.style.opacity=0"
+       v-on:click="showMuscle('6347f1de9df9200f15a99d5a')"/>
     <path
        style="opacity:0;fill:#F5793B;stroke-width:5.5"
        d="m 596.46237,145.74194 14.39426,18.89247 2.69893,38.68459 26.98924,47.681 26.98925,-50.37993 2.69892,-32.3871 15.29391,-24.29032 -46.78136,-11.69534 z"
-       id="path4252"
+       id="traps"
        onmouseover="this.style.opacity=1"
-       onmouseout="this.style.opacity=0" />
+       onmouseout="this.style.opacity=0"
+       v-on:click="showMuscle('6347ec6c9df9200f15a99d50')"/>
     <path
        style="opacity:0;fill:#F5793B;stroke-width:5.5"
        d="m 573.97133,205.11828 c 0,3.59857 10.7957,63.87455 10.7957,63.87455 l 18.89247,23.39068 0.89964,18.89248 13.49462,-22.49104 v -24.29033 l 23.39068,-15.2939 19.79212,11.69534 8.09677,37.78494 8.09678,12.59499 5.39785,-25.18997 12.59498,-17.09319 8.09677,-16.19355 4.49821,-48.58064 -11.69534,7.19713 -26.98925,-10.7957 -26.0896,50.37993 -11.69534,-16.19355 -17.99283,-34.18638 -21.5914,9.89606 h -8.99642 z"
-       id="path4286"
+       id="lats"
        onmouseover="this.style.opacity=1"
-       onmouseout="this.style.opacity=0" />
+       onmouseout="this.style.opacity=0"
+       v-on:click="showMuscle('6347f2829df9200f15a99d5c')"/>
     <path
        style="opacity:0;fill:#F5793B;stroke-width:5.5"
        d="m 640.5448,338.26523 17.09319,-19.79211 20.69176,-6.29749 -10.7957,-14.39427 -3.59857,-27.88889 -5.39785,-9.89605 -18.89247,-10.7957 -18.89247,12.59498 -5.39785,14.39426 0.89964,16.19355 -12.59498,19.79212 22.49104,8.09677 4.49821,2.69893 z"
-       id="path4321"
+       id="lowerBack"
        onmouseover="this.style.opacity=1"
-       onmouseout="this.style.opacity=0" />
+       onmouseout="this.style.opacity=0"/>
     <path
        style="opacity:0;fill:#F5793B;stroke-width:5.5"
        d="m 578.46953,363.4552 -1.79928,23.39068 14.39427,14.39426 25.18996,4.49821 19.79211,-3.59857 4.49821,-22.49103 7.19714,22.49103 8.99641,2.69893 34.18638,-3.59857 12.59498,-15.2939 0.89964,-21.5914 -7.19713,-15.29391 -4.49821,-15.2939 -21.59139,-20.69176 -21.5914,11.69534 -8.99642,17.09319 -10.7957,-18.89247 -20.69175,-10.7957 -23.39068,26.0896 -2.69893,15.29391 z"
-       id="path4357"
+       id="glutes"
        onmouseover="this.style.opacity=1"
-       onmouseout="this.style.opacity=0" />
+       onmouseout="this.style.opacity=0"
+       v-on:click="showMuscle('6347f2829df9200f15a99d5c')"/>
     <path
        style="opacity:0;fill:#F5793B;stroke-width:5.5"
        d="m 563.17563,506.49821 -0.89964,22.49104 -12.59499,27.88889 -2.69892,42.28315 19.79211,-18.89247 18.89248,21.5914 9.89605,-18.89248 3.59857,-49.48028 -12.59498,-22.49104 -4.49821,11.69534 -7.19713,-22.49104 z"
-       id="path4394"
+       id="leftCalve"
        onmouseover="this.style.opacity=1"
-       onmouseout="this.style.opacity=0" />
+       onmouseout="this.style.opacity=0"
+       v-on:click="showMuscle('6347f3589df9200f15a99d60')"/>
     <path
        style="opacity:0;fill:#F5793B;stroke-width:5.5"
        d="m 695.42294,602.75986 21.5914,-23.39068 10.7957,15.2939 8.09677,0.89964 -5.39785,-49.48028 -10.7957,-17.99283 -0.89964,-24.29033 -11.69534,-5.39785 -8.99642,22.49104 -2.69892,-9.89605 -12.59498,26.0896 6.29749,29.68817 -1.79929,19.79212 z"
-       id="path4432"
+       id="rightCalve"
        onmouseover="this.style.opacity=1"
-       onmouseout="this.style.opacity=0" />
+       onmouseout="this.style.opacity=0"
+       v-on:click="showMuscle('6347f3589df9200f15a99d60')"/>
     <path
        style="opacity:0;fill:#F5793B;stroke-width:5.5"
        d="m 148.44086,515.49462 0.89964,51.27957 5.39785,40.48387 7.19713,25.18997 3.59857,-53.9785 23.39068,-59.37634 -17.09319,-2.69892 -11.69534,-13.49463 z"
-       id="path4471"
+       id="rightLowerLeg"
        onmouseover="this.style.opacity=1"
        onmouseout="this.style.opacity=0" />
     <path
        style="opacity:0;fill:#F5793B;stroke-width:5.5"
        d="m 276.18996,635.14695 12.59499,-60.27598 V 511.89606 L 275.29032,502 267.19355,517.29391 251,521.79211 l 9.89606,17.99284 11.69534,44.98208 z"
-       id="path4473"
+       id="leftLowerLeg"
        onmouseover="this.style.opacity=1"
        onmouseout="this.style.opacity=0" />
     <path
        style="opacity:0;fill:#F5793B;stroke-width:5.5"
        d="m 161.03584,324.77061 31.48746,24.29032 17.99283,27.88889 4.49821,14.39427 -19.79212,89.06451 -7.19713,-51.27957 -8.09677,50.37993 -10.7957,-12.59498 -6.29749,15.29391 -18.89248,-44.98208 2.69893,-69.2724 z"
-       id="path4514"
+       id="rightQuadriceps"
        onmouseover="this.style.opacity=1"
-       onmouseout="this.style.opacity=0" />
+       onmouseout="this.style.opacity=0"
+       v-on:click="showMuscle('6347f42a9df9200f15a99d62')"/>
     <path
        style="opacity:0;fill:#F5793B;stroke-width:5.5"
        d="m 241.10394,475.01075 -9.89605,-26.98924 -0.89965,-27.88889 -6.29749,-23.39068 2.69893,-23.39069 48.58064,-50.37992 15.29391,49.48028 5.39785,41.38352 -4.49821,34.18638 -18.89247,34.18638 -8.09678,-15.29391 -6.29749,15.29391 -8.09677,-52.17922 z"
-       id="path4556"
+       id="leftQuadriceps"
        onmouseover="this.style.opacity=1"
-       onmouseout="this.style.opacity=0" />
+       onmouseout="this.style.opacity=0"
+       v-on:click="showMuscle('6347f42a9df9200f15a99d62')"/>
     <path
        style="opacity:0;fill:#F5793B;stroke-width:5.5"
        d="m 577.56989,366.15412 -10.7957,10.7957 v 27.88889 l -0.89964,37.78495 2.69893,33.28673 -4.49821,29.68818 21.5914,-17.09319 v 24.29032 l 14.39426,22.49104 19.79212,-66.57348 13.49462,-38.68459 0.89964,-28.78853 -11.69534,5.39785 -26.98925,-3.59856 -14.39426,-8.09678 -3.59857,-14.39426 z"
-       id="path4599"
+       id="leftHamstring"
        onmouseover="this.style.opacity=1"
-       onmouseout="this.style.opacity=0" />
+       onmouseout="this.style.opacity=0"
+       v-on:click="showMuscle('6347f46d9df9200f15a99d64')"/>
     <path
        style="opacity:0;fill:#F5793B;stroke-width:5.5"
        d="m 647.74194,402.13978 26.0896,4.49821 26.98925,-12.59498 4.49821,-27.88889 10.7957,15.29391 -1.79929,35.08602 0.89964,31.48746 -2.69892,24.29032 5.39785,35.08602 -21.5914,-19.79212 0.89964,23.39069 -12.59498,24.29032 -14.39427,-29.68817 -7.19713,-36.88531 -15.2939,-39.58423 z"
-       id="path4643"
+       id="rightHamstring"
        onmouseover="this.style.opacity=1"
-       onmouseout="this.style.opacity=0" />
+       onmouseout="this.style.opacity=0"
+       v-on:click="showMuscle('6347f46d9df9200f15a99d64')"/>
   </g>
 </svg>
         </b-jumbotron>
