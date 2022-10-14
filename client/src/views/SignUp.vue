@@ -9,7 +9,7 @@
                         Account Information:
                     </div>
                     <div class="col-6 col-md-4">
-                        <input type="text" id="email" name="email" placeholder="Email" size="40" class="input" v-model="email">
+                        <input type="text" id="email" name="email" placeholder="Email" size="10vw" class="input" v-model="email">
                     </div>
                     <div class="col-6 col-md-4">
                         <input type="text" id="password" name="password" placeholder="Password" size="40" class="input" v-model="password">
