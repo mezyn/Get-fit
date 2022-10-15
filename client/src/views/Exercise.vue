@@ -9,11 +9,9 @@
                   <p><strong>Difficulty Score: </strong>{{exerciseInfo.DifficultyScore}}</p>
                   <p><strong>Tips and Tricks: </strong>{{exerciseInfo.TipsAndTricks}}</p>
                   <b-button pill variant=outline-danger v-on:click="addToList()"><b-icon icon="heart-fill" aria-hidden="true"></b-icon></b-button>
-
               </div>
             </b-card-body>
           </b-card>
-
           <b-card no-body class="mb-1">
             <b-card-header header-tag="header" class="p-1" role="tab">
               <b-button block v-b-toggle.accordion-2 variant="light">Read Tips and Tricks <b-icon icon="caret-down-fill" aria-hidden="true"></b-icon></b-button>
@@ -24,7 +22,6 @@
               </b-card-body>
             </b-collapse>
           </b-card>
-
           <b-card no-body class="mb-1">
             <b-card-header header-tag="header" class="p-1" role="tab">
               <b-button block v-b-toggle.accordion-3 variant="light" v-on:click="showMuscle()">See Connected Muscles <b-icon icon="caret-down-fill" aria-hidden="true"></b-icon></b-button>
@@ -44,7 +41,6 @@
               </b-card-body>
             </b-collapse>
           </b-card>
-
           <b-card no-body class="mb-1">
             <b-card-header header-tag="header" class="p-1" role="tab">
               <b-button block v-b-toggle.accordion-4 variant="light" v-on:click="showReview()">Read Reviews <b-icon icon="caret-down-fill" aria-hidden="true"></b-icon></b-button>
@@ -64,7 +60,6 @@
               </b-card-body>
             </b-collapse>
           </b-card>
-
           <b-card no-body class="mb-1">
             <b-card-header header-tag="header" class="p-1" role="tab">
               <b-button block v-b-toggle.accordion-5 variant="light" >Leave a Review<b-icon icon="caret-down-fill" aria-hidden="true"></b-icon></b-button>
@@ -221,7 +216,7 @@ export default {
           console.log(error.response)
         })
         .then(
-          this.$bvModal.msgBoxOk('Saved')
+          this.$bvModal.msgBoxOk('Added to your list')
           // TO DO: send a error messag
         )
     }
@@ -238,5 +233,8 @@ select {
 }
 button {
   margin-top: 15px;
+}
+.container {
+  margin-bottom: 30px
 }
 </style>
