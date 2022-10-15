@@ -5,7 +5,7 @@ We need to implement how to specify user and update the details in the code, but
         <!-- Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop -->
         <b-jumbotron header="My Exercises" lead="All exercises I'm interested"></b-jumbotron>
         <div>
-            <div v-for="exercise in savedExerciseIds" v-bind:key="exercise._id">
+            <div id="myExercises" v-for="exercise in myExercises" v-bind:key="exercise._id">
                 <exercise-block v-bind:exercise="exercise"/>
             </div>
         </div>
@@ -26,42 +26,32 @@ export default {
   },
   mounted() {
     const userId = this.user
-    Api.get(`/users/${userId}/exercises`) // For now we have this path. Later we should change it like '/users/:user_id/exercises'
+    Api.get(`/users/${userId}/saved-exercises`)
       .then(response => {
-        this.savedExerciseIds = response.data
-        console.log('mounted-savedExercises: ' + this.savedExerciseIds)
-        this.savedExerciseIds.forEach(this.fetchExerciseData)
+        this.myExercises = response.data
       })
       .catch(error => {
         console.error(error)
-        this.savedExerciseIds = []
+        this.myExercises = []
         // TO DO: send a error message
       })
       .then(() => {
-        console.log('this.exercises: ' + JSON.stringify(this.exercises))
         // This code is always executed at the end. After success or failure. (optional)
       })
   },
   data() {
     return {
-      savedExerciseIds: [
-      ],
-      exercises: [
+      myExercises: [
       ]
     }
-  },
-  methods: {
-    fetchExerciseData(index) {
-      Api.get('/exercises/' + index)
-        .then(response => {
-          this.exercises.push(response.data)
-          console.log('response.data: ' + JSON.stringify(response.data))
-        })
-        .catch(error => {
-          console.log(error.response)
-        })
-    }
-
   }
 }
 </script>
+
+<style scoped>
+
+#myExercises {
+  padding-bottom: 20px;
+}
+
+</style>

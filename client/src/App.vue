@@ -20,7 +20,7 @@
                   <b-icon icon="person-circle" aria-hidden="true"></b-icon>
                 </template>
                 <b-dropdown-item router-link class="nav-link" to="/user" v-bind:userId="this.user">Profile</b-dropdown-item>
-                <b-dropdown-item router-link class="nav-link" to="/my-exercises">My Exercises</b-dropdown-item>
+                <b-dropdown-item router-link class="nav-link" to="/my-exercises">My exercise</b-dropdown-item>
                 <b-dropdown-item router-link class="nav-link" to="/login" v-on:click="logOut()">Sign Out</b-dropdown-item>
               </b-nav-item-dropdown>
             </b-navbar-nav>

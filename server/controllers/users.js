@@ -203,12 +203,12 @@ router.post('/api/users/:user_id/exercises/:exercise_id', function(req, res){
 });
 
 // Retreive all exercises that a specific user saved.
-router.get('/api/users/:user_id/exercises', function(req, res, next) {
+router.get('/api/users/:user_id/saved-exercises', function(req, res, next) { //I changed exercises to saved-exercises
     var id = req.params.user_id;
     User.findById(id, function(err) {
         if (err) { return next(err); }
     })
-    .populate('SavedExercise')
+    .populate('SavedExercises')
     .then(user => {
         if (user === null) {
             return res.status(404).json({'message': 'User not found!'});
