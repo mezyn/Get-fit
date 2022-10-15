@@ -20,7 +20,7 @@
                   <b-icon icon="person-circle" aria-hidden="true"></b-icon>
                 </template>
                 <b-dropdown-item router-link class="nav-link" to="/user" v-bind:userId="this.user">Profile</b-dropdown-item>
-                <b-dropdown-item router-link class="nav-link" to="/" v-on:click="logOut()">Sign Out</b-dropdown-item>
+                <b-dropdown-item router-link class="nav-link" to="/login" v-on:click="logOut()">Sign Out</b-dropdown-item>
               </b-nav-item-dropdown>
             </b-navbar-nav>
           </b-collapse>
@@ -66,6 +66,7 @@ export default {
   mounted() {
     if (localStorage.getItem('token') === null) {
       this.isLoggedIn = false
+      this.$router.push('/login')
     } else {
       this.isLoggedIn = true
       this.getUser()
@@ -97,7 +98,7 @@ export default {
       this.isLoggedIn = false
       this.user = {}
       localStorage.clear()
-      this.$router.push('/')
+      this.$router.push('/login')
     }
   }
 }
@@ -126,26 +127,9 @@ export default {
   font-family: Arial, sans-serif;
   font-weight: 400;
 }
-
 .navbar-nav {
   margin-left: 30px;
   margin-right: 30px;
-}
-@media only screen and (max-width: 340px) {
-    .navbar {
-        position: fixed;
-        float: left;
-        left: -100%;
-        top:0%;
-        flex-direction: column;
-        width: 100%;
-        height: 100%;
-        border-radius: 10px;
-        text-align: center;
-        transition: 0.3s;
-        box-shadow:
-            0 10px 27px rgba(0, 0, 0, 0.05);
-    }
 }
 
 </style>
