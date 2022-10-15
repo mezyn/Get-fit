@@ -20,7 +20,7 @@
                   <b-icon icon="person-circle" aria-hidden="true"></b-icon>
                 </template>
                 <b-dropdown-item router-link class="nav-link" to="/user" v-bind:userId="this.user">Profile</b-dropdown-item>
-                <b-dropdown-item router-link class="nav-link" to="/login" v-on:click="logOut()">Sign Out</b-dropdown-item>
+                <b-dropdown-item router-link class="nav-link" to="/" v-on:click="logOut()">Sign Out</b-dropdown-item>
               </b-nav-item-dropdown>
             </b-navbar-nav>
           </b-collapse>
@@ -64,7 +64,12 @@ export default {
     }
   },
   mounted() {
-    this.$router.push('/login')
+    if (localStorage.getItem('token') === null) {
+      this.isLoggedIn = false
+    } else {
+      this.isLoggedIn = true
+      this.getUser()
+    }
   },
   methods: {
     login() {
@@ -88,9 +93,11 @@ export default {
       this.signIn = true
     },
     logOut() {
+      localStorage.setItem('token', null)
       this.isLoggedIn = false
       this.user = {}
-      localStorage.setItem('token', null)
+      localStorage.clear()
+      this.$router.push('/')
     }
   }
 }
