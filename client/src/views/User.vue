@@ -121,4 +121,15 @@ input {
 h1.header {
     font-size: 300%;
 }
+
+.input {
+  width: 100%;
+}
+
+@media only screen and (max-width: 768px)  {
+  .col-md-4 {
+    width: 100%;
+    padding-bottom: 2%;
+  }
+}
 </style>
