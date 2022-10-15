@@ -42,7 +42,7 @@ router.get('/api/exercises/:id', function(req, res, next) {
         if (exercise === null) {
             return res.status(404).json({'message': 'Exercise not found!'});
         }
-        res.json({'Exercise' : exercise});
+        res.json(exercise);
     });
 });
 

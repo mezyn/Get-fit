@@ -41,7 +41,7 @@
                       <li><strong>Tips and tricks:</strong></li>
                       <li><input type="text" id="TipsAndTricks" v-model="newTipsAndTricks"/></li>
                     </div>
-                   </ui>
+                  </ui>
                 </form>
                 <b-button v-on:click="updateExercise()" variant="warning">Update this exercise</b-button>
               </b-card-text>

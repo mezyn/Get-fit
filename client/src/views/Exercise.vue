@@ -5,9 +5,11 @@
           <b-card no-body class="mb-1">
             <b-card-body>
               <div id='exercise'>
-                  <h3>{{exerciseInfo.Name}}</h3>
+                   <h3>{{exerciseInfo.Name}}</h3>
                   <p><strong>Difficulty Score: </strong>{{exerciseInfo.DifficultyScore}}</p>
                   <p><strong>Tips and Tricks: </strong>{{exerciseInfo.TipsAndTricks}}</p>
+                  <b-button pill variant=danger v-on:click="addToList()"><b-icon icon="heart-fill" aria-hidden="true"></b-icon></b-button>
+
               </div>
             </b-card-body>
           </b-card>
@@ -91,7 +93,6 @@
                           </select>
                         </div>
                         <em>* Necessary fields</em>
-                        <p style="color:red">{{message}}</p>
                       </form>
                       <b-button variant="primary" v-on:click="createReview()">Send</b-button>
                   </div>
@@ -207,6 +208,21 @@ export default {
         .catch(error => {
           console.log(error.response.data)
         })
+    },
+    addToList() {
+      const exerciseId = this.$route.params.id
+      const userId = this.user
+      Api.post(`users/${userId}/exercises/${exerciseId}`, this.exercise)
+        .then(response => {
+          console.log(response)
+        })
+        .catch(error => {
+          console.log(error.response)
+        })
+        .then(
+          this.$bvModal.msgBoxOk('Saved')
+          // TO DO: send a error messag
+        )
     }
   }
 }
