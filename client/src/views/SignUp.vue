@@ -80,7 +80,7 @@ export default {
           Age: this.age,
           Height: this.height,
           Gender: this.gender,
-          Weight: this.weight,
+          BodyWeight: this.weight,
           BodyFat: this.bodyFat,
           Goal: this.goal
         }

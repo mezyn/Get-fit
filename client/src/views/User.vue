@@ -24,7 +24,7 @@
                 </div>
                 <div class="col-6 col-md-4">
                     <label for="weight" class="inputLabel">Weight in kg</label><br>
-                    <input type="text" id="weight" name="weight" class="input" :placeholder="userInfo.BodyInfo.BodyWeight" v-model="userInfo.BodyInfo.BodyWeigh">
+                    <input type="text" id="weight" name="weight" class="input" :placeholder="userInfo.BodyInfo.BodyWeight" v-model="userInfo.BodyInfo.BodyWeight">
                 </div>
                 <div class="col-6 col-md-4">
                     <label for="bodyFat" class="inputLabel">Body Fat in %</label><br>
