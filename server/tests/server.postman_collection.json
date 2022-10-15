@@ -1,75 +1,1034 @@
 {
 	"info": {
-		"_postman_id": "f7ee95b5-9cb9-442f-a6a9-42de46138872",
-		"name": "server",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"_postman_id": "295083d2-d7ed-42b2-97a1-db8f4f6881c6",
+		"name": "API TESTING",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23101155"
 	},
 	"item": [
 		{
-			"name": "GET /api",
-			"event": [
+			"name": "POST",
+			"item": [
 				{
-					"listen": "prerequest",
-					"script": {
-						"id": "b58d92ec-5214-450c-adb0-28e068aa71b9",
-						"exec": [
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "{{host}}/api",
-					"host": [
-						"{{host}}"
+					"name": "Post new user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Email\": \"testuser5@gmail.com\",\n    \"Password\": \"passwordBody\",\n    \"Name\": \"TestUser5\",\n    \"BodyInfo\": {\n        \"Gender\": \"Gender\",\n        \"BodyWeight\": 100,\n        \"BodyFat\": 30,\n        \"Age\": 20,\n        \"Height\": 200,\n        \"Goal\": \"Goal\"\n    },\n    \"SavedExercises\": [],\n    \"AuthoredReviews\": []\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/users",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post new muscle info",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Retrieve JSON response and save muscle id to local variable for later use",
+									"var JSON_Muscle = pm.response.json();",
+									"var muscleID = JSON_Muscle._id;",
+									"pm.environment.set(\"muscle_id\",muscleID);",
+									"",
+									"pm.test(\"correct status code 201\", function(){",
+									"    pm.response.to.have.status(201)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
 					],
-					"path": [
-						"api"
-					]
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Name\": \"test1\",\n    \"LatinName\": \"LatinName\",\n    \"Description\": \"Description\",\n    \"Exercises\": []\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/muscles",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"muscles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post new exercise",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Retrieve JSON response and save exercise id to local variable for later use",
+									"var JSON_exercise = pm.response.json();",
+									"var exerciseID = JSON_exercise._id;",
+									"pm.environment.set(\"exercise_id\",exerciseID);",
+									"",
+									"pm.test(\"correct status code 201\", function(){",
+									"    pm.response.to.have.status(201)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Name\": \"Testt\",\n    \"DifficultyScore\": 5,\n    \"Reviews\":[],\n    \"Muscles\": [],\n    \"TipsAndTricks\": \"TipsAndTricks\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/exercises",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"exercises"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post new review",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Retrieve JSON response and save user id to local variable for later use",
+									"var JSON_review = pm.response.json();",
+									"var reviewID = JSON_review._id;",
+									"pm.environment.set(\"review_id\",reviewID);",
+									"",
+									"pm.test(\"correct status code 201\", function(){",
+									"    pm.response.to.have.status(201)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Title\": \"Title\",\n    \"MainText\": \"MainTextBody\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/users/{{user_id}}/exercises/{{exercise_id}}/reviews",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"users",
+								"{{user_id}}",
+								"exercises",
+								"{{exercise_id}}",
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add exercise into user's saved list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//test status code",
+									"pm.test(\"correct status code 201\", function(){",
+									"    pm.response.to.have.status(201)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/users/{{user_id}}/exercises/{{exercise_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"users",
+								"{{user_id}}",
+								"exercises",
+								"{{exercise_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Email\": \"newuser@gmail.com\",\n    \"Password\" : \"ilikepugs\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post exercise to muscle",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/muscles/{{muscle_id}}/exercises/{{exercise_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"muscles",
+								"{{muscle_id}}",
+								"exercises",
+								"{{exercise_id}}"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
-		}
-	],
-	"event": [
-		{
-			"listen": "prerequest",
-			"script": {
-				"id": "05864cff-5cba-4070-bac3-a59328954ebf",
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
+			]
 		},
 		{
-			"listen": "test",
-			"script": {
-				"id": "e9c319be-3306-4fc5-ba34-fcf64391213a",
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		}
-	],
-	"variable": [
+			"name": "GET",
+			"item": [
+				{
+					"name": "Get all users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//test status code",
+									"pm.test(\"correct status code 200\", function(){",
+									"    pm.response.to.have.status(200)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/users",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all exercises",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//test status code",
+									"pm.test(\"correct status code 200\", function(){",
+									"    pm.response.to.have.status(200)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/exercises",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"exercises"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all muscles",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//test status code",
+									"pm.test(\"correct status code 200\", function(){",
+									"    pm.response.to.have.status(200)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/muscles",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"muscles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all reviews",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//test status code",
+									"pm.test(\"correct status code 200\", function(){",
+									"    pm.response.to.have.status(200)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/reviews",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a user by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//test status code",
+									"pm.test(\"correct status code 200\", function(){",
+									"    pm.response.to.have.status(200)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/users/{{user_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"users",
+								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get an exercise by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//test status code",
+									"pm.test(\"correct status code 200\", function(){",
+									"    pm.response.to.have.status(200)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/exercises/{{exercise_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"exercises",
+								"{{exercise_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a muscle by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//test status code",
+									"pm.test(\"correct status code 200\", function(){",
+									"    pm.response.to.have.status(200)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/muscles/{{muscle_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"muscles",
+								"{{muscle_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a review by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//test status code",
+									"pm.test(\"correct status code 200\", function(){",
+									"    pm.response.to.have.status(200)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/reviews/{{review_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"reviews",
+								"{{review_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get reviews for an exercise",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/exercises/{{exercise_id}}/reviews",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"exercises",
+								"{{exercise_id}}",
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get reviews for a user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//test status code",
+									"pm.test(\"correct status code 200\", function(){",
+									"    pm.response.to.have.status(200)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/users/{{user_id}}/reviews",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"users",
+								"{{user_id}}",
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get exercises for a muscle",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/muscles/{{muscle_id}}/exercises",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"muscles",
+								"{{muscle_id}}",
+								"exercises"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get muscles for an exercise",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//test status code",
+									"pm.test(\"correct status code 200\", function(){",
+									"    pm.response.to.have.status(200)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/exercises/{{exercise_with_muscle_id}}/muscles",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"exercises",
+								"{{exercise_with_muscle_id}}",
+								"muscles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter exercises by difficulty score",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//test status code",
+									"pm.test(\"correct status code 200\", function(){",
+									"    pm.response.to.have.status(200)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/exercises?difficultyscore=1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"exercises"
+							],
+							"query": [
+								{
+									"key": "difficultyscore",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user with token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//test status code",
+									"pm.test(\"correct status code 200\", function(){",
+									"    pm.response.to.have.status(200)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get saved exercises for user",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
 		{
-			"id": "cd185905-a834-4211-8030-583d17702534",
-			"key": "host",
-			"value": "http://localhost:3000",
-			"type": "string"
+			"name": "PUT",
+			"item": [
+				{
+					"name": "completely update user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//test status code",
+									"pm.test(\"correct status code 200\", function(){",
+									"    pm.response.to.have.status(200)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Email\": \"emailBodyTest\",\n    \"Password\": \"passwordBody\",\n    \"Name\": \"PUT\",\n    \"BodyInfo\": {\n        \"Gender\": \"PUT\",\n        \"BodyWeight\": 100,\n        \"BodyFat\": 30,\n        \"Age\": 20,\n        \"Height\": 200,\n        \"Goal\": \"PUT\"\n    },\n    \"SavedExercises\": [],\n    \"AuthoredReviews\": []\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/users/{{user_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"users",
+								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Completely update muscle",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//test status code",
+									"pm.test(\"correct status code 200\", function(){",
+									"    pm.response.to.have.status(200)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Name\": \"test1\",\n    \"LatinName\": \"LatinName\",\n    \"Description\": \"PUT\",\n    \"Exercises\": []\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/muscles/{{muscle_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"muscles",
+								"{{muscle_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PATCH",
+			"item": [
+				{
+					"name": "Patch user information",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//test status code",
+									"pm.test(\"correct status code 200\", function(){",
+									"    pm.response.to.have.status(200)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"BodyInfo\": { \n        \"BodyWeight\": 83,\n        \"BodyFat\": 5,\n        \"Age\": 21,\n        \"Height\": 186,\n        \"Goal\": \"Gain Muscle\"\n     }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/users/{{user_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"users",
+								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch muscle information",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"LatinName\": \"Fake Latin Name\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/muscles/{{muscle_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"muscles",
+								"{{muscle_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch exercise information",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Name\" : \"Newest name\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/exercises/{{exercise_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"exercises",
+								"{{exercise_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "DELETE",
+			"item": [
+				{
+					"name": "Delete exercise from a user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//test status code",
+									"pm.test(\"correct status code 200\", function(){",
+									"    pm.response.to.have.status(200)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/users/{{user_id}}/saved_exercises/{{exercise_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"users",
+								"{{user_id}}",
+								"saved_exercises",
+								"{{exercise_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a review (from exercise & user as well)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//test status code",
+									"pm.test(\"correct status code 200\", function(){",
+									"    pm.response.to.have.status(200)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/reviews/{{review_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"reviews",
+								"{{review_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete an exercise",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/exercises/{{exercise_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"exercises",
+								"{{exercise_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//test status code",
+									"pm.test(\"correct status code 200\", function(){",
+									"    pm.response.to.have.status(200)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/users/{{user_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"users",
+								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a muscle",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/muscles/{{muscle_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"muscles",
+								"{{muscle_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }
