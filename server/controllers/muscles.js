@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var Muscle = require('../models/muscle');
 var Exercise = require('../models/exercise');
+const exercise = require('../models/exercise');
 
 //Create muscle
 router.post('/api/muscles', function(req, res, next){
@@ -113,6 +114,44 @@ router.get('/api/muscles/:id/exercises', function(req, res, next) {
         }
         // maybe we need to do .populate here
         res.json(`Related exercises to this muscle: ${muscle.Exercises}`);
+    });
+});
+
+// Add an exercise to the saved exercise list
+router.post('/api/muscles/:muscle_id/exercises/:exercise_id', function(req, res){
+    var muscle_id = req.params.muscle_id;
+    var exercise_id = req.params.exercise_id;
+
+    Muscle.findById(muscle_id, function(err, muscle) {
+        console.log(muscle)
+        if (err) { 
+            return res.status(404).json(
+                {'message': 'Muscle not found!', 'error': err}); 
+        }
+        if (muscle === null) {
+            return res.status(404).json(
+                {"message": "Muscle not found"});
+        }
+        if (exercise_id ===  null) {
+            return res.status(404).json(
+                {"message": "Exercise not found"});
+        }
+        if(muscle.Exercises.includes(exercise_id)){
+            return res.status(409).json({'message': 'Exercise already saved in the list'});
+        } 
+        Exercise.findById(exercise_id, function(err, exercise) {
+            if (exercise === null) {
+                return res.status(404).json(
+                    {"message": "Exercise not found"});
+            } else {
+                exercise.Muscles.push(muscle_id)
+                exercise.save()
+            }
+        })
+        muscle.Exercises.push(exercise_id);
+        // Maybe we need to use 'populate' somewhere here?
+        muscle.save();
+        return res.status(201).json(muscle);
     });
 });
 
