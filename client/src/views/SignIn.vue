@@ -6,7 +6,7 @@
             <br>
             <form @submit.prevent="signIn">
               <input type="text" id="email" name="email" placeholder="Email" size="40" v-model="email"><br><br>
-              <input type="text" id="password" name="passwork" placeholder="Password" size="40" v-model="password"><br><br>
+              <input type="password" id="password" name="passwork" placeholder="Password" size="40" v-model="password"><br><br>
               <b-button href="#" variant="info" @click="signIn">Log in</b-button>
             </form>
         </b-jumbotron>
