@@ -205,8 +205,11 @@ router.post('/api/users/:user_id/exercises/:exercise_id', function(req, res){
 // Retreive all exercises that a specific user saved.
 router.get('/api/users/:user_id/exercises', function(req, res, next) {
     var id = req.params.user_id;
-    User.findById(id, function(err, user) {
+    User.findById(id, function(err) {
         if (err) { return next(err); }
+    })
+    .populate('SavedExercise')
+    .then(user => {
         if (user === null) {
             return res.status(404).json({'message': 'User not found!'});
         }
@@ -215,7 +218,7 @@ router.get('/api/users/:user_id/exercises', function(req, res, next) {
         }
         // maybe we need to do .populate here
         res.json(user.SavedExercises);
-    });
+    })
 });
 
 // maybe we need this as well? /Mijin
