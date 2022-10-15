@@ -91,6 +91,7 @@
                           </select>
                         </div>
                         <em>* Necessary fields</em>
+                        <p style="color:red">{{message}}</p>
                       </form>
                       <b-button variant="primary" v-on:click="createReview()">Send</b-button>
                   </div>
@@ -107,6 +108,9 @@ import { Api } from '@/Api'
 
 export default {
   name: 'exercise',
+  props: {
+    user: String
+  },
   data() {
     return {
       exerciseInfo: {
@@ -121,7 +125,7 @@ export default {
         Title: '',
         Rating: null,
         MainText: '',
-        // Author: 'We need to fix this',
+        Author: '',
         Exercise: ''
       },
       reviewIds: [],
@@ -130,7 +134,8 @@ export default {
 
       muscleIds: [],
       completeMuscles: [],
-      muscleCount: 0
+      muscleCount: 0,
+      message: ''
     }
   },
   mounted() {
@@ -150,17 +155,26 @@ export default {
   },
   methods: {
     createReview() {
-      const exerciseId = this.$route.params.id
-      Api.post(`/exercises/${exerciseId}`, this.review)
-        .then(response => {
-          console.log(response)
-        })
-        .catch(error => {
-          console.log(error.response)
-        }
-        // TO DO: send a error message
-        )
-      window.location.reload()
+      if (this.review.Title === '') {
+        this.$bvModal.msgBoxOk('Title field cannot be empty')
+      } else if (this.review.MainText === '') {
+        this.$bvModal.msgBoxOk('Description field cannot be empty')
+      } else {
+        const userId = this.user
+        const exerciseId = this.$route.params.id
+        Api.post(`users/${userId}/exercises/${exerciseId}/reviews`, this.review)
+          .then(response => {
+            console.log(response)
+          })
+          .catch(error => {
+            console.log(error.response)
+          })
+          .then(
+            this.$bvModal.msgBoxOk('Review successfully updated')
+            // TO DO: send a error messag
+          )
+        // window.location.reload()
+      }
     },
     showReview() {
       this.reviewCount += 1
