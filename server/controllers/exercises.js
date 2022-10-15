@@ -110,26 +110,6 @@ router.get('/api/exercises/:id/reviews', function(req, res, next) {
     });
 });
 
-// 4.3.d. Delete a specific review from relevant exercise // Do we need this? We have other delete review functions
-router.delete('/api/exercises/:exercise_id/reviews/:review_id', function(req, res, next) {
-    var exercise_id = req.params.exercise_id;
-    var review_id = req.params.review_id;
-    
-    Exercise.findById(exercise_id, function(err, exercise) {
-        if (err) { return next(err); }
-        if (exercise === null) {
-            return res.status(404).json({'message': 'Exercise not found!'});
-        }
-        exercise.Reviews.findOneAndDelete({_id: id}, function(err, review) {
-            if (err) { return next(err); }
-            if (review === null) {
-                return res.status(404).json({'message': 'Review not found'});
-            }
-            res.json(`Review with detail ${review} has been successfully deleted.`);
-        });
-    });
-});
-
 //Get list of muscles that are related to this specific exercise
 router.get('/api/exercises/:id/muscles', function(req, res, next) {
     var id = req.params.id;

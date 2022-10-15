@@ -149,12 +149,12 @@ router.put('/api/users/:id', function(req, res) {
         updateUser = User.findByIdAndUpdate(req.params.id, {$set: req.body,},{ new: true })
         .then(() => {
             res.status(200).json({
-                message: "User updated successfully!",
+                message: "User updated successfully",
             });
         })
         .catch((error) => {
             res.status(500).json({
-                message: "An error Occured!",
+                message: "An error occured",
             });
         });
 });
@@ -241,22 +241,6 @@ router.delete('/api/users/:user_id/saved_exercises/:exercise_id', function(req, 
     });
 });
 
-
-//Retrieve all exercise that a specific user saved.
-router.get('/api/users/:user_id/exercises', function(req, res, next) {
-    var id = req.params.user_id;
-    User.findById(id, function(err, user) {
-        if (err) { return next(err); }
-        if (user === null) {
-            return res.status(404).json({'message': 'User not found!'});
-        }
-        if (user.SavedExercises === null) {
-            return res.status(404).json({'message': 'No authored reviews from this user found!'});
-        }
-        res.json(`List of saved exercises: ${user.SavedExercises}`);
-    });
-});
-
 //Get reviews from a user
 router.get('/api/users/:id/reviews', function(req, res, next) {
     var id = req.params.id;
@@ -270,40 +254,6 @@ router.get('/api/users/:id/reviews', function(req, res, next) {
         }
         res.json(`List of authored reviews: ${user.AuthoredReviews}`);
     });
-});
-
-
-// Delete review (both from users and from reviews)
-router.delete('/api/users/:user_id/authored_reviews/:review_id', function(req, res){
-    var user_id = req.params.user_id;
-    var review_id = req.params.review_id;
-
-    User.findById(user_id, function(err, user) {
-        if (err) { return next(err); }
-        if (user === null) {
-            return res.status(404).json(
-                {"message": "User not found"});
-        } try {
-            
-            let index = user.AuthoredReviews.indexOf(review_id);
-            user.AuthoredReviews.splice(index, 1);
-            user.save();
-            res.json(user);
-        }
-        catch(error) {
-            return res.status(404).json({'message': 'Not valid review ID', 'error': error});
-        }
-    });
-    // I am not sure whether we can split it up like that, but I needed to delete it from both right? 
-    // I think so /Mijin
-    Review.findOneAndDelete(review_id, function(err, review) {
-        if (err) { return next(err); }
-        if (review === null) {
-            return res.status(404).json({'message': 'Review not found'});
-        }
-            res.json(`The review ${review} has been deleted.`);
-        }
-    );
 });
 
 module.exports = router;
