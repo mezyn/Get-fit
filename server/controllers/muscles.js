@@ -35,6 +35,19 @@ router.get('/api/muscles/:id', function(req, res, next) {
     });
 });
 
+//Deletes all muscles
+router.delete('/api/muscles', function(req, res) {
+    Muscle.deleteMany({}, function(err, muscles) {
+        if (err) {
+            return res.status(409).json({ message: 'Muscles not deleted, because of:', 'error': err}); 
+        }
+        if (muscles === null) {
+            return res.status(404).json({'message': 'Users not deleted'});
+        }
+        res.status(200).json(muscles);
+    });
+});
+
 //Delete a muscle
 router.delete('/api/muscles/:id', function(req, res, next) {
     var id = req.params.id;
@@ -65,6 +78,23 @@ router.patch('/api/muscles/:id', function(req, res, next) {
         muscle.save();
         res.json(muscle);
     });
+});
+
+// Completely update one muscle
+router.put('/api/muscles/:id', function(req, res) {
+    const muscle = Muscle.findById(req.params.id);
+    if (muscle.id === req.body.id)
+        updateMuscle = Muscle.findByIdAndUpdate(req.params.id, {$set: req.body,},{ new: true })
+        .then(() => {
+            res.status(200).json({
+                message: "Muscle updated successfully",
+            });
+        })
+        .catch((error) => {
+            res.status(500).json({
+                message: "An error occured",
+            });
+        });
 });
 
 //Get all exercises related to a specific muscle

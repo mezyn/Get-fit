@@ -84,6 +84,19 @@ router.get('/api/reviews/:id', function(req, res, next) {
     });
 });
 
+//Deletes all reviews
+router.delete('/api/reviews', function(req, res) {
+    Review.deleteMany({}, function(err, reviews) {
+        if (err) {
+            return res.status(409).json({ message: 'Reviews not deleted, because of:', 'error': err}); 
+        }
+        if (reviews === null) {
+            return res.status(404).json({'message': 'Reviews not deleted'});
+        }
+        res.status(200).json(reviews);
+    });
+});
+
 //Delete a review (from reviews, user and exercise)
 router.delete('/api/reviews/:id', function(req, res, next) {
     var id = req.params.id;

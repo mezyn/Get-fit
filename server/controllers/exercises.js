@@ -66,6 +66,19 @@ router.patch('/api/exercises/:id', function(req, res, next) {
     });
 });
 
+//Deletes all exercises
+router.delete('/api/exercises', function(req, res) {
+    User.deleteMany({}, function(err, exercises) {
+        if (err) {
+            return res.status(409).json({ message: 'Users not deleted, because of:', 'error': err}); 
+        }
+        if (exercises === null) {
+            return res.status(404).json({'message': 'Users not deleted'});
+        }
+        res.status(200).json(exercises);
+    });
+});
+
 // Delete exercise
 router.delete('/api/exercises/:id', function(req, res, next) {
     var id = req.params.id;
@@ -94,26 +107,6 @@ router.get('/api/exercises/:id/reviews', function(req, res, next) {
         }
         // use .populate
         res.json(exercise.Reviews);
-    });
-});
-
-// 4.3.d. Delete a specific review from relevant exercise // Do we need this? We have other delete review functions
-router.delete('/api/exercises/:exercise_id/reviews/:review_id', function(req, res, next) {
-    var exercise_id = req.params.exercise_id;
-    var review_id = req.params.review_id;
-    
-    Exercise.findById(exercise_id, function(err, exercise) {
-        if (err) { return next(err); }
-        if (exercise === null) {
-            return res.status(404).json({'message': 'Exercise not found!'});
-        }
-        exercise.Reviews.findOneAndDelete({_id: id}, function(err, review) {
-            if (err) { return next(err); }
-            if (review === null) {
-                return res.status(404).json({'message': 'Review not found'});
-            }
-            res.json(`Review with detail ${review} has been successfully deleted.`);
-        });
     });
 });
 
