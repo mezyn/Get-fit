@@ -93,6 +93,19 @@ router.get('/api/user', function(req, res, next) {
     
 });
 
+//Deletes all users
+router.delete('/api/users', function(req, res) {
+    User.deleteMany({}, function(err, users) {
+        if (err) {
+            return res.status(409).json({ message: 'Users not deleted, because of:', 'error': err}); 
+        }
+        if (users === null) {
+            return res.status(404).json({'message': 'Users not deleted'});
+        }
+        res.status(200).json(users);
+    });
+});
+
 // Retrieve information from a user
 router.get('/api/users/:id', function(req, res, next) {
     var id = req.params.id;
