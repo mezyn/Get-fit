@@ -1,19 +1,9 @@
 <template>
-    <div class="container">
+    <div class="svg-container">
         <b-jumbotron header="GET FIT" lead="Click a muscle to browse" id="background">
             <svg
    version="1.1"
-   id="svg2"
-   width="860"
-   height="753"
-   viewBox="0 0 860 753"
-   sodipodi:docname="interactive_muscle_map.svg"
-   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
+   viewBox="0 0 860 753">
   <defs
      id="defs6" />
   <sodipodi:namedview
@@ -3030,3 +3020,21 @@ export default {
   }
 }
 </script>
+<style scoped>
+.svg-container {
+   display: inline-block;
+   position: relative;
+   width: 100%;
+   padding-bottom: 100%;
+   vertical-align: middle;
+   overflow: hidden;
+}
+
+@media only screen and (min-width: 768px)  {
+  .svg-container {
+    padding-left: 20%;
+    padding-right: 20%;
+   }
+}
+
+</style>
