@@ -66,9 +66,10 @@ Get fit is a website designed for those who want to learn the basics of training
 ### Pages:  How does it work
 
 ####   "GET FIT" is made up of 3 functionalities:
--  ***THE REGISTER PAGE***  allows users to **create a profile** and introduce personal data to help the service understand the people's needs and goals.
+- ***THE REGISTER PAGE*** allows users to **create a profile** and introduce personal data to help the service understand the people's needs and goals.
 - ***THE INTRODUCTION PAGE*** offers a **generalised introduction to fitness**, mainly focused on strength training and anaerobic exercise (also known as cardio).
-- ***THE MUSCLE DIAGRAM PAGE*** **offers a diagram of the human body** that showcases muscle groups and allows users to click on them to learn how to train the selected muscle group in its totality with the option to choose between: **Weight machine excercises**(commonly found in gyms), **Body weight exercises**(for those who don't have access to a gym) and **mobility exercises** (to reinforce the area and help with recovery and flexibility).
+- ***THE MUSCLE DIAGRAM PAGE*** **offers a diagram of the human body** that showcases muscle groups and allows users to click on them to learn how to train the selected muscle group in its totality with different options: **Weight machine excercises**(commonly found in gyms), **Body weight exercises**(for those who don't have access to a gym) and **mobility exercises** (to reinforce the area and help with recovery and flexibility).
+- ***THE MUSCLE PAGE*** Once the user presses a muscle within the muscle diagram page, the user is taken to this page which features **information on the muscle** regarding its common name, scientific name and function to better understand why it is important to train it. Underneath the muscle information, the user can **find the exercises that train said muscle**.
 
 ### Entity-Relationship (ER) Diagram
 
