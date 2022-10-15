@@ -8,7 +8,7 @@
                    <h3>{{exerciseInfo.Name}}</h3>
                   <p><strong>Difficulty Score: </strong>{{exerciseInfo.DifficultyScore}}</p>
                   <p><strong>Tips and Tricks: </strong>{{exerciseInfo.TipsAndTricks}}</p>
-                  <b-button pill variant=danger v-on:click="addToList()"><b-icon icon="heart-fill" aria-hidden="true"></b-icon></b-button>
+                  <b-button pill variant=outline-danger v-on:click="addToList()"><b-icon icon="heart-fill" aria-hidden="true"></b-icon></b-button>
 
               </div>
             </b-card-body>
@@ -173,10 +173,9 @@ export default {
             console.log(error.response)
           })
           .then(
-            this.$bvModal.msgBoxOk('Review successfully updated')
-            // TO DO: send a error messag
+            window.confirm('Review successfully created!')
           )
-        // window.location.reload()
+        window.location.reload()
       }
     },
     showReview() {
