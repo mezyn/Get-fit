@@ -85,7 +85,7 @@ export default {
   },
   methods: {
     updateInformation() {
-      Api.patch(`/users/${this.user}`, this.userInfo)
+      Api.put(`/users/${this.user}`, this.userInfo)
         .then(res => {
           console.log(res.data)
           this.$bvModal.msgBoxOk('Your information was successfully updated')

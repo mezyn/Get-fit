@@ -129,6 +129,23 @@ router.patch('/api/users/:id', function(req, res) {
     );
 });
 
+// Completely update one user
+router.put('/api/users/:id', function(req, res) {
+    const user = User.findById(req.params.id);
+    if (user.id === req.body.id)
+        updateUser = User.findByIdAndUpdate(req.params.id, {$set: req.body,},{ new: true })
+        .then(() => {
+            res.status(200).json({
+                message: "User updated successfully!",
+            });
+        })
+        .catch((error) => {
+            res.status(500).json({
+                message: "An error Occured!",
+            });
+        });
+});
+
 // Delete a user
 router.delete('/api/users/:id', function(req, res, next) {
     var id = req.params.id;
