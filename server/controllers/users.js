@@ -17,7 +17,7 @@ router.post('/api/login', function(req, res ) {
                 if(err){
                     return res.status(404).json({'message': 'User not found!', 'error': err});
                 }
-                if(user.length < 1){
+                if(user === null){
                     return res.status(401).json({
                         message: 'Please provide valid email and/or password'
                     });

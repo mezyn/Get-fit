@@ -260,7 +260,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"Email\": \"newestuser@gmail.com\",\n    \"Password\" : \"ilikepugs\"\n}",
+							"raw": "{\n    \"Email\": \"testuser5@gmail.com\",\n    \"Password\" : \"passwordBody\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
