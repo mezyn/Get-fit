@@ -11,6 +11,23 @@
 			"item": [
 				{
 					"name": "Post new user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var JSON_User = pm.response.json();",
+									"var userID = JSON_User._id;",
+									"pm.environment.set(\"user_id\",userID);",
+									"",
+									"pm.test(\"correct status code 201\", function(){",
+									"    pm.response.to.have.status(201)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
