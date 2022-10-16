@@ -24,11 +24,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/users",
+							"raw": "{{host}}/api/users",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
+								"api",
 								"users"
 							]
 						}
@@ -60,7 +61,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"Name\": \"test1\",\n    \"LatinName\": \"LatinName\",\n    \"Description\": \"Description\",\n    \"Exercises\": []\n}",
+							"raw": "{\n    \"Name\": \"Quadriceps\",\n    \"LatinName\": \"Rectus femoris, vastus lateralis, vastus intermedius, and vastus medialis.\",\n    \"Description\": \"The quadriceps performs a variety of movements, including kicking, running, jumping and walking.\",\n    \"Exercises\": []\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -68,11 +69,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/muscles",
+							"raw": "{{host}}/api/muscles",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
+								"api",
 								"muscles"
 							]
 						}
@@ -156,11 +158,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/users/{{user_id}}/exercises/{{exercise_id}}/reviews",
+							"raw": "{{host}}/api/users/{{user_id}}/exercises/{{exercise_id}}/reviews",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
+								"api",
 								"users",
 								"{{user_id}}",
 								"exercises",
@@ -200,11 +203,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/users/{{user_id}}/exercises/{{exercise_id}}",
+							"raw": "{{host}}/api/users/{{user_id}}/exercises/{{exercise_id}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
+								"api",
 								"users",
 								"{{user_id}}",
 								"exercises",
@@ -216,6 +220,22 @@
 				},
 				{
 					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//test status code",
+									"pm.test(\"correct status code 200\", function(){",
+									"    pm.response.to.have.status(200)",
+									"});",
+									"var responseToken = pm.response.json();",
+									"pm.environment.set(\"user_token\",responseToken);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -229,11 +249,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/login",
+							"raw": "{{host}}/api/login",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
+								"api",
 								"login"
 							]
 						}
@@ -246,11 +267,12 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/muscles/{{muscle_id}}/exercises/{{exercise_id}}",
+							"raw": "{{host}}/api/muscles/{{muscle_id}}/exercises/{{exercise_id}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
+								"api",
 								"muscles",
 								"{{muscle_id}}",
 								"exercises",
