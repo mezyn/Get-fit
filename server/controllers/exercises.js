@@ -6,12 +6,29 @@ const Muscle = require('../models/muscle');
 
 //For Collection
 //Create Exercise
-router.post('/api/exercises', function(req, res, next){
-    var exercise = new Exercise(req.body);
-    exercise.save(function(err, exercise) {
-        if (err) { return next(err); }
-        res.status(201).json(exercise);
-    })
+
+router.post('/api/exercises', function(req, res) {
+    var exerciseToAdd = new Exercise(req.body);
+    Exercise.find({Name: req.body.Name}, function(err, exercise){
+        if(err){
+            return res.status(500).json({
+                message: 'Exercise not saved due to internal server error'
+            });
+        }
+        if(exercise.length >= 1){
+            return res.status(409).json({
+                message: 'There is already an exercise with this name'
+            });
+        }
+        exerciseToAdd.save(function(err, newExercise) {
+            if (err) {             
+                return res.status(500).json({
+                    message: 'Exercise not saved due to internal server error'
+                }); 
+            }
+            res.status(201).json(newExercise);
+        });
+    });
 });
 
 // Get all exercises

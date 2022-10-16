@@ -7,11 +7,11 @@
           <form @submit.prevent="postExercise" method="POST">
             <div>
               Name (obligatory):
-              <input type="text" id="Name" v-model="exercise.Name"> <br/>
+              <input type="text" id="Name" name="Name" v-model="exercise.Name"> <br/>
             </div>
             <div>
               Difficulty Score (optional) :
-              <select id="DifficultyScore" placeholder="Difficulty Score (1-5) (optional)" v-model="exercise.DifficultyScore">
+              <select id="DifficultyScore" name="DifficultyScore" placeholder="Difficulty Score (1-5) (optional)" v-model="exercise.DifficultyScore">
                 <option value="1">1 (Very easy)</option>
                 <option value="2">2 (Easy)</option>
                 <option value="3">3 (Moderate)</option>
@@ -21,7 +21,7 @@
             </div>
             <div>
               Tips and tricks (optional):
-              <input type="text" id="TipsAndTricks" v-model="exercise.TipsAndTricks"> <br/>
+              <input type="text" id="TipsAndTricks" name="TipsAndTricks" v-model="exercise.TipsAndTricks"> <br/>
             </div>
           </form>
           <b-button variant="success" v-on:click="createExercise()">Create exercise</b-button>
@@ -51,16 +51,23 @@ export default {
   },
   methods: {
     createExercise() {
-      Api.post('/exercises', this.exercise)
-        .then(response => {
-          console.log(response)
-        })
-        .catch(error => {
-          console.log(error.response)
-        })
-        .then(() => {
-          window.location.reload()
-        })
+      if (this.exercise.Name === '') {
+        this.$bvModal.msgBoxOk('Name cannot be empty')
+      } else {
+        Api.post('/exercises', this.exercise)
+          .then(res => {
+            console.log(res)
+            window.confirm('Exercise successfully created!')
+            window.location.reload()
+          })
+          .catch(error => {
+            if (error.response.status === 409) {
+              this.$bvModal.msgBoxOk('An exercise with the same name already exists. Try with another name.')
+            }
+            console.log(error.response)
+          }
+          )
+      }
     }
   }
 
