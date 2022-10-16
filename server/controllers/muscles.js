@@ -117,7 +117,7 @@ router.get('/api/muscles/:id/exercises', function(req, res, next) {
     });
 });
 
-// Add an exercise to the saved exercise list
+// Add an exercise to a muscle
 router.post('/api/muscles/:muscle_id/exercises/:exercise_id', function(req, res){
     var muscle_id = req.params.muscle_id;
     var exercise_id = req.params.exercise_id;
@@ -149,7 +149,6 @@ router.post('/api/muscles/:muscle_id/exercises/:exercise_id', function(req, res)
             }
         })
         muscle.Exercises.push(exercise_id);
-        // Maybe we need to use 'populate' somewhere here?
         muscle.save();
         return res.status(201).json(muscle);
     });

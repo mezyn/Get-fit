@@ -69,14 +69,12 @@ router.post('/api/users', function(req, res, next){
 
 //GET all users
 router.get('/api/users', function(req, res, next) {
-
     User.find(function(err, users) {
         if (err) { 
             return next(err); 
         }
         res.json({'users': users });
     });
-
 });
 
 
@@ -203,19 +201,18 @@ router.post('/api/users/:user_id/exercises/:exercise_id', function(req, res){
             return res.status(409).json({'message': 'Exercise already saved in the list'});
         } 
         user.SavedExercises.push(exercise_id);
-        // Maybe we need to use 'populate' somewhere here?
         user.save();
         return res.status(201).json(user);
     });
 });
 
 // Retreive all exercises that a specific user saved.
-router.get('/api/users/:user_id/exercises', function(req, res, next) {
+router.get('/api/users/:user_id/saved-exercises', function(req, res, next) { //I changed exercises to saved-exercises
     var id = req.params.user_id;
     User.findById(id, function(err) {
         if (err) { return next(err); }
     })
-    .populate('SavedExercise')
+    .populate('SavedExercises')
     .then(user => {
         if (user === null) {
             return res.status(404).json({'message': 'User not found!'});
@@ -223,7 +220,6 @@ router.get('/api/users/:user_id/exercises', function(req, res, next) {
         if (user.SavedExercises === null) {
             return res.status(404).json({'message': 'No saved exercises from this user found!'});
         }
-        // maybe we need to do .populate here
         res.json(user.SavedExercises);
     })
 });

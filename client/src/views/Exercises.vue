@@ -36,7 +36,6 @@ export default {
     FilterBlock
   },
   mounted() {
-    console.log('PAGE is loaded')
     // Load the real exercises from the server
     Api.get('/exercises')
       .then(response => {
@@ -63,7 +62,6 @@ export default {
       Api.get(`/exercises/?difficultyscore=${selected}`)
         .then(response => {
           this.Exercises = response.data.Exercises
-          console.log(this.Exercises.length)
           if (this.Exercises.length < 1) {
             this.message = 'There is no exercise with chosen difficulty score.' // How to make the page loaded to see the updated message?
           }
