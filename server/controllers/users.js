@@ -11,53 +11,60 @@ const user = require('../models/user');
 const exercise = require('../models/exercise');
 
 router.post('/api/login', function(req, res ) {
-    if(req.body.Email && req.body.Password){
-        User.findOne({Email: req.body.Email}, function(err, user){
-            if(err){
-                return res.status(404).json({'message': 'User not found!', 'error': err});
-            }
-            if(user.length < 1){
-                return res.status(401).json({
-                    message: 'Please provide valid email and/or password'
-                });
-            }
-            // check whether the password is correct
-            bcrypt.compare(req.body.Password, user.Password, function(err, result){
+    try {
+        if(req.body.Email && req.body.Password){
+            User.findOne({Email: req.body.Email}, function(err, user){
                 if(err){
+                    return res.status(404).json({'message': 'User not found!', 'error': err});
+                }
+                if(user.length < 1){
                     return res.status(401).json({
                         message: 'Please provide valid email and/or password'
                     });
                 }
-                if(result){
-                    try {
-                        let token = jwt.sign({userId: user._id}, 'secretkey');
-                        return res.status(200).json({token: token})
-                    } 
-                    catch (err) {
-                        return res.status(400).json({'message': 'Unable to log in'})
+                // check whether the password is correct
+                bcrypt.compare(req.body.Password, user.Password, function(err, result){
+                    if(err){
+                        return res.status(401).json({
+                            message: 'Please provide valid email and/or password'
+                        });
                     }
-                }
-                return res.status(401).json({
-                    message: 'Please provide valid email and/or password'
+                    if(result){
+                        try {
+                            let token = jwt.sign({userId: user._id}, 'secretkey');
+                            return res.status(200).json({token: token})
+                        } 
+                        catch (err) {
+                            return res.status(400).json({'message': 'Unable to log in'})
+                        }
+                    }
+                    return res.status(401).json({
+                        message: 'Please provide valid email and/or password'
+                    });
                 });
+            });} else{
+            return res.status(401).json({
+                message: 'Please provide valid email and/or password'
             });
-        });} else{
-        return res.status(401).json({
-            message: 'Please provide valid email and/or password'
-        });
+        }
+    } catch {
+        return res.status(500).json({'message': 'Unable to log in'})
     }
 });
 
 // Create a user
 router.post('/api/users', function(req, res, next){
-    var user = new User(req.body);
-    // encrypt the password
-    user.Password = bcrypt.hashSync(req.body.Password, 10)
-    console.log(req.body)
-    user.save(function(err, user) {
-        if (err) { return next(err); }
-        res.status(201).json(user);
-    })
+    try{
+        var user = new User(req.body);
+        // encrypt the password
+        user.Password = bcrypt.hashSync(req.body.Password, 10)
+        user.save(function(err, user) {
+            res.status(201).json(user);
+        })
+    }
+    catch(error) {
+        return res.status(500).json({'message':'Input values not valid', 'error': error})
+    }
 });
 
 //GET all users

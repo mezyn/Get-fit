@@ -27,17 +27,17 @@
                     </div>
                     <div class="col-md-4"></div>
                     <div class="col-md-4">
-                        <input type="text" id="height" name="height" placeholder="Height" class="input" v-model="height">
+                        <input type="number" id="height" name="height" placeholder="Height in cm" class="input" min="30" max="240" v-model="height">
                     </div>
                     <div class="col-md-4">
                         <input type="text" id="gender" name="gender" placeholder="Gender" class="input" v-model="gender">
                     </div>
                     <div class="col-md-4"></div>
                     <div class="col-md-4">
-                        <input type="text" id="weight" name="weight" placeholder="Body Weight" class="input" v-model="weight">
+                        <input type="text" id="weight" name="weight" placeholder="Body Weight in kg" class="input" v-model="weight">
                     </div>
                     <div class="col-md-4">
-                        <input type="text" id="bodyFat" name="bodyFat" placeholder="Body Fat Percentage" class="input" v-model="bodyFat">
+                        <input type="text" id="bodyFat" name="bodyFat" placeholder="Body Fat in %" class="input" v-model="bodyFat">
                     </div>
                     <div class="col-md-4"></div>
                     <div class="col-md-4">
@@ -62,7 +62,7 @@ export default {
       password: '',
       name: '',
       age: '',
-      height: '',
+      height: null,
       gender: '',
       weight: '',
       bodyFat: '',
@@ -72,16 +72,17 @@ export default {
   },
   methods: {
     signUp() {
+      const correctInput = this.checkInput()
       const createUser = {
         Email: this.email,
         Password: this.password,
         Name: this.name,
         BodyInfo: {
-          Age: this.age,
-          Height: this.height,
           Gender: this.gender,
           BodyWeight: this.weight,
           BodyFat: this.bodyFat,
+          Age: this.age,
+          Height: this.height,
           Goal: this.goal
         }
       }
@@ -89,31 +90,74 @@ export default {
         Email: this.email,
         Password: this.password
       }
-      Api.post('/users', createUser).then(
-        (res) => {
-          if (res.status !== 201) {
+      if (correctInput === true) {
+        Api.post('/users', createUser).then(
+          (res) => {
+            if (res.status !== 201) {
+              this.$bvModal.msgBoxOk('Account creation was not successful')
+            } else {
+              Api.post('/login', loginUser).then(
+                (res) => {
+                  // if successfull
+                  if (res.status === 200) {
+                    localStorage.setItem('token', res.data.token)
+                    this.$emit('login', true)
+                  }
+                },
+                (err) => {
+                  console.log(err.response)
+                  this.error = err.response.data.error
+                  this.$bvModal.msgBoxOk('Account creation was not successful')
+                }
+              )
+            }
+          },
+          (err) => {
+            this.error = err.response.data.error
             this.$bvModal.msgBoxOk('Account creation was not successful')
           }
-        },
-        (err) => {
-          this.error = err.response.data.error
-          this.$bvModal.msgBoxOk('Account creation was not successful')
-        }
-      )
-      Api.post('/login', loginUser).then(
-        (res) => {
-          // if successfull
-          if (res.status === 200) {
-            localStorage.setItem('token', res.data.token)
-            this.$emit('login', true)
-          }
-        },
-        (err) => {
-          console.log(err.response)
-          this.error = err.response.data.error
-          this.$bvModal.msgBoxOk('Account creation was not successful')
-        }
-      )
+        )
+      }
+    },
+    checkInput() {
+      console.log('checking input')
+      if (this.email === '') {
+        this.$bvModal.msgBoxOk('Please give a valid email adress')
+        return false
+      }
+      if (this.password === '') {
+        this.$bvModal.msgBoxOk('Please enter a password')
+        return false
+      }
+      if (this.name === '') {
+        this.$bvModal.msgBoxOk('Please enter a name')
+        return false
+      }
+      if (this.gender === '') {
+        this.$bvModal.msgBoxOk('Please enter your gender')
+        return false
+      }
+      if (this.weight === '') {
+        this.$bvModal.msgBoxOk('Please enter your weight in kg')
+        return false
+      }
+      if (this.bodyFat === '' || this.bodyFat < 3 || this.bodyFat > 40) {
+        this.$bvModal.msgBoxOk('Please enter your Body Fat Percentage (between 3 and 40)')
+        return false
+      }
+      if (this.age === '' || this.age < 0 || this.age > 140) {
+        this.$bvModal.msgBoxOk('Please enter a valid Age')
+        return false
+      }
+      if (this.height === '' || this.height < 30 || this.height > 240) {
+        this.$bvModal.msgBoxOk('Please enter a valid height')
+        return false
+      }
+      if (this.goal === '') {
+        this.$bvModal.msgBoxOk('Please enter the goal you want to achieve with the help of our app')
+        return false
+      }
+      return true
     }
   }
 }

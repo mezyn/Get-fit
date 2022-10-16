@@ -13,7 +13,9 @@
             <b-navbar-nav class="ml-auto">
               <router-link class="nav-link" to="/body-map" >Body Map</router-link>
                 <router-link class="nav-link" to="/exercises" >Exercises</router-link>
-                <router-link class="nav-link" to="/manage-exercises" >Manage Exercises</router-link>
+                <div v-if="isAdmin">
+                  <router-link class="nav-link" to="/manage-exercises" >Manage Exercises</router-link>
+                </div>
               <b-nav-item-dropdown right>
                 <!-- Using 'button-content' slot -->
                 <template #button-content>
@@ -60,7 +62,8 @@ export default {
     return {
       isLoggedIn: false,
       user: {},
-      signIn: true
+      signIn: true,
+      isAdmin: false
     }
   },
   mounted() {
@@ -85,6 +88,9 @@ export default {
       }).then((res) => {
         console.log(res.data.user._id)
         this.user = res.data.user._id
+        if (this.user._id === '') {
+          this.isAdmin = true
+        }
       })
     },
     switchToSignUp() {
