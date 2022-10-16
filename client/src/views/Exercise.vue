@@ -209,14 +209,15 @@ export default {
       Api.post(`users/${userId}/exercises/${exerciseId}`, this.exercise)
         .then(response => {
           console.log(response)
+          window.confirm('Added to the list!')
+          window.location.reload()
         })
         .catch(error => {
+          if (error.response.status === 409) {
+            this.$bvModal.msgBoxOk('Already exist in the list!')
+          }
           console.log(error.response)
         })
-        .then(
-          this.$bvModal.msgBoxOk('Added to your list')
-          // TO DO: send a error messag
-        )
     }
   }
 }
