@@ -124,7 +124,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"Name\": \"Namename\",\n    \"AverageRating\": 4,\n    \"DifficultyScore\":2,\n    \"Reviews\":[],\n    \"Muscles\": [],\n    \"TipsAndTricks\": \"TipsAndTricks1\"\n}",
+							"raw": "{\n    \"Name\": \"Namename\",\n    \"AverageRating\": 4,\n    \"DifficultyScore\":5,\n    \"Reviews\":[],\n    \"Muscles\": [],\n    \"TipsAndTricks\": \"TipsAndTricks1\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -575,15 +575,30 @@
 				},
 				{
 					"name": "Get reviews for an exercise",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//test status code",
+									"pm.test(\"correct status code 200\", function(){",
+									"    pm.response.to.have.status(200)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/exercises/{{exercise_id}}/reviews",
+							"raw": "{{host}}/api/exercises/{{exercise_id}}/reviews",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
+								"api",
 								"exercises",
 								"{{exercise_id}}",
 								"reviews"
@@ -628,15 +643,30 @@
 				},
 				{
 					"name": "Get exercises for a muscle",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//test status code",
+									"pm.test(\"correct status code 200\", function(){",
+									"    pm.response.to.have.status(200)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/muscles/{{muscle_id}}/exercises",
+							"raw": "{{host}}/api/muscles/{{muscle_id}}/exercises",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
+								"api",
 								"muscles",
 								"{{muscle_id}}",
 								"exercises"
@@ -681,42 +711,22 @@
 				},
 				{
 					"name": "Filter exercises by difficulty score",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"//test status code",
-									"pm.test(\"correct status code 200\", function(){",
-									"    pm.response.to.have.status(200)",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
-							"raw": "{{host}}/exercises?difficultyscore=1",
+							"raw": "{{host}}/api/exercises?difficultyscore=5",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
+								"api",
 								"exercises"
 							],
 							"query": [
 								{
 									"key": "difficultyscore",
-									"value": "1"
+									"value": "5"
 								}
 							]
 						}
@@ -885,6 +895,34 @@
 			"item": [
 				{
 					"name": "Patch user information",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Email\": \"testuser5@gmail.com\",\n    \"Password\": \"passwordBody\",\n    \"Name\": \"TestUser5\",\n    \"BodyInfo\": {\n        \"Gender\": \"Gender\",\n        \"BodyWeight\": 100,\n        \"BodyFat\": 30,\n        \"Age\": 20,\n        \"Height\": 200,\n        \"Goal\": \"Goal\"\n    },\n    \"SavedExercises\": [],\n    \"AuthoredReviews\": []\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/users/{{user_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch muscle information",
 					"event": [
 						{
 							"listen": "test",
@@ -904,7 +942,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"BodyInfo\": { \n        \"BodyWeight\": 83,\n        \"BodyFat\": 5,\n        \"Age\": 21,\n        \"Height\": 186,\n        \"Goal\": \"Gain Muscle\"\n     }\n}",
+							"raw": "{\n    \"Name\": \"test1\",\n    \"LatinName\": \"LatinName\",\n    \"Description\": \"patch\",\n    \"Exercises\": []\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -912,38 +950,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/users/{{user_id}}",
+							"raw": "{{host}}/api/muscles/{{muscle_id}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
-								"users",
-								"{{user_id}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Patch muscle information",
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"LatinName\": \"Fake Latin Name\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/muscles/{{muscle_id}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
+								"api",
 								"muscles",
 								"{{muscle_id}}"
 							]
@@ -953,12 +965,26 @@
 				},
 				{
 					"name": "Patch exercise information",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//test status code",
+									"pm.test(\"correct status code 200\", function(){",
+									"    pm.response.to.have.status(200)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "PATCH",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"Name\" : \"Newest name\"\n}",
+							"raw": "{\n    \"Name\": \"Namename2\",\n    \"AverageRating\": 4,\n    \"DifficultyScore\":2,\n    \"Reviews\":[],\n    \"Muscles\": [],\n    \"TipsAndTricks\": \"patch\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -966,11 +992,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/exercises/{{exercise_id}}",
+							"raw": "{{host}}/api/exercises/{{exercise_id}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
+								"api",
 								"exercises",
 								"{{exercise_id}}"
 							]
@@ -1053,15 +1080,30 @@
 				},
 				{
 					"name": "Delete an exercise",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//test status code",
+									"pm.test(\"correct status code 200\", function(){",
+									"    pm.response.to.have.status(200)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/exercises/{{exercise_id}}",
+							"raw": "{{host}}/api/exercises/{{exercise_id}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
+								"api",
 								"exercises",
 								"{{exercise_id}}"
 							]
@@ -1104,15 +1146,30 @@
 				},
 				{
 					"name": "Delete a muscle",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//test status code",
+									"pm.test(\"correct status code 200\", function(){",
+									"    pm.response.to.have.status(200)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/muscles/{{muscle_id}}",
+							"raw": "{{host}}/api/muscles/{{muscle_id}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
+								"api",
 								"muscles",
 								"{{muscle_id}}"
 							]
