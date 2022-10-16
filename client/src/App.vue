@@ -89,7 +89,8 @@ export default {
       }).then((res) => {
         console.log(res.data.user._id)
         this.user = res.data.user._id
-        if (this.user._id === '') {
+        if (this.user === '634abf91ce7e23649bccca1b') {
+          console.log('admin logged in')
           this.isAdmin = true
         }
       })
