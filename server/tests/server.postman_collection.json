@@ -282,6 +282,20 @@
 				},
 				{
 					"name": "Post exercise to muscle",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//test status code",
+									"pm.test(\"correct status code 200\", function(){",
+									"    pm.response.to.have.status(200)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -695,14 +709,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/api/exercises/{{exercise_with_muscle_id}}/muscles",
+							"raw": "{{host}}/api/exercises/{{exercise_id}}/muscles",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
 								"exercises",
-								"{{exercise_with_muscle_id}}",
+								"{{exercise_id}}",
 								"muscles"
 							]
 						}
@@ -750,6 +764,21 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{user_token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
