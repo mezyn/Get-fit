@@ -249,7 +249,8 @@
 									"    pm.response.to.have.status(200)",
 									"});",
 									"var responseToken = pm.response.json();",
-									"pm.environment.set(\"user_token\",responseToken);"
+									"var token = responseToken.token;",
+									"pm.environment.set(\"user_token\",token);"
 								],
 								"type": "text/javascript"
 							}
