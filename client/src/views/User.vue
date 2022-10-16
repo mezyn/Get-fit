@@ -85,16 +85,50 @@ export default {
   },
   methods: {
     updateInformation() {
-      Api.put(`/users/${this.user}`, this.userInfo)
-        .then(res => {
-          console.log(res.data)
-          this.$bvModal.msgBoxOk('Your information was successfully updated')
-        })
-        .catch(err => {
-          console.log('There was an error')
-          console.error(err)
-          this.$bvModal.msgBoxOk('This user could not be found.')
-        })
+      const checkInput = this.checkInput()
+      if (checkInput === true) {
+        Api.put(`/users/${this.user}`, this.userInfo)
+          .then(res => {
+            console.log(res.data)
+            this.$bvModal.msgBoxOk('Your information was successfully updated')
+          })
+          .catch(err => {
+            console.log('There was an error')
+            console.error(err)
+            this.$bvModal.msgBoxOk('This user could not be found.')
+          })
+      }
+    },
+    checkInput() {
+      if (this.userInfo.Name === '' || this.userInfo.Name === null) {
+        this.$bvModal.msgBoxOk('Please enter a valid name')
+        return false
+      }
+      if (this.userInfo.BodyInfo.Gender === '' || this.userInfo.BodyInfo.Gender === null) {
+        this.$bvModal.msgBoxOk('Please enter your gender')
+        return false
+      }
+      if (this.userInfo.BodyInfo.Weight === '' || this.userInfo.BodyInfo.Weight === null) {
+        this.$bvModal.msgBoxOk('Please enter your weight in kg')
+        return false
+      }
+      if (this.userInfo.BodyInfo.BodyFat === '' || this.userInfo.BodyInfo.BodyFat === null || this.userInfo.BodyInfo.BodyFat < 3 || this.userInfo.BodyInfo.BodyFat > 40) {
+        this.$bvModal.msgBoxOk('Please enter your Body Fat Percentage (between 3 and 40)')
+        return false
+      }
+      if (this.userInfo.BodyInfo.Age === '' || this.userInfo.BodyInfo.Age === null || this.userInfo.BodyInfo.Age < 0 || this.userInfo.BodyInfo.Age > 140) {
+        this.$bvModal.msgBoxOk('Please enter a valid age')
+        return false
+      }
+      if (this.userInfo.BodyInfo.Height === '' || this.userInfo.BodyInfo.Height === null || this.userInfo.BodyInfo.Height < 30 || this.userInfo.BodyInfo.Height > 240) {
+        this.$bvModal.msgBoxOk('Please enter a valid height')
+        return false
+      }
+      if (this.userInfo.BodyInfo.Goal === '' || this.userInfo.BodyInfo.Goal === null) {
+        this.$bvModal.msgBoxOk('Please enter the goal you want to achieve with the help of our app')
+        return false
+      }
+      return true
     }
   }
 }

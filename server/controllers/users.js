@@ -89,7 +89,7 @@ router.get('/api/user', function(req, res, next) {
         })
         //token is valid
         User.findOne({ _id: decoded.userId }, (err, user) => {
-          if (err) return console.log(err)
+          if (err) return res.status(404).json('Resource not found')
           return res.status(200).json({
             title: 'user grabbed',
             user: user})
