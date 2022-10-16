@@ -289,8 +289,8 @@
 							"script": {
 								"exec": [
 									"//test status code",
-									"pm.test(\"correct status code 200\", function(){",
-									"    pm.response.to.have.status(200)",
+									"pm.test(\"correct status code 201\", function(){",
+									"    pm.response.to.have.status(201)",
 									"});"
 								],
 								"type": "text/javascript"
