@@ -93,6 +93,7 @@
 									"var exerciseID = JSON_exercise._id;",
 									"pm.environment.set(\"exercise_id\",exerciseID);",
 									"",
+									"",
 									"pm.test(\"correct status code 201\", function(){",
 									"    pm.response.to.have.status(201)",
 									"});"
@@ -106,7 +107,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"Name\": \"Testt\",\n    \"DifficultyScore\": 5,\n    \"Reviews\":[],\n    \"Muscles\": [],\n    \"TipsAndTricks\": \"TipsAndTricks\"\n}",
+							"raw": "{\n    \"Name\": \"Namename\",\n    \"AverageRating\": 4,\n    \"DifficultyScore\":2,\n    \"Reviews\":[],\n    \"Muscles\": [],\n    \"TipsAndTricks\": \"TipsAndTricks1\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -114,11 +115,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/exercises",
+							"raw": "{{host}}/api/exercises",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
+								"api",
 								"exercises"
 							]
 						}
@@ -307,11 +309,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/users",
+							"raw": "{{host}}/api/users",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
+								"api",
 								"users"
 							]
 						}
@@ -338,11 +341,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/exercises",
+							"raw": "{{host}}/api/exercises",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
+								"api",
 								"exercises"
 							]
 						}
@@ -376,11 +380,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{host}}/muscles",
+							"raw": "{{host}}/api/muscles",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
+								"api",
 								"muscles"
 							]
 						}
@@ -407,11 +412,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/reviews",
+							"raw": "{{host}}/api/reviews",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
+								"api",
 								"reviews"
 							]
 						}
@@ -438,11 +444,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/users/{{user_id}}",
+							"raw": "{{host}}/api/users/{{user_id}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
+								"api",
 								"users",
 								"{{user_id}}"
 							]
@@ -470,11 +477,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/exercises/{{exercise_id}}",
+							"raw": "{{host}}/api/exercises/{{exercise_id}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
+								"api",
 								"exercises",
 								"{{exercise_id}}"
 							]
@@ -502,11 +510,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/muscles/{{muscle_id}}",
+							"raw": "{{host}}/api/muscles/{{muscle_id}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
+								"api",
 								"muscles",
 								"{{muscle_id}}"
 							]
@@ -534,11 +543,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/reviews/{{review_id}}",
+							"raw": "{{host}}/api/reviews/{{review_id}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
+								"api",
 								"reviews",
 								"{{review_id}}"
 							]
@@ -585,11 +595,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/users/{{user_id}}/reviews",
+							"raw": "{{host}}/api/users/{{user_id}}/reviews",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
+								"api",
 								"users",
 								"{{user_id}}",
 								"reviews"
@@ -637,11 +648,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/exercises/{{exercise_with_muscle_id}}/muscles",
+							"raw": "{{host}}/api/exercises/{{exercise_with_muscle_id}}/muscles",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
+								"api",
 								"exercises",
 								"{{exercise_with_muscle_id}}",
 								"muscles"
@@ -712,15 +724,51 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"user"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Get saved exercises for user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//test status code",
+									"pm.test(\"correct status code 200\", function(){",
+									"    pm.response.to.have.status(200)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/users/{{user_id}}/saved-exercises",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{user_id}}",
+								"saved-exercises"
+							]
+						}
 					},
 					"response": []
 				}
@@ -758,11 +806,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/users/{{user_id}}",
+							"raw": "{{host}}/api/users/{{user_id}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
+								"api",
 								"users",
 								"{{user_id}}"
 							]
@@ -799,11 +848,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/muscles/{{muscle_id}}",
+							"raw": "{{host}}/api/muscles/{{muscle_id}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
+								"api",
 								"muscles",
 								"{{muscle_id}}"
 							]
@@ -936,11 +986,12 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/users/{{user_id}}/saved_exercises/{{exercise_id}}",
+							"raw": "{{host}}/api/users/{{user_id}}/saved_exercises/{{exercise_id}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
+								"api",
 								"users",
 								"{{user_id}}",
 								"saved_exercises",
@@ -970,11 +1021,12 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/reviews/{{review_id}}",
+							"raw": "{{host}}/api/reviews/{{review_id}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
+								"api",
 								"reviews",
 								"{{review_id}}"
 							]
@@ -1020,11 +1072,12 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/users/{{user_id}}",
+							"raw": "{{host}}/api/users/{{user_id}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
+								"api",
 								"users",
 								"{{user_id}}"
 							]
@@ -1045,6 +1098,120 @@
 							"path": [
 								"muscles",
 								"{{muscle_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete all reviews",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//test status code",
+									"pm.test(\"correct status code 200\", function(){",
+									"    pm.response.to.have.status(200)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/reviews",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete all exercises",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/exercises",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"exercises"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete all muscles",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//test status code",
+									"pm.test(\"correct status code 200\", function(){",
+									"    pm.response.to.have.status(200)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/muscles",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"muscles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete all users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//test status code",
+									"pm.test(\"correct status code 200\", function(){",
+									"    pm.response.to.have.status(200)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/users",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users"
 							]
 						}
 					},
