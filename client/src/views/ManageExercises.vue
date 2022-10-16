@@ -19,6 +19,19 @@ We need to implement how to specify user and update the details in the code, but
               </b-card-group>
             </b-col>
           </b-row>
+          <b-row>
+            <b-col>
+              <b-button v-b-modal.deleteAllExercise variant="danger"><b-icon icon="exclamation-diamond-fill" aria-hidden="true"/>Delete all exercises</b-button>
+              <b-modal id="deleteAllExercise" centered title="Delete all exercise" hide-footer no-close-on-esc no-close-on-backdrop hide-header-close>
+              <div>
+                <p>Deletion of all exercises cannot be reverted. Are you sure you want to delete all the saved exercises?</p>
+                <b-button variant="danger" v-on:click="deleteAllExercises()">Yes, I want to delete all exercises</b-button>
+                <b-icon icon="empty" aria-hidden="true"/>
+                <b-button @click="$bvModal.hide('deleteAllExercise')">Cancel</b-button>
+              </div>
+               </b-modal>
+            </b-col>
+          </b-row>
         </div>
     </div>
 </template>
@@ -69,9 +82,23 @@ export default {
         .then(() => {
           window.location.reload()
         })
+    },
+    deleteAllExercises() {
+      Api.delete('/exercises/')
+        .then(response => {
+          console.log(response)
+        })
+        .catch(error => {
+          console.log(error.response)
+        })
+        .then(
+          window.confirm('All exercises are deleted now.')
+        )
+      window.location.reload()
     }
   }
 }
+
 </script>
 
 <style scoped>

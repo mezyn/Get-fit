@@ -68,12 +68,12 @@ router.patch('/api/exercises/:id', function(req, res, next) {
 
 //Deletes all exercises
 router.delete('/api/exercises', function(req, res) {
-    User.deleteMany({}, function(err, exercises) {
+    Exercise.deleteMany({}, function(err, exercises) {
         if (err) {
-            return res.status(409).json({ message: 'Users not deleted, because of:', 'error': err}); 
+            return res.status(409).json({ message: 'Exercises not deleted, because of:', 'error': err}); 
         }
         if (exercises === null) {
-            return res.status(404).json({'message': 'Users not deleted'});
+            return res.status(404).json({'message': 'Exercises not deleted'});
         }
         res.status(200).json(exercises);
     });
