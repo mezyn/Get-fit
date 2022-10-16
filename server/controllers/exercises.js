@@ -56,9 +56,9 @@ router.patch('/api/exercises/:id', function(req, res, next) {
                 {"message": "Exercise not found"});
             }
         exercise.Name = (req.body.Name || exercise.Name);
-        exercise.AverageRating = (req.body.AverageRating || exercise.AverageRating);
         exercise.DifficultyScore = (req.body.DifficultyScore|| exercise.DifficultyScore);
         exercise.Reviews = (req.body.Reviews|| exercise.Reviews);
+        exercise.Muscles = (req.body.Muscles|| exercise.Muscles);
         exercise.TipsAndTricks= (req.body.TipsAndTricks|| exercise.TipsAndTricks);
 
         exercise.save();
@@ -105,7 +105,6 @@ router.get('/api/exercises/:id/reviews', function(req, res, next) {
         if (exercise.Reviews === null) {
             return res.status(404).json({'message': 'No review found!'});
         }
-        // use .populate
         res.json(exercise.Reviews);
     });
 });
@@ -115,13 +114,16 @@ router.get('/api/exercises/:id/muscles', function(req, res, next) {
     var id = req.params.id;
     Exercise.findById(id, function(err, exercise) {
         if (err) { return next(err); }
+    })
+    .populate('Muscles')
+    .then(exercise => {
         if (exercise === null) {
             return res.status(404)('Exercise not found!');
         }
         if (exercise.Muscles === null) {
             return res.status(404)('No muscles for this exercise found!');
         }
-        res.json(`This exercise can help you with growing the following muscles: ${exercise.Muscles}`);
+        res.json(exercise.Muscles);
     });
 });
 

@@ -138,8 +138,6 @@ export default {
     const exerciseId = this.$route.params.id
     Api.get(`/exercises/${exerciseId}`)
       .then(response => {
-        console.log('response.data: ' + JSON.stringify(response.data))
-        console.log('response.data: ' + JSON.stringify(response.data))
         this.exerciseInfo = response.data
       })
       .catch(error => {
