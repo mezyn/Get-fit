@@ -3,7 +3,6 @@ var mongoose = require('mongoose');
 var router = express.Router();
 var bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-// do we need two dots instead of one? (same for other controllers) /Mijin
 var User = require('../models/user');
 var Exercise = require('../models/exercise');
 var Review = require('../models/review');
@@ -73,7 +72,7 @@ router.get('/api/users', function(req, res, next) {
         if (err) { 
             return next(err); 
         }
-        res.json({'users': users });
+        res.status(200).json({'users': users });
     });
 });
 
@@ -119,7 +118,7 @@ router.get('/api/users/:id', function(req, res, next) {
         if (user === null) {
             return res.status(404).json({'message': 'User not found!'});
         } else {
-            res.json(user);
+            res.status(200).json(user);
         }
     });
 });
@@ -142,7 +141,7 @@ router.patch('/api/users/:id', function(req, res) {
         user.BodyInfo.Goal = (req.body.BodyInfo.Goal|| user.BodyInfo.Goal);
 
         user.save();
-        res.json(user);
+        res.status(200).json(user);
         }
     );
 });
@@ -172,7 +171,7 @@ router.delete('/api/users/:id', function(req, res, next) {
         if (user === null) {
             return res.status(404).json({'message': 'User not found'});
         }
-            res.json(`User ID ${id} is now deleted.`);
+            res.status(200).json(`User ID ${id} is now deleted.`);
         }
     );
 });
@@ -220,11 +219,10 @@ router.get('/api/users/:user_id/saved-exercises', function(req, res, next) { //I
         if (user.SavedExercises === null) {
             return res.status(404).json({'message': 'No saved exercises from this user found!'});
         }
-        res.json(user.SavedExercises);
+        res.status(200).json(user.SavedExercises);
     })
 });
 
-// maybe we need this as well? /Mijin
 // Delete an exercise from a specific user's saved list
 router.delete('/api/users/:user_id/saved_exercises/:exercise_id', function(req, res){
     var user_id = req.params.user_id;
@@ -239,7 +237,7 @@ router.delete('/api/users/:user_id/saved_exercises/:exercise_id', function(req, 
             let index = user.SavedExercises.indexOf(exercise_id);
             user.SavedExercises.splice(index, 1); //remove (one) element in the index position
             user.save();
-            res.json(user);
+            res.status(200).json(user);
         }
         catch(error) {
             return res.status(404).json({'message': 'Not valid exercise ID', 'error': error});
@@ -258,7 +256,7 @@ router.get('/api/users/:id/reviews', function(req, res, next) {
         if (user.AuthoredReviews === null) {
             return res.status(404).json({'message': 'No authored reviews from this user found!'});
         }
-        res.json(`List of authored reviews: ${user.AuthoredReviews}`);
+        res.status(200).json(`List of authored reviews: ${user.AuthoredReviews}`);
     });
 });
 

@@ -41,7 +41,7 @@ router.post('/api/users/:user_id/exercises/:exercise_id/reviews', function(req, 
 router.get('/api/reviews', function(req, res, next) {
     Review.find(function(err, review) {
         if (err) { return next(err); }
-        res.json({'reviews': review });
+        res.status(200).json({'reviews': review });
     });
 });
 
@@ -53,7 +53,7 @@ router.get('/api/reviews/:id', function(req, res, next) {
         if (review === null) {
             return res.status(404).json({'message': 'Review not found!'});
         }
-        res.json(review);
+        res.status(200).json(review);
     });
 });
 
@@ -102,7 +102,7 @@ router.delete('/api/reviews/:id', function(req, res, next) {
                 }
             });
             review.delete();
-            res.json(`Review with ID ${id} has been successfully deleted.`);
+            res.status(200).json(`Review with ID ${id} has been successfully deleted.`);
         }
         /*
         //We definetly need to do some error handling because it crashes when you put in a wrong id

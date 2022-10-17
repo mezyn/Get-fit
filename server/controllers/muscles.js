@@ -17,7 +17,7 @@ router.post('/api/muscles', function(req, res, next){
 router.get('/api/muscles', function(req, res, next) {
     Muscle.find(function(err, muscles) {
         if (err) { return next(err); }
-        res.json({'muscles': muscles });
+        res.status(200).json({'muscles': muscles });
     });
 });
 
@@ -32,7 +32,7 @@ router.get('/api/muscles/:id', function(req, res, next) {
         if (muscle === null) {
             return res.status(404).json({'message': 'Muscle not found!'});
         }
-        res.json(muscle);
+        res.status(200).json(muscle);
     });
 });
 
@@ -57,7 +57,7 @@ router.delete('/api/muscles/:id', function(req, res, next) {
         if (muscle === null) {
             return res.status(404).json({'message': 'Muscle not found'});
         }
-        res.json(`Muscle with ID ${id} has been successfully deleted.`);
+        res.status(200).json(`Muscle with ID ${id} has been successfully deleted.`);
     });
 });
 
@@ -73,11 +73,10 @@ router.patch('/api/muscles/:id', function(req, res, next) {
         muscle.Name = (req.body.Name || muscle.Name);
         muscle.LatinName = (req.body.LatinName || muscle.LatinName);
         muscle.Description = (req.body.Description || muscle.Description);
-        //How to handle patching exercises (list of exercises)? Maybe connecting two entities (Muscle & Exercise) can solve the issue? /Mijin
         muscle.Exercises = (req.body.Exercises || muscle.Exercises);
 
         muscle.save();
-        res.json(muscle);
+        res.status(200).json(muscle);
     });
 });
 
@@ -112,8 +111,7 @@ router.get('/api/muscles/:id/exercises', function(req, res, next) {
         if (muscle.Exercises === null) {
             return res.status(404).json({'message': 'No exercises for this muscle found!'});
         }
-        // maybe we need to do .populate here
-        res.json(`Related exercises to this muscle: ${muscle.Exercises}`);
+        res.status(200).json(`Related exercises to this muscle: ${muscle.Exercises}`);
     });
 });
 

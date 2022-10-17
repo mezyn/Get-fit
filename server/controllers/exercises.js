@@ -39,12 +39,12 @@ router.get('/api/exercises', function(req, res, next) {
     if (!queryInput){
         Exercise.find(function(err, exercises) {
         if (err) { return next(err); }
-        res.json({'exercises': exercises });
+        res.status(200).json({'exercises': exercises });
         }
     )} else {
         Exercise.find({"DifficultyScore" : queryInput}, function(err, exercises) {
             if (err) {return next(err);}
-         res.json({'Exercises' : exercises})
+         res.status(200).json({'Exercises' : exercises})
         })
     }
 });
@@ -59,7 +59,7 @@ router.get('/api/exercises/:id', function(req, res, next) {
         if (exercise === null) {
             return res.status(404).json({'message': 'Exercise not found!'});
         }
-        res.json(exercise);
+        res.status(200).json(exercise);
     });
 });
 
@@ -79,7 +79,7 @@ router.patch('/api/exercises/:id', function(req, res, next) {
         exercise.TipsAndTricks= (req.body.TipsAndTricks|| exercise.TipsAndTricks);
 
         exercise.save();
-        res.json(exercise);
+        res.status(200).json(exercise);
     });
 });
 
@@ -104,14 +104,13 @@ router.delete('/api/exercises/:id', function(req, res, next) {
         if (exercise === null) {
             return res.status(404).json({'message': 'Exercise not found'});
         }
-        res.json(`Exercise with ID ${id} has been successfully deleted.`);
+        res.status(200).json(`Exercise with ID ${id} has been successfully deleted.`);
     });
 });
 
 // For Relationships
 
-
-// 4.3.b. Get reviews inside a relevant exercise
+// Get reviews inside a relevant exercise
 router.get('/api/exercises/:id/reviews', function(req, res, next) {
     var id = req.params.id;
     Exercise.findById(id, function(err, exercise) {
@@ -122,11 +121,11 @@ router.get('/api/exercises/:id/reviews', function(req, res, next) {
         if (exercise.Reviews === null) {
             return res.status(404).json({'message': 'No review found!'});
         }
-        res.json(exercise.Reviews);
+        res.status(200).json(exercise.Reviews);
     });
 });
 
-//Get list of muscles that are related to this specific exercise
+// Get list of muscles that are related to this specific exercise
 router.get('/api/exercises/:id/muscles', function(req, res, next) {
     var id = req.params.id;
     Exercise.findById(id, function(err, exercise) {
@@ -140,7 +139,7 @@ router.get('/api/exercises/:id/muscles', function(req, res, next) {
         if (exercise.Muscles === null) {
             return res.status(404)('No muscles for this exercise found!');
         }
-        res.json(exercise.Muscles);
+        res.status(200).json(exercise.Muscles);
     });
 });
 
