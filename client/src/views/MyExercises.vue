@@ -1,5 +1,3 @@
-<!--For now, it's showing all exercise info.
-We need to implement how to specify user and update the details in the code, but they'll look something like this.-->
 <template>
     <div class="container">
         <!-- Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop -->
@@ -33,10 +31,7 @@ export default {
       .catch(error => {
         console.error(error)
         this.myExercises = []
-        // TO DO: send a error message
-      })
-      .then(() => {
-        // This code is always executed at the end. After success or failure. (optional)
+        window.confirm('Cannot load the exercises due to internal server error')
       })
   },
   data() {

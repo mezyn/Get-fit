@@ -1,5 +1,3 @@
-<!--For now, it's showing all exercise info.
-We need to implement how to specify user and update the details in the code, but they'll look something like this.-->
 <template>
     <div class="container">
         <!-- Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop -->
@@ -21,7 +19,10 @@ We need to implement how to specify user and update the details in the code, but
           </b-row>
           <b-row>
             <b-col>
-              <b-button v-b-modal.deleteAllExercise variant="danger"><b-icon icon="exclamation-diamond-fill" aria-hidden="true"/>Delete all exercises</b-button>
+              <b-button v-b-modal.deleteAllExercise variant="danger">
+                <b-icon icon="exclamation-diamond-fill" aria-hidden="true"/>
+                Delete all exercises
+              </b-button>
               <b-modal id="deleteAllExercise" centered title="Delete all exercise" hide-footer no-close-on-esc no-close-on-backdrop hide-header-close>
               <div>
                 <p>Deletion of all exercises cannot be reverted. Are you sure you want to delete all the saved exercises?</p>
@@ -48,19 +49,14 @@ export default {
     NewExercise
   },
   mounted() {
-    console.log('PAGE is loaded')
-    // Load the real exercises from the server
-    Api.get('/exercises') // For now we have this path. Later we should change it like '/users/:user_id/exercises'
+    Api.get('/exercises')
       .then(response => {
         this.savedExercises = response.data.exercises
       })
       .catch(error => {
         console.error(error)
         this.savedExercises = []
-        // TO DO: send a error message
-      })
-      .then(() => {
-        // This code is always executed at the end. After success or failure. (optional)
+        window.confirm('Request failed due to internal server error.')
       })
   },
   data() {
@@ -75,9 +71,11 @@ export default {
         .then(response => {
           const index = this.savedExercises.findIndex(exercise => exercise._id === id)
           this.savedExercises.splice(index, 1)
+          window.confirm('Successfully deleted')
         })
         .catch(error => {
           console.error(error)
+          window.confirm('Request failed due to internal server error.')
         })
         .then(() => {
           window.location.reload()
@@ -87,13 +85,12 @@ export default {
       Api.delete('/exercises/')
         .then(response => {
           console.log(response)
+          window.confirm('All exercises are deleted now.')
         })
         .catch(error => {
           console.log(error.response)
+          window.confirm('Request failed due to internal server error.')
         })
-        .then(
-          window.confirm('All exercises are deleted now.')
-        )
       window.location.reload()
     }
   }

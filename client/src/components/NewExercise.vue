@@ -63,6 +63,8 @@ export default {
           .catch(error => {
             if (error.response.status === 409) {
               this.$bvModal.msgBoxOk('An exercise with the same name already exists. Try with another name.')
+            } else {
+              window.confirm('Creation failed due to internal server error.')
             }
             console.log(error.response)
           }

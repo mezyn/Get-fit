@@ -143,10 +143,7 @@ export default {
       .catch(error => {
         console.error(error)
         this.exerciseInfo = null
-        // TO DO: send a error message
-      })
-      .then(() => {
-
+        window.confirm('Could not load the exercise due to internal server error.')
       })
   },
   methods: {
@@ -161,21 +158,25 @@ export default {
         Api.post(`users/${userId}/exercises/${exerciseId}/reviews`, this.review)
           .then(response => {
             console.log(response)
+            window.confirm('Review successfully created!')
           })
           .catch(error => {
             console.log(error.response)
+            window.confirm('Creation failed due to internal server error')
           })
-          .then(
-            window.confirm('Review successfully created!')
-          )
         window.location.reload()
       }
     },
     showReview() {
-      this.reviewCount += 1
-      if (this.reviewCount < 2) {
-        this.reviewIds = this.exerciseInfo.Reviews
-        this.reviewIds.forEach(this.fetchReviewData)
+      try {
+        this.reviewCount += 1
+        if (this.reviewCount < 2) {
+          this.reviewIds = this.exerciseInfo.Reviews
+          this.reviewIds.forEach(this.fetchReviewData)
+        }
+      } catch (error) {
+        console.error(error)
+        window.confirm('Request failed due to internal server error.')
       }
     },
     fetchReviewData(index) {
@@ -185,13 +186,19 @@ export default {
         })
         .catch(error => {
           console.log(error.response.data)
+          window.confirm('Request failed due to internal server error.')
         })
     },
     showMuscle() {
-      this.muscleCount += 1
-      if (this.muscleCount < 2) {
-        this.muscleIds = this.exerciseInfo.Muscles
-        this.muscleIds.forEach(this.fetchMuscleData)
+      try {
+        this.muscleCount += 1
+        if (this.muscleCount < 2) {
+          this.muscleIds = this.exerciseInfo.Muscles
+          this.muscleIds.forEach(this.fetchMuscleData)
+        }
+      } catch (error) {
+        console.error(error)
+        window.confirm('Request failed due to internal server error.')
       }
     },
     fetchMuscleData(index) {
@@ -201,6 +208,7 @@ export default {
         })
         .catch(error => {
           console.log(error.response.data)
+          window.confirm('Request failed due to internal server error.')
         })
     },
     addToList() {

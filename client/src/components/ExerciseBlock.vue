@@ -1,4 +1,3 @@
-<!--For exercise thumbnails with save buttons-->
 <template>
   <b-container>
     <div class="card">
@@ -17,8 +16,13 @@ export default {
   props: ['exercise'],
   methods: {
     readExercise() {
-      const exerciseId = this.exercise._id
-      this.$router.push({ path: `/exercises/${exerciseId}` })
+      try {
+        const exerciseId = this.exercise._id
+        this.$router.push({ path: `/exercises/${exerciseId}` })
+      } catch (error) {
+        console.error(error)
+        window.confirm('Could not load the exercise due to internal server error.')
+      }
     }
   }
 }

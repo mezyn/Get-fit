@@ -1,4 +1,3 @@
-<!--For saved exercises with delete buttons-->
 <template>
     <div>
       <div id="details">
@@ -83,6 +82,7 @@ export default {
           TipsAndTricks: this.newTipsAndTricks
         })
           .catch(error => {
+            window.confirm('Could not update exercise due to internal server error.')
             console.error(error)
           })
           .then(() => {

@@ -43,10 +43,7 @@ export default {
       .catch(error => {
         console.error(error)
         this.Exercises = []
-        // TO DO: send a error message
-      })
-      .then(() => {
-        // This code is always executed at the end. After success or failure. (optional)
+        window.confirm('Request failed due to internal server error.')
       })
   },
   data() {
@@ -62,16 +59,13 @@ export default {
         .then(response => {
           this.Exercises = response.data.Exercises
           if (this.Exercises.length < 1) {
-            this.message = 'There is no exercise with chosen difficulty score.' // How to make the page loaded to see the updated message?
+            window.confirm('There is no exercise with chosen difficulty score.')
           }
         })
         .catch(error => {
           console.error(error)
           this.exercises = []
-          // TO DO: send a error message
-        })
-        .then(() => {
-          // This code is always executed at the end. After success or failure. (optional)
+          window.confirm('Request failed due to internal server error.')
         })
     }
   }

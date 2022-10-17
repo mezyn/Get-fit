@@ -30,8 +30,13 @@ export default {
   },
   methods: {
     onSelectedDifficultyScore(selected) {
-      this.$emit('filter-exercise', selected)
-      console.log('filter-exercise with score:' + selected)
+      try {
+        this.$emit('filter-exercise', selected)
+        console.log('filter-exercise with score:' + selected)
+      } catch (error) {
+        console.error(error)
+        window.confirm('Could not filter exercises due to internal server error.')
+      }
     }
   }
 }
