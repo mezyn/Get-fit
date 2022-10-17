@@ -62,7 +62,7 @@ export default {
   data() {
     return {
       isLoggedIn: false,
-      user: {},
+      user: '',
       signIn: true,
       isAdmin: false
     }
@@ -106,7 +106,6 @@ export default {
       this.isLoggedIn = false
       this.user = {}
       localStorage.clear()
-      this.$router.push('/login')
     }
   }
 }
