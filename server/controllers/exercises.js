@@ -74,8 +74,6 @@ router.patch('/api/exercises/:id', function(req, res, next) {
             }
         exercise.Name = (req.body.Name || exercise.Name);
         exercise.DifficultyScore = (req.body.DifficultyScore|| exercise.DifficultyScore);
-        exercise.Reviews = (req.body.Reviews|| exercise.Reviews);
-        exercise.Muscles = (req.body.Muscles|| exercise.Muscles);
         exercise.TipsAndTricks= (req.body.TipsAndTricks|| exercise.TipsAndTricks);
 
         exercise.save();
