@@ -72,18 +72,23 @@ export default {
     deleteExercise() {
       this.$emit('del-exercise', this.exercise._id)
     },
-    updateExercise() { // need to fix
+    updateExercise() {
       const id = this.exercise._id
-      Api.patch(`/exercises/${id}`, {
-        Name: this.newName,
-        DifficultyScore: this.newDifficultyScore,
-        TipsAndTricks: this.newTipsAndTricks
+      if (this.newName === '' && this.newDifficultyScore === 0 && this.newTipsAndTricks === '') {
+        this.$bvModal.msgBoxOk('Fill out at least one field to be updated')
+      } else {
+        Api.patch(`/exercises/${id}`, {
+          Name: this.newName,
+          DifficultyScore: this.newDifficultyScore,
+          TipsAndTricks: this.newTipsAndTricks
+        })
+          .catch(error => {
+            console.error(error)
+          })
+          .then(() => {
+            window.location.reload()
+          })
       }
-      ).catch(error => {
-        console.error(error)
-      }).then(() => {
-        window.location.reload()
-      })
     }
   }
 }
