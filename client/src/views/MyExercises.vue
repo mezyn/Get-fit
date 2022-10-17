@@ -4,7 +4,7 @@ We need to implement how to specify user and update the details in the code, but
     <div class="container">
         <!-- Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop -->
         <b-jumbotron header="My Exercises" lead="All exercises I'm interested"></b-jumbotron>
-        <div>
+        <div id = "exerciseBox">
             <div id="myExercises" v-for="exercise in myExercises" v-bind:key="exercise._id">
                 <exercise-block v-bind:exercise="exercise"/>
             </div>
@@ -54,4 +54,10 @@ export default {
   padding-bottom: 20px;
 }
 
-</style>
+@media only screen and (max-width: 768px)  {
+  #exerciseBox {
+    width: 100%;
+    padding-bottom: 2%;
+  }
+}
+</style>>

@@ -1,7 +1,7 @@
 <template>
     <div class="container">
       <b-jumbotron header="Exercise page" lead="All about the exercise"></b-jumbotron>
-        <div class="accordion" role="tablist">
+        <div class="accordion" role="tablist" id="exerciseBox">
           <b-card no-body class="mb-1">
             <b-card-body>
               <div id='exercise'>
@@ -235,5 +235,12 @@ button {
 }
 .container {
   margin-bottom: 30px
+}
+
+@media only screen and (max-width: 768px)  {
+  #exerciseBox {
+    width: 100%;
+    padding-bottom: 2%;
+  }
 }
 </style>

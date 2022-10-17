@@ -80,4 +80,7 @@ export default {
   border-width: thin;
 }
 
+input {
+  padding-bottom: 5px;
+}
 </style>

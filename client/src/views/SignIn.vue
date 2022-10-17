@@ -4,11 +4,13 @@
         <img src="@/assets/Logo.png" alt="logo" width="50%" />
         <b-jumbotron header="Welcome back!" lead="Please sign in with you email address and your password.">
             <br>
-            <form @submit.prevent="signIn">
-              <input type="text" id="email" name="email" placeholder="Email" size="40" v-model="email"><br><br>
-              <input type="password" id="password" name="passwork" placeholder="Password" size="40" v-model="password"><br><br>
-              <b-button href="#" variant="info" @click="signIn">Log in</b-button>
-            </form>
+            <div id="signInBox">
+              <form @submit.prevent="signIn">
+                <input type="text" id="email" name="email" placeholder="Email" size="40" v-model="email"><br><br>
+                <input type="password" id="password" name="passwork" placeholder="Password" size="40" v-model="password"><br><br>
+                <b-button href="#" variant="info" @click="signIn">Log in</b-button>
+              </form>
+            </div>
         </b-jumbotron>
     </div>
 </template>
@@ -50,3 +52,12 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+@media only screen and (max-width: 768px)  {
+  #signInBox {
+    width: 100%;
+    padding-bottom: 2%;
+  }
+}
+</style>>

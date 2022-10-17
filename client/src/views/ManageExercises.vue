@@ -4,7 +4,7 @@ We need to implement how to specify user and update the details in the code, but
     <div class="container">
         <!-- Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop -->
         <b-jumbotron header="Manage Exercises" lead="Here you can see all details about exercises as well as create, update and delete them"></b-jumbotron>
-        <div>
+        <div id="exerciseBox">
           <b-row>
             <b-col>
               <new-exercise id="new-exercise"/>
@@ -107,4 +107,12 @@ export default {
   padding-bottom: 20px;
   width: 100%
 }
+
+@media only screen and (max-width: 768px)  {
+  #exerciseBox {
+    width: 100%;
+    padding-bottom: 2%;
+  }
+}
+
 </style>
