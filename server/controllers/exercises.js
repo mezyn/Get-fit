@@ -66,20 +66,35 @@ router.get('/api/exercises/:id', function(req, res, next) {
 // Update exercise
 router.patch('/api/exercises/:id', function(req, res, next) {
     var id = req.params.id;
-    Exercise.findById(id, function(err, exercise) {
-        if (err) { return next(err); }
-        if (exercise == null) {
-            return res.status(404).json(
-                {"message": "Exercise not found"});
-            }
-        exercise.Name = (req.body.Name || exercise.Name);
-        exercise.DifficultyScore = (req.body.DifficultyScore|| exercise.DifficultyScore);
-        exercise.TipsAndTricks= (req.body.TipsAndTricks|| exercise.TipsAndTricks);
 
-        exercise.save();
-        res.status(200).json(exercise);
+    Exercise.find({Name: req.body.Name}, function(err, exercise){
+        if(err){
+            return res.status(500).json({
+                message: 'Exercise not saved due to internal server error', 'error': err
+            });
+        }
+        if(exercise.length >= 1){
+            return res.status(409).json({
+                message: 'There is already an exercise with this name'
+            });
+        }
+
+        Exercise.findById(id, function(err, exercise) {
+            if (err) { return next(err); }
+            if (exercise == null) {
+                return res.status(404).json(
+                    {"message": "Exercise not found"});
+                }
+            exercise.Name = (req.body.Name || exercise.Name);
+            exercise.DifficultyScore = (req.body.DifficultyScore|| exercise.DifficultyScore);
+            exercise.TipsAndTricks= (req.body.TipsAndTricks|| exercise.TipsAndTricks);
+
+            exercise.save();
+            res.status(200).json(exercise);
+        });
     });
 });
+
 
 //Deletes all exercises
 router.delete('/api/exercises', function(req, res) {

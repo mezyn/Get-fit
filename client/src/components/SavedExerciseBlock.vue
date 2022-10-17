@@ -82,8 +82,12 @@ export default {
           TipsAndTricks: this.newTipsAndTricks
         })
           .catch(error => {
-            window.confirm('Could not update exercise due to internal server error.')
-            console.error(error)
+            if (error.response.status === 409) {
+              window.confirm('There is already an exercise with this name. Choose another name.')
+            } else {
+              window.confirm('Could not update exercise due to internal server error.')
+              console.error(error)
+            }
           })
           .then(() => {
             window.location.reload()
