@@ -104,17 +104,6 @@ router.delete('/api/reviews/:id', function(req, res, next) {
             review.delete();
             res.status(200).json(`Review with ID ${id} has been successfully deleted.`);
         }
-        /*
-        //We definetly need to do some error handling because it crashes when you put in a wrong id
-        if (err) {       
-            return res.status(409).json({
-            message: 'Review not deleted!', 'error': err
-        }); }
-        if (review === null) {
-            return res.status(404).json(
-                {'message': 'Post not found'}
-                )}
-        //res.json(review);*/
     });
 });
 

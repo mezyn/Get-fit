@@ -9,6 +9,7 @@ var Review = require('../models/review');
 const user = require('../models/user');
 const exercise = require('../models/exercise');
 
+// Check login credential
 router.post('/api/login', function(req, res ) {
     try {
         if(req.body.Email && req.body.Password){
@@ -206,8 +207,7 @@ router.post('/api/users/:user_id/exercises/:exercise_id', function(req, res){
 });
 
 // Retreive all exercises that a specific user saved.
-router.get('/api/users/:user_id/saved-exercises', function(req, res, next) { //I changed exercises to saved-exercises
-    var id = req.params.user_id;
+router.get('/api/users/:user_id/saved-exercises', function(req, res, next) {
     User.findById(id, function(err) {
         if (err) { return next(err); }
     })

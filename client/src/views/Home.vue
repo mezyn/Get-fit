@@ -39,8 +39,6 @@ Fats: a wildly misunderstood macronutrient, they provide energy, they help regul
 </template>
 
 <script>
-// @ is an alias to /src
-
 export default {
   name: 'home',
   data() {
