@@ -25,15 +25,13 @@
                     <li><strong>New name:</strong></li>
                     <li><input type="text" id="Name" v-model="newName"/></li>
                     <li><strong>Difficulty Score:</strong></li>
-                  </ul>
-                  <select id="DifficultyScore" placeholder="Difficulty Score (1-5)" v-model="newDifficultyScore">
+                    <li> <select id="DifficultyScore" class="inputstyle" placeholder="Difficulty Score (1-5)" v-model="newDifficultyScore">
                     <option value="1">1 (Very easy)</option>
                     <option value="2">2 (Easy)</option>
                     <option value="3">3 (Moderate)</option>
                     <option value="4">4 (Difficult)</option>
                     <option value="5">5 (Very difficult)</option>
-                  </select>
-                  <ul>
+                  </select> </li>
                     <li><strong>Tips and tricks:</strong></li>
                     <li><input type="text" id="TipsAndTricks" v-model="newTipsAndTricks"/></li>
                   </ul>
@@ -121,7 +119,6 @@ button {
 }
 
 select {
-display: block;
-margin: 0 auto;
+
 }
 </style>
