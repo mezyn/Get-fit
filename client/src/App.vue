@@ -106,6 +106,7 @@ export default {
       this.isLoggedIn = false
       this.user = {}
       localStorage.clear()
+      this.isAdmin = false
     }
   }
 }

@@ -1,6 +1,6 @@
 <template>
     <div class="svg-container">
-        <b-jumbotron header="GET FIT" lead="Click a muscle to browse" id="background">
+        <b-jumbotron header="Body Map" lead="Click a muscle to browse" id="background">
             <svg
    version="1.1"
    viewBox="0 0 860 753">
