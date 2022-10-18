@@ -120,7 +120,8 @@ button {
   align-items: center;
 }
 
-#DifficultyScore {
-  align-items: center;
+select {
+display: block;
+margin: 0 auto;
 }
 </style>
