@@ -208,6 +208,7 @@ router.post('/api/users/:user_id/exercises/:exercise_id', function(req, res){
 
 // Retreive all exercises that a specific user saved.
 router.get('/api/users/:user_id/saved-exercises', function(req, res, next) {
+    var id = req.params.user_id;
     User.findById(id, function(err) {
         if (err) { return next(err); }
     })
