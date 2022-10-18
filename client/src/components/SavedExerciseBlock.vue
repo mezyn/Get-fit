@@ -120,4 +120,7 @@ button {
   align-items: center;
 }
 
+#DifficultyScore {
+  align-items: center;
+}
 </style>
