@@ -3,7 +3,7 @@
         <!-- Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop -->
         <b-jumbotron :header="this.muscleInfo.Name" :lead="this.muscleInfo.LatinName">{{muscleInfo.Description}}</b-jumbotron>
         <h3>Here you can see all exercises you can do to train this muscle:</h3>
-        <div>
+        <div id = "exerciseBox">
             <div v-for="exercise in muscleInfo.Exercises" v-bind:key="exercise._id">
                 <exercise-block v-bind:exercise="exercise"/>
             </div>
@@ -37,7 +37,7 @@ export default {
     Api.get(`/muscles/${muscleId}`)
       .then(res => {
         console.log(res.data)
-        this.muscleInfo = res.data.Muscle
+        this.muscleInfo = res.data
         console.log(this.muscleInfo)
       })
       .catch(err => {
@@ -51,3 +51,12 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+@media only screen and (max-width: 768px)  {
+  #exerciseBox {
+    width: 100%;
+    padding-bottom: 2%;
+  }
+}
+</style>>

@@ -1,10 +1,10 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col">
+      <div class="col-md">
         <img src="@/assets/chicken_rice.jpg"  alt="profile" width="100%" />
       </div>
-      <div class="col">
+      <div class="col-md">
         <h3 class="text">Nutrition</h3>
         <p class="text"> Nutrition is the most important part of your journey to becoming healthy,
           no amount of effort in workouts will compensate for an insufficient or unhealthy diet.
@@ -14,22 +14,22 @@
       </div>
     </div>
     <div class="row">
-      <div class="col">
+      <div class="col-md">
         <h3 class="text">Macronutrients</h3>
         <p class="text">Carbohydrates: Source of energy and can be found in large quantities in common foods like rice, bread, potatoes and beans, among others.
 Proteins:. used to build muscles and organs, and to make hormones and antibodies. They can be found, among other foods, in meats, fishes and also in vegetable alternatives like tofu, beans, broccoli and spinach.
 Fats: a wildly misunderstood macronutrient, they provide energy, they help regulate body temperature and support cell functions. Although fats are a necessary macronutrient, not all fats are good, especially those in processed foods. Some healthy alternatives are olive oil, nuts, avocados and salmon.
         </p>
       </div>
-      <div class="col">
+      <div class="col-md">
         <img src="@/assets/macronutrients.png"  alt="profile" width="100%" />
       </div>
     </div>
     <div class="row">
-      <div class="col">
+      <div class="col-md">
         <img src="@/assets/micronutrients.jpg"  alt="profile" width="100%" />
       </div>
-      <div class="col">
+      <div class="col-md">
         <h3 class="text">Micronutrients</h3>
         <p class="text"> Micronutrients can be divided into four groups: water-soluble vitamins, fat-soluble vitamins, macrominerals and trace minerals. In order to obtain enough micronutrients it is important to include fruits, vegetables and seeds into your diet.
         </p>
@@ -67,5 +67,11 @@ export default {
 
 .row {
   padding: 2%;
+}
+
+@media only screen and (max-width: 768px)  {
+  .col {
+    width: 200%;
+  }
 }
 </style>

@@ -3,7 +3,6 @@ var mongoose = require('mongoose');
 var router = express.Router();
 var bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-// do we need two dots instead of one? (same for other controllers) /Mijin
 var User = require('../models/user');
 var Exercise = require('../models/exercise');
 var Review = require('../models/review');
@@ -11,65 +10,70 @@ const user = require('../models/user');
 const exercise = require('../models/exercise');
 
 router.post('/api/login', function(req, res ) {
-    if(req.body.Email && req.body.Password){
-        User.findOne({Email: req.body.Email}, function(err, user){
-            if(err){
-                return res.status(404).json({'message': 'User not found!', 'error': err});
-            }
-            if(user.length < 1){
-                return res.status(401).json({
-                    message: 'Please provide valid email and/or password'
-                });
-            }
-            // check whether the password is correct
-            bcrypt.compare(req.body.Password, user.Password, function(err, result){
+    try {
+        if(req.body.Email && req.body.Password){
+            User.findOne({Email: req.body.Email}, function(err, user){
                 if(err){
+                    return res.status(404).json({'message': 'User not found!', 'error': err});
+                }
+                if(user === null){
                     return res.status(401).json({
                         message: 'Please provide valid email and/or password'
                     });
                 }
-                if(result){
-                    try {
-                        let token = jwt.sign({userId: user._id}, 'secretkey');
-                        return res.status(200).json({token: token})
-                    } 
-                    catch (err) {
-                        return res.status(400).json({'message': 'Unable to log in'})
+                // check whether the password is correct
+                bcrypt.compare(req.body.Password, user.Password, function(err, result){
+                    if(err){
+                        return res.status(401).json({
+                            message: 'Please provide valid email and/or password'
+                        });
                     }
-                }
-                return res.status(401).json({
-                    message: 'Please provide valid email and/or password'
+                    if(result){
+                        try {
+                            let token = jwt.sign({userId: user._id}, 'secretkey');
+                            return res.status(200).json({token: token})
+                        } 
+                        catch (err) {
+                            return res.status(400).json({'message': 'Unable to log in'})
+                        }
+                    }
+                    return res.status(401).json({
+                        message: 'Please provide valid email and/or password'
+                    });
                 });
+            });} else{
+            return res.status(401).json({
+                message: 'Please provide valid email and/or password'
             });
-        });} else{
-        return res.status(401).json({
-            message: 'Please provide valid email and/or password'
-        });
+        }
+    } catch {
+        return res.status(500).json({'message': 'Unable to log in'})
     }
 });
 
 // Create a user
 router.post('/api/users', function(req, res, next){
-    var user = new User(req.body);
-    // encrypt the password
-    user.Password = bcrypt.hashSync(req.body.Password, 10)
-    console.log(req.body)
-    user.save(function(err, user) {
-        if (err) { return next(err); }
-        res.status(201).json(user);
-    })
+    try{
+        var user = new User(req.body);
+        // encrypt the password
+        user.Password = bcrypt.hashSync(req.body.Password, 10)
+        user.save(function(err, user) {
+            res.status(201).json(user);
+        })
+    }
+    catch(error) {
+        return res.status(500).json({'message':'Input values not valid', 'error': error})
+    }
 });
 
 //GET all users
 router.get('/api/users', function(req, res, next) {
-
     User.find(function(err, users) {
         if (err) { 
             return next(err); 
         }
-        res.json({'users': users });
+        res.status(200).json({'users': users });
     });
-
 });
 
 
@@ -84,13 +88,26 @@ router.get('/api/user', function(req, res, next) {
         })
         //token is valid
         User.findOne({ _id: decoded.userId }, (err, user) => {
-          if (err) return console.log(err)
+          if (err) return res.status(404).json('Resource not found')
           return res.status(200).json({
             title: 'user grabbed',
             user: user})
         })
     })
     
+});
+
+//Deletes all users
+router.delete('/api/users', function(req, res) {
+    User.deleteMany({}, function(err, users) {
+        if (err) {
+            return res.status(409).json({ message: 'Users not deleted, because of:', 'error': err}); 
+        }
+        if (users === null) {
+            return res.status(404).json({'message': 'Users not deleted'});
+        }
+        res.status(200).json(users);
+    });
 });
 
 // Retrieve information from a user
@@ -101,7 +118,7 @@ router.get('/api/users/:id', function(req, res, next) {
         if (user === null) {
             return res.status(404).json({'message': 'User not found!'});
         } else {
-            res.json(user);
+            res.status(200).json(user);
         }
     });
 });
@@ -124,9 +141,26 @@ router.patch('/api/users/:id', function(req, res) {
         user.BodyInfo.Goal = (req.body.BodyInfo.Goal|| user.BodyInfo.Goal);
 
         user.save();
-        res.json(user);
+        res.status(200).json(user);
         }
     );
+});
+
+// Completely update one user
+router.put('/api/users/:id', function(req, res) {
+    const user = User.findById(req.params.id);
+    if (user.id === req.body.id)
+        updateUser = User.findByIdAndUpdate(req.params.id, {$set: req.body,},{ new: true })
+        .then(() => {
+            res.status(200).json({
+                message: "User updated successfully",
+            });
+        })
+        .catch((error) => {
+            res.status(500).json({
+                message: "An error occured",
+            });
+        });
 });
 
 // Delete a user
@@ -137,7 +171,7 @@ router.delete('/api/users/:id', function(req, res, next) {
         if (user === null) {
             return res.status(404).json({'message': 'User not found'});
         }
-            res.json(`User ID ${id} is now deleted.`);
+            res.status(200).json(`User ID ${id} is now deleted.`);
         }
     );
 });
@@ -166,29 +200,29 @@ router.post('/api/users/:user_id/exercises/:exercise_id', function(req, res){
             return res.status(409).json({'message': 'Exercise already saved in the list'});
         } 
         user.SavedExercises.push(exercise_id);
-        // Maybe we need to use 'populate' somewhere here?
         user.save();
         return res.status(201).json(user);
     });
 });
 
 // Retreive all exercises that a specific user saved.
-router.get('/api/users/:user_id/exercises', function(req, res, next) {
+router.get('/api/users/:user_id/saved-exercises', function(req, res, next) { //I changed exercises to saved-exercises
     var id = req.params.user_id;
-    User.findById(id, function(err, user) {
+    User.findById(id, function(err) {
         if (err) { return next(err); }
+    })
+    .populate('SavedExercises')
+    .then(user => {
         if (user === null) {
             return res.status(404).json({'message': 'User not found!'});
         }
         if (user.SavedExercises === null) {
             return res.status(404).json({'message': 'No saved exercises from this user found!'});
         }
-        // maybe we need to do .populate here
-        res.json(user.SavedExercises);
-    });
+        res.status(200).json(user.SavedExercises);
+    })
 });
 
-// maybe we need this as well? /Mijin
 // Delete an exercise from a specific user's saved list
 router.delete('/api/users/:user_id/saved_exercises/:exercise_id', function(req, res){
     var user_id = req.params.user_id;
@@ -203,27 +237,11 @@ router.delete('/api/users/:user_id/saved_exercises/:exercise_id', function(req, 
             let index = user.SavedExercises.indexOf(exercise_id);
             user.SavedExercises.splice(index, 1); //remove (one) element in the index position
             user.save();
-            res.json(user);
+            res.status(200).json(user);
         }
         catch(error) {
             return res.status(404).json({'message': 'Not valid exercise ID', 'error': error});
         }
-    });
-});
-
-
-//Retrieve all exercise that a specific user saved.
-router.get('/api/users/:user_id/exercises', function(req, res, next) {
-    var id = req.params.user_id;
-    User.findById(id, function(err, user) {
-        if (err) { return next(err); }
-        if (user === null) {
-            return res.status(404).json({'message': 'User not found!'});
-        }
-        if (user.SavedExercises === null) {
-            return res.status(404).json({'message': 'No authored reviews from this user found!'});
-        }
-        res.json(`List of saved exercises: ${user.SavedExercises}`);
     });
 });
 
@@ -238,42 +256,8 @@ router.get('/api/users/:id/reviews', function(req, res, next) {
         if (user.AuthoredReviews === null) {
             return res.status(404).json({'message': 'No authored reviews from this user found!'});
         }
-        res.json(`List of authored reviews: ${user.AuthoredReviews}`);
+        res.status(200).json(`List of authored reviews: ${user.AuthoredReviews}`);
     });
-});
-
-
-// Delete review (both from users and from reviews)
-router.delete('/api/users/:user_id/authored_reviews/:review_id', function(req, res){
-    var user_id = req.params.user_id;
-    var review_id = req.params.review_id;
-
-    User.findById(user_id, function(err, user) {
-        if (err) { return next(err); }
-        if (user === null) {
-            return res.status(404).json(
-                {"message": "User not found"});
-        } try {
-            
-            let index = user.AuthoredReviews.indexOf(review_id);
-            user.AuthoredReviews.splice(index, 1);
-            user.save();
-            res.json(user);
-        }
-        catch(error) {
-            return res.status(404).json({'message': 'Not valid review ID', 'error': error});
-        }
-    });
-    // I am not sure whether we can split it up like that, but I needed to delete it from both right? 
-    // I think so /Mijin
-    Review.findOneAndDelete(review_id, function(err, review) {
-        if (err) { return next(err); }
-        if (review === null) {
-            return res.status(404).json({'message': 'Review not found'});
-        }
-            res.json(`The review ${review} has been deleted.`);
-        }
-    );
 });
 
 module.exports = router;

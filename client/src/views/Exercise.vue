@@ -1,17 +1,17 @@
 <template>
     <div class="container">
       <b-jumbotron header="Exercise page" lead="All about the exercise"></b-jumbotron>
-        <div class="accordion" role="tablist">
+        <div class="accordion" role="tablist" id="exerciseBox">
           <b-card no-body class="mb-1">
             <b-card-body>
               <div id='exercise'>
-                  <h3>{{exerciseInfo.Name}}</h3>
+                   <h3>{{exerciseInfo.Name}}</h3>
                   <p><strong>Difficulty Score: </strong>{{exerciseInfo.DifficultyScore}}</p>
                   <p><strong>Tips and Tricks: </strong>{{exerciseInfo.TipsAndTricks}}</p>
+                  <b-button pill variant=outline-danger v-on:click="addToList()"><b-icon icon="heart-fill" aria-hidden="true"></b-icon></b-button>
               </div>
             </b-card-body>
           </b-card>
-
           <b-card no-body class="mb-1">
             <b-card-header header-tag="header" class="p-1" role="tab">
               <b-button block v-b-toggle.accordion-2 variant="light">Read Tips and Tricks <b-icon icon="caret-down-fill" aria-hidden="true"></b-icon></b-button>
@@ -22,7 +22,6 @@
               </b-card-body>
             </b-collapse>
           </b-card>
-
           <b-card no-body class="mb-1">
             <b-card-header header-tag="header" class="p-1" role="tab">
               <b-button block v-b-toggle.accordion-3 variant="light" v-on:click="showMuscle()">See Connected Muscles <b-icon icon="caret-down-fill" aria-hidden="true"></b-icon></b-button>
@@ -42,7 +41,6 @@
               </b-card-body>
             </b-collapse>
           </b-card>
-
           <b-card no-body class="mb-1">
             <b-card-header header-tag="header" class="p-1" role="tab">
               <b-button block v-b-toggle.accordion-4 variant="light" v-on:click="showReview()">Read Reviews <b-icon icon="caret-down-fill" aria-hidden="true"></b-icon></b-button>
@@ -62,7 +60,6 @@
               </b-card-body>
             </b-collapse>
           </b-card>
-
           <b-card no-body class="mb-1">
             <b-card-header header-tag="header" class="p-1" role="tab">
               <b-button block v-b-toggle.accordion-5 variant="light" >Leave a Review<b-icon icon="caret-down-fill" aria-hidden="true"></b-icon></b-button>
@@ -107,6 +104,9 @@ import { Api } from '@/Api'
 
 export default {
   name: 'exercise',
+  props: {
+    user: String
+  },
   data() {
     return {
       exerciseInfo: {
@@ -121,7 +121,7 @@ export default {
         Title: '',
         Rating: null,
         MainText: '',
-        // Author: 'We need to fix this',
+        Author: '',
         Exercise: ''
       },
       reviewIds: [],
@@ -130,43 +130,53 @@ export default {
 
       muscleIds: [],
       completeMuscles: [],
-      muscleCount: 0
+      muscleCount: 0,
+      message: ''
     }
   },
   mounted() {
     const exerciseId = this.$route.params.id
     Api.get(`/exercises/${exerciseId}`)
       .then(response => {
-        this.exerciseInfo = response.data.Exercise
+        this.exerciseInfo = response.data
       })
       .catch(error => {
         console.error(error)
         this.exerciseInfo = null
-        // TO DO: send a error message
-      })
-      .then(() => {
-
+        window.confirm('Could not load the exercise due to internal server error.')
       })
   },
   methods: {
     createReview() {
-      const exerciseId = this.$route.params.id
-      Api.post(`/exercises/${exerciseId}`, this.review)
-        .then(response => {
-          console.log(response)
-        })
-        .catch(error => {
-          console.log(error.response)
-        }
-        // TO DO: send a error message
-        )
-      window.location.reload()
+      if (this.review.Title === '') {
+        this.$bvModal.msgBoxOk('Title field cannot be empty')
+      } else if (this.review.MainText === '') {
+        this.$bvModal.msgBoxOk('Description field cannot be empty')
+      } else {
+        const userId = this.user
+        const exerciseId = this.$route.params.id
+        Api.post(`users/${userId}/exercises/${exerciseId}/reviews`, this.review)
+          .then(response => {
+            console.log(response)
+            window.confirm('Review successfully created!')
+          })
+          .catch(error => {
+            console.log(error.response)
+            window.confirm('Creation failed due to internal server error')
+          })
+        window.location.reload()
+      }
     },
     showReview() {
-      this.reviewCount += 1
-      if (this.reviewCount < 2) {
-        this.reviewIds = this.exerciseInfo.Reviews
-        this.reviewIds.forEach(this.fetchReviewData)
+      try {
+        this.reviewCount += 1
+        if (this.reviewCount < 2) {
+          this.reviewIds = this.exerciseInfo.Reviews
+          this.reviewIds.forEach(this.fetchReviewData)
+        }
+      } catch (error) {
+        console.error(error)
+        window.confirm('Request failed due to internal server error.')
       }
     },
     fetchReviewData(index) {
@@ -176,13 +186,19 @@ export default {
         })
         .catch(error => {
           console.log(error.response.data)
+          window.confirm('Request failed due to internal server error.')
         })
     },
     showMuscle() {
-      this.muscleCount += 1
-      if (this.muscleCount < 2) {
-        this.muscleIds = this.exerciseInfo.Muscles
-        this.muscleIds.forEach(this.fetchMuscleData)
+      try {
+        this.muscleCount += 1
+        if (this.muscleCount < 2) {
+          this.muscleIds = this.exerciseInfo.Muscles
+          this.muscleIds.forEach(this.fetchMuscleData)
+        }
+      } catch (error) {
+        console.error(error)
+        window.confirm('Request failed due to internal server error.')
       }
     },
     fetchMuscleData(index) {
@@ -192,6 +208,23 @@ export default {
         })
         .catch(error => {
           console.log(error.response.data)
+          window.confirm('Request failed due to internal server error.')
+        })
+    },
+    addToList() {
+      const exerciseId = this.$route.params.id
+      const userId = this.user
+      Api.post(`users/${userId}/exercises/${exerciseId}`, this.exercise)
+        .then(response => {
+          console.log(response)
+          window.confirm('Added to the list!')
+          window.location.reload()
+        })
+        .catch(error => {
+          if (error.response.status === 409) {
+            this.$bvModal.msgBoxOk('Already exist in the list!')
+          }
+          console.log(error.response)
         })
     }
   }
@@ -207,5 +240,15 @@ select {
 }
 button {
   margin-top: 15px;
+}
+.container {
+  margin-bottom: 30px
+}
+
+@media only screen and (max-width: 768px)  {
+  #exerciseBox {
+    width: 100%;
+    padding-bottom: 2%;
+  }
 }
 </style>

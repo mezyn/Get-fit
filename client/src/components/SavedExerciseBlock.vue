@@ -1,4 +1,3 @@
-<!--For saved exercises with delete buttons-->
 <template>
     <div>
       <div id="details">
@@ -22,26 +21,22 @@
             <b-tab title="Update Exercise">
               <b-card-text>
                 <form id="update-form" align-center @submit.prevent="updateExercise" method="PATCH">
-                  <ui>
+                  <ul>
                     <li><strong>New name:</strong></li>
                     <li><input type="text" id="Name" v-model="newName"/></li>
-                    <div>
-                      <li><strong>Difficulty Score:</strong></li>
-                      <li>
-                        <select id="DifficultyScore" placeholder="Difficulty Score (1-5)" v-model="newDifficultyScore">
-                          <option value="1">1 (Very easy)</option>
-                          <option value="2">2 (Easy)</option>
-                          <option value="3">3 (Moderate)</option>
-                          <option value="4">4 (Difficult)</option>
-                          <option value="5">5 (Very difficult)</option>
-                        </select>
-                      </li>
-                    </div>
-                    <div>
-                      <li><strong>Tips and tricks:</strong></li>
-                      <li><input type="text" id="TipsAndTricks" v-model="newTipsAndTricks"/></li>
-                    </div>
-                   </ui>
+                    <li><strong>Difficulty Score:</strong></li>
+                  </ul>
+                  <select id="DifficultyScore" placeholder="Difficulty Score (1-5)" v-model="newDifficultyScore">
+                    <option value="1">1 (Very easy)</option>
+                    <option value="2">2 (Easy)</option>
+                    <option value="3">3 (Moderate)</option>
+                    <option value="4">4 (Difficult)</option>
+                    <option value="5">5 (Very difficult)</option>
+                  </select>
+                  <ul>
+                    <li><strong>Tips and tricks:</strong></li>
+                    <li><input type="text" id="TipsAndTricks" v-model="newTipsAndTricks"/></li>
+                  </ul>
                 </form>
                 <b-button v-on:click="updateExercise()" variant="warning">Update this exercise</b-button>
               </b-card-text>
@@ -53,7 +48,7 @@
                 <b-button variant="danger" v-on:click="deleteExercise()">Confirm deletion</b-button>
               </b-card-text>
               </b-tab>
-          </b-tabs>
+           </b-tabs>
         </b-card>
       </div>
     </div>
@@ -76,18 +71,28 @@ export default {
     deleteExercise() {
       this.$emit('del-exercise', this.exercise._id)
     },
-    updateExercise() { // need to fix
+    updateExercise() {
       const id = this.exercise._id
-      Api.patch(`/exercises/${id}`, {
-        Name: this.newName,
-        DifficultyScore: this.newDifficultyScore,
-        TipsAndTricks: this.newTipsAndTricks
+      if (this.newName === '' && this.newDifficultyScore === 0 && this.newTipsAndTricks === '') {
+        this.$bvModal.msgBoxOk('Fill out at least one field to be updated')
+      } else {
+        Api.patch(`/exercises/${id}`, {
+          Name: this.newName,
+          DifficultyScore: this.newDifficultyScore,
+          TipsAndTricks: this.newTipsAndTricks
+        })
+          .catch(error => {
+            if (error.response.status === 409) {
+              window.confirm('There is already an exercise with this name. Choose another name.')
+            } else {
+              window.confirm('Could not update exercise due to internal server error.')
+              console.error(error)
+            }
+          })
+          .then(() => {
+            window.location.reload()
+          })
       }
-      ).catch(error => {
-        console.error(error)
-      }).then(() => {
-        window.location.reload()
-      })
     }
   }
 }
@@ -114,4 +119,5 @@ button {
 #update-form {
   align-items: center;
 }
+
 </style>

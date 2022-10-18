@@ -13,13 +13,16 @@
             <b-navbar-nav class="ml-auto">
               <router-link class="nav-link" to="/body-map" >Body Map</router-link>
                 <router-link class="nav-link" to="/exercises" >Exercises</router-link>
-                <router-link class="nav-link" to="/manage-exercises" >Manage Exercises</router-link>
+                <div v-if="isAdmin">
+                  <router-link class="nav-link" to="/manage-exercises" >Manage Exercises</router-link>
+                </div>
               <b-nav-item-dropdown right>
                 <!-- Using 'button-content' slot -->
                 <template #button-content>
                   <b-icon icon="person-circle" aria-hidden="true"></b-icon>
                 </template>
                 <b-dropdown-item router-link class="nav-link" to="/user" v-bind:userId="this.user">Profile</b-dropdown-item>
+                <b-dropdown-item router-link class="nav-link" to="/my-exercises">My exercise</b-dropdown-item>
                 <b-dropdown-item router-link class="nav-link" to="/login" v-on:click="logOut()">Sign Out</b-dropdown-item>
               </b-nav-item-dropdown>
             </b-navbar-nav>
@@ -58,13 +61,20 @@ export default {
   },
   data() {
     return {
-      isLoggedIn: true,
-      user: {},
-      signIn: true
+      isLoggedIn: false,
+      user: '',
+      signIn: true,
+      isAdmin: false
     }
   },
   mounted() {
-    this.$router.push('/login')
+    if (localStorage.getItem('token') === null) {
+      this.isLoggedIn = false
+      this.$router.push('/login')
+    } else {
+      this.isLoggedIn = true
+      this.getUser()
+    }
   },
   methods: {
     login() {
@@ -79,6 +89,10 @@ export default {
       }).then((res) => {
         console.log(res.data.user._id)
         this.user = res.data.user._id
+        if (this.user === '634abf91ce7e23649bccca1b') {
+          console.log('admin logged in')
+          this.isAdmin = true
+        }
       })
     },
     switchToSignUp() {
@@ -88,9 +102,10 @@ export default {
       this.signIn = true
     },
     logOut() {
+      localStorage.setItem('token', null)
       this.isLoggedIn = false
       this.user = {}
-      localStorage.setItem('token', null)
+      localStorage.clear()
     }
   }
 }
@@ -119,26 +134,9 @@ export default {
   font-family: Arial, sans-serif;
   font-weight: 400;
 }
-
 .navbar-nav {
   margin-left: 30px;
   margin-right: 30px;
-}
-@media only screen and (max-width: 340px) {
-    .navbar {
-        position: fixed;
-        float: left;
-        left: -100%;
-        top:0%;
-        flex-direction: column;
-        width: 100%;
-        height: 100%;
-        border-radius: 10px;
-        text-align: center;
-        transition: 0.3s;
-        box-shadow:
-            0 10px 27px rgba(0, 0, 0, 0.05);
-    }
 }
 
 </style>
