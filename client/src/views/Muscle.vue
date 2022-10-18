@@ -2,12 +2,12 @@
     <div class="container">
         <!-- Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop -->
         <b-jumbotron :header="this.muscleInfo.Name" :lead="this.muscleInfo.LatinName">{{muscleInfo.Description}}</b-jumbotron>
-        <h3>Here you can see all exercises you can do to train this muscle:</h3>
-        <div id = "exerciseBox">
-            <div v-for="exercise in muscleInfo.Exercises" v-bind:key="exercise._id">
+            <div id="text-block">
+             <h3>Here you can see all exercises you can do to train this muscle:</h3>
+            </div>
+            <div id = "exerciseBox" v-for="exercise in muscleInfo.Exercises" v-bind:key="exercise._id">
                 <exercise-block v-bind:exercise="exercise"/>
             </div>
-        </div>
     </div>
 </template>
 
@@ -58,5 +58,15 @@ export default {
     width: 100%;
     padding-bottom: 2%;
   }
+}
+
+#exerciseBox {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+#text-block {
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 </style>>
