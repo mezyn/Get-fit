@@ -6,22 +6,20 @@
         <div>
           <form @submit.prevent="postExercise" method="POST">
             <div>
-              Name (obligatory):
-              <input type="text" id="Name" name="Name" v-model="exercise.Name"> <br/>
-            </div>
-            <div>
-              Difficulty Score (optional) :
-              <select id="DifficultyScore" name="DifficultyScore" placeholder="Difficulty Score (1-5) (optional)" v-model="exercise.DifficultyScore">
-                <option value="1">1 (Very easy)</option>
-                <option value="2">2 (Easy)</option>
-                <option value="3">3 (Moderate)</option>
-                <option value="4">4 (Difficult)</option>
-                <option value="5">5 (Very difficult)</option>
-              </select>
-            </div>
-            <div>
-              Tips and tricks (optional):
-              <input type="text" id="TipsAndTricks" name="TipsAndTricks" v-model="exercise.TipsAndTricks"> <br/>
+              <ul>
+                <li>Name (obligatory):
+                    <input type="text" id="Name" name="Name" v-model="exercise.Name"> </li>
+                <li>Difficulty Score (optional) :
+                <select id="DifficultyScore" name="DifficultyScore" placeholder="Difficulty Score (1-5) (optional)" v-model="exercise.DifficultyScore">
+                  <option value="1">1 (Very easy)</option>
+                  <option value="2">2 (Easy)</option>
+                  <option value="3">3 (Moderate)</option>
+                  <option value="4">4 (Difficult)</option>
+                  <option value="5">5 (Very difficult)</option>
+                </select></li>
+                <li>Tips and tricks (optional):
+                <input type="text" id="TipsAndTricks" name="TipsAndTricks" v-model="exercise.TipsAndTricks"></li>
+              </ul>
             </div>
           </form>
           <b-button variant="success" v-on:click="createExercise()">Create exercise</b-button>
@@ -82,7 +80,13 @@ export default {
   border-width: thin;
 }
 
-input {
+li {
+  padding-top: 5px;
   padding-bottom: 5px;
+}
+
+button {
+  margin-left: 10px;
+  margin-right: 10px;
 }
 </style>

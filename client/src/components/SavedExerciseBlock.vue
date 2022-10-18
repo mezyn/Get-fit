@@ -19,25 +19,25 @@
               </b-card-text>
             </b-tab>
             <b-tab title="Update Exercise">
-              <b-card-text>
-                <form id="update-form" align-center @submit.prevent="updateExercise" method="PATCH">
-                  <ul>
-                    <li><strong>New name:</strong></li>
-                    <li><input type="text" id="Name" v-model="newName"/></li>
-                    <li><strong>Difficulty Score:</strong></li>
-                    <li> <select id="DifficultyScore" class="inputstyle" placeholder="Difficulty Score (1-5)" v-model="newDifficultyScore">
-                    <option value="1">1 (Very easy)</option>
-                    <option value="2">2 (Easy)</option>
-                    <option value="3">3 (Moderate)</option>
-                    <option value="4">4 (Difficult)</option>
-                    <option value="5">5 (Very difficult)</option>
-                  </select> </li>
-                    <li><strong>Tips and tricks:</strong></li>
-                    <li><input type="text" id="TipsAndTricks" v-model="newTipsAndTricks"/></li>
-                  </ul>
-                </form>
-                <b-button v-on:click="updateExercise()" variant="warning">Update this exercise</b-button>
-              </b-card-text>
+              <div class="text-center">
+                <b-card-text>
+                  <form @submit.prevent="updateExercise" method="PATCH">
+                      <strong>New name:  </strong><br/>
+                      <input type="text" id="Name" v-model="newName"/><br/>
+                      <strong>Difficulty Score:  </strong><br/>
+                      <select id="DifficultyScore" class="inputstyle" placeholder="Difficulty Score (1-5)" v-model="newDifficultyScore">
+                      <option value="1">1 (Very easy)</option>
+                      <option value="2">2 (Easy)</option>
+                      <option value="3">3 (Moderate)</option>
+                      <option value="4">4 (Difficult)</option>
+                      <option value="5">5 (Very difficult)</option>
+                    </select><br/>
+                      <strong>Tips and tricks:  </strong><br/>
+                      <input type="text" id="TipsAndTricks" v-model="newTipsAndTricks"/><br/>
+                  </form>
+                  <b-button v-on:click="updateExercise()" variant="warning">Update this exercise</b-button>
+                </b-card-text>
+              </div>
             </b-tab>
             <b-tab title="Delete Exercise">
               <b-card-text>
@@ -114,11 +114,9 @@ button {
   margin-bottom: 0px;
 }
 
-#update-form {
-  align-items: center;
+input {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
-select {
-
-}
 </style>
